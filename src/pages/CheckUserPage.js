@@ -7,7 +7,7 @@ import LoaderComponent from "../components/LoaderComponent";
 import ErrorAlertComponent from "../components/ErrorAlertComponent";
 import {emitAttemptUserAuthentication} from "../redux/user/actions";
 import {DEFAULT_GUEST_MESSAGE} from "../constants/defaultConstants";
-import {storeUserCheckRequestFailed} from "../redux/requests/actions";
+import {storeUserCheckRequestFailed} from "../redux/requests/user/actions";
 import {requestFailed, requestLoading} from "../functions/generalFunctions";
 
 // Component
@@ -32,7 +32,7 @@ function CheckUserPage({location, request, dispatch}) {
         <div className="container">
             <div className="row">
                 <div className="col-6 mx-auto">
-                    <img alt="..." src={require('../assets/images/admin.png')} className="img-fluid" />
+                    <img alt="..." src={require('../assets/images/supervisor.png')} className="img-fluid" />
                 </div>
                 <div className="col-12 mt-4">
                     {requestLoading(request) && <LoaderComponent />}
