@@ -59,10 +59,7 @@ function SettingsPage({settings, request, dispatch, location}) {
             cards: [
                 {value: setting.CARD_AGENTS, label: setting.LABEL_AGENTS},
                 {value: setting.CARD_BALANCE, label: setting.LABEL_BALANCE},
-                {value: setting.CARD_RESOURCES, label: setting.LABEL_RESOURCES},
-                {value: setting.CARD_FLEETS_REQUESTS, label: setting.LABEL_FLEETS_REQUESTS},
-                {value: setting.CARD_FLEET_SIMS_FLEETS, label: setting.LABEL_FLEET_SIMS_FLEETS},
-                {value: setting.CARD_CLEARANCES_REQUEST, label: setting.LABEL_CLEARANCES_REQUEST}
+                {value: setting.CARD_RESOURCES, label: setting.LABEL_RESOURCES}
             ],
             charts: [
                 // {value: 0, label: 'name'}

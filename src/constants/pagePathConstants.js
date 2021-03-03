@@ -16,20 +16,3 @@ export const ADMINS_PAGE_PATH = "/users/admins";
 export const MANAGERS_PAGE_PATH = "/users/managers";
 export const COLLECTORS_PAGE_PATH = "/users/collectors";
 export const SUPERVISORS_PAGE_PATH = "/users/supervisors";
-
-// Operations
-export const OPERATIONS_FLEETS_PAGE_PATH = "/operations/fleets";
-export const OPERATION_AFFORDS_PAGE_PATH = "/operations/affords";
-export const OPERATIONS_TRANSFERS_PAGE_PATH = "/operations/transfers";
-export const OPERATIONS_CLEARANCES_PAGE_PATH = "/operations/clearances";
-
-// Recoveries
-export const RECOVERIES_CASH_PAGE_PATH = "/recoveries/cash";
-export const RECOVERIES_FLEETS_PAGE_PATH = "/recoveries/fleets";
-
-// Requests
-export const REQUESTS_FLEETS_PAGE_PATH = "/requests/fleets";
-export const REQUESTS_CLEARANCES_PAGE_PATH = "/requests/clearances";
-
-// Network
-export const NETWORK_FLEETS_PAGE_PATH = `/network/fleets`;
