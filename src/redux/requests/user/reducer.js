@@ -6,7 +6,6 @@ const initialState = {
     check: {failed: false, loading: false, succeeded: false, message: ""},
     avatar: {failed: false, loading: false, succeeded: false, message: ""},
     profile: {failed: false, loading: false, succeeded: false, message: ""},
-    balance: {failed: false, loading: false, succeeded: false, message: ""},
     password: {failed: false, loading: false, succeeded: false, message: ""},
 };
 
@@ -81,23 +80,6 @@ function reduce(state = initialState, action) {
         // Resolve event to set user check reset request store data
         case actions.STORE_USER_AVATAR_EDIT_REQUEST_RESET:
             nextState = {...state, avatar: initialState.avatar};
-            return nextState || state;
-        // ======================================================== User avatar edit
-        // Resolve event to set user balance fetch request store data
-        case actions.STORE_USER_BALANCE_FETCH_REQUEST_INIT:
-            nextState = {...state, balance: requestInitValue()};
-            return nextState || state;
-        // Resolve event to set user balance fetch request store data
-        case actions.STORE_USER_BALANCE_FETCH_REQUEST_FAILED:
-            nextState = {...state, balance: requestFailedValue(action.message)};
-            return nextState || state;
-        // Resolve event to set user balance fetch request store data
-        case actions.STORE_USER_BALANCE_FETCH_REQUEST_SUCCEEDED:
-            nextState = {...state, balance: requestSucceededValue(action.message)};
-            return nextState || state;
-        // Resolve event to set user balance fetch request store data
-        case actions.STORE_USER_BALANCE_FETCH_REQUEST_RESET:
-            nextState = {...state, balance: initialState.balance};
             return nextState || state;
         // ========================================================
         // Unknown action

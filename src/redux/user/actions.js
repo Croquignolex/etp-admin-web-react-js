@@ -68,11 +68,6 @@ export const emitAttemptUserAuthentication = ({token}) => ({
     type: EMIT_ATTEMPT_USER_AUTHENTICATION
 });
 
-// Emit user balance
-export const emitFetchUserBalance = () => ({
-    type: EMIT_FETCH_USER_BALANCE
-});
-
 // Emit user auth attempt
 export const emitUserPasswordUpdate = ({oldPassword, newPassword}) => ({
     oldPassword,

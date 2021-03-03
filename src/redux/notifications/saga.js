@@ -1,7 +1,6 @@
 import { all, takeLatest, put, fork, call } from 'redux-saga/effects'
 
 import * as api from "../../constants/apiConstants";
-import * as type from "../../constants/typeConstants";
 import * as path from "../../constants/pagePathConstants";
 import {BASE_URL} from "../../constants/generalConstants";
 import {playSuccessSound} from "../../functions/playSoundFunctions";
@@ -157,12 +156,6 @@ function extractNotificationsData(apiNotifications) {
 // URL
 function getNotificationDetail(notificationType) {
     switch (notificationType) {
-        case type.CASH_RECOVERY_NOTIFICATION: return {url: path.RECOVERIES_CASH_PAGE_PATH, className: 'text-primary'};
-        case type.REQUEST_FLEET_NOTIFICATION: return {url: path.REQUESTS_FLEETS_PAGE_PATH, className: 'text-dark'};
-        case type.FLEET_RECOVERY_NOTIFICATION: return {url: path.RECOVERIES_FLEETS_PAGE_PATH, className: 'text-info'};
-        case type.FLEET_OPERATION_NOTIFICATION: return {url: path.OPERATIONS_FLEETS_PAGE_PATH, className: 'text-warning'};
-        case type.REQUEST_CLEARANCE_NOTIFICATION: return {url: path.REQUESTS_CLEARANCES_PAGE_PATH, className: 'text-success'};
-        case type.CLEARANCE_OPERATION_NOTIFICATION: return {url: path.OPERATIONS_CLEARANCES_PAGE_PATH, className: 'text-danger'};
         default: return {url: path.DASHBOARD_PAGE_PATH, className: 'text-secondary'};
     }
 }

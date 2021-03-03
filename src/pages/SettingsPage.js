@@ -58,7 +58,6 @@ function SettingsPage({settings, request, dispatch, location}) {
             ],
             cards: [
                 {value: setting.CARD_AGENTS, label: setting.LABEL_AGENTS},
-                {value: setting.CARD_BALANCE, label: setting.LABEL_BALANCE},
                 {value: setting.CARD_RESOURCES, label: setting.LABEL_RESOURCES}
             ],
             charts: [

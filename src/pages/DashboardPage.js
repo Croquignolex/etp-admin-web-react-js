@@ -6,23 +6,20 @@ import * as path from "../constants/pagePathConstants";
 import {emitAllSimsFetch} from "../redux/sims/actions";
 import * as setting from "../constants/settingsConstants";
 import {formatNumber} from "../functions/generalFunctions";
-import {emitFetchUserBalance} from "../redux/user/actions";
 import {emitAllAgentsFetch} from "../redux/agents/actions";
 import HeaderComponent from "../components/HeaderComponent";
 import {DASHBOARD_PAGE} from "../constants/pageNameConstants";
 import AppLayoutContainer from "../containers/AppLayoutContainer";
 import {storeAllSimsRequestReset} from "../redux/requests/sims/actions";
 import {storeAllAgentsRequestReset} from "../redux/requests/agents/actions";
-import {storeUserBalanceFetchRequestReset} from "../redux/requests/user/actions";
 import DashboardCardComponent from "../components/dashboard/DashboardCardComponent";
 
 // Component
-function DashboardPage({user, sims, agents, settings, dispatch, location, balanceUserRequests, allAgentsRequests, allSimsRequests}) {
+function DashboardPage({agents, settings, dispatch, location, allAgentsRequests}) {
     // Local effects
     useEffect(() => {
         dispatch(emitAllSimsFetch());
         dispatch(emitAllAgentsFetch());
-        dispatch(emitFetchUserBalance());
         // Cleaner error alert while component did unmount without store dependency
         return () => {
             shouldResetErrorData();
@@ -34,7 +31,6 @@ function DashboardPage({user, sims, agents, settings, dispatch, location, balanc
     const shouldResetErrorData = () => {
         dispatch(storeAllSimsRequestReset());
         dispatch(storeAllAgentsRequestReset());
-        dispatch(storeUserBalanceFetchRequestReset());
     };
 
     // Data
@@ -52,17 +48,6 @@ function DashboardPage({user, sims, agents, settings, dispatch, location, balanc
                 <section className="content">
                     <div className='container-fluid'>
                         <div className="row">
-                            {cardsData.includes(setting.CARD_BALANCE) &&
-                                <div className="col-lg-3 col-md-4 col-sm-6">
-                                    <DashboardCardComponent color='bg-dark'
-                                                            icon='fa fa-coin'
-                                                            url={path.PROFILE_PAGE_PATH}
-                                                            label={setting.LABEL_BALANCE}
-                                                            request={balanceUserRequests}
-                                                            data={formatNumber(user.balance)}
-                                    />
-                                </div>
-                            }
                             {cardsData.includes(setting.CARD_AGENTS) &&
                                 <div className="col-lg-3 col-md-4 col-sm-6">
                                     <DashboardCardComponent color='bg-primary'
@@ -95,15 +80,12 @@ function DashboardPage({user, sims, agents, settings, dispatch, location, balanc
 
 // Prop types to ensure destroyed props data type
 DashboardPage.propTypes = {
-    sims: PropTypes.array.isRequired,
     user: PropTypes.object.isRequired,
     agents: PropTypes.array.isRequired,
     dispatch: PropTypes.func.isRequired,
     location: PropTypes.object.isRequired,
     settings: PropTypes.object.isRequired,
-    allSimsRequests: PropTypes.object.isRequired,
     allAgentsRequests: PropTypes.object.isRequired,
-    balanceUserRequests: PropTypes.object.isRequired,
 };
 
 export default React.memo(DashboardPage);

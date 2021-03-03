@@ -9,12 +9,9 @@ setPageTitle(DASHBOARD_PAGE);
 // Map state function to component props
 const mapStateToProps = (state) => ({
     user: state.user,
-    sims: state.sims.list,
     settings: state.settings,
     agents: state.agents.list,
-    allSimsRequests: state.simsRequests.all,
     allAgentsRequests: state.agentsRequests.all,
-    balanceUserRequests: state.userRequests.balance,
 });
 
 // Map dispatch function to component props
