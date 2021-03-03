@@ -16,11 +16,7 @@ function SideBarComponent({user, pathname}) {
     const {name, avatar} = user;
     const authorisedMenu = useMemo(() => {
         return [
-            // buildDashboardMenu(),
-            // buildNetworkMenu(),
-            // buildRequestsMenu(),
-            // buildOperationsMenu(),
-            // buildRecoveriesMenu(),
+            buildDashboardMenu(),
             buildUsersMenu(),
             buildZonesMenu(),
             buildSimsMenu(),
@@ -121,55 +117,6 @@ function buildDashboardMenu() {
         path: path.DASHBOARD_PAGE_PATH,
         icon: 'fa fa-tachometer-alt',
         sub: []
-    };
-}
-
-// Build :network menu
-function buildNetworkMenu() {
-    return {
-        name: page.MY_NETWORK,
-        icon: 'fa fa-network-wired',
-        sub: [
-            {name: page.MY_NETWORK_FLEET, path: path.NETWORK_FLEETS_PAGE_PATH},
-        ]
-    };
-}
-
-// Build requests menu
-function buildRequestsMenu() {
-    return {
-        name: page.REQUESTS,
-        icon: 'fa fa-paste',
-        sub: [
-            {name: page.REQUESTS_FLEETS_PAGE, path: path.REQUESTS_FLEETS_PAGE_PATH},
-            {name: page.REQUESTS_CLEARANCES_PAGE, path: path.REQUESTS_CLEARANCES_PAGE_PATH}
-        ]
-    };
-}
-
-// Build operations menu
-function buildOperationsMenu() {
-    return {
-        name: page.OPERATIONS,
-        icon: 'fa fa-bars',
-        sub: [
-            {name: page.OPERATIONS_TRANSFERS_PAGE, path: path.OPERATIONS_TRANSFERS_PAGE_PATH},
-            {name: page.OPERATIONS_FLEETS_PAGE, path: path.OPERATIONS_FLEETS_PAGE_PATH},
-            {name: page.OPERATIONS_CLEARANCES_PAGE, path: path.OPERATIONS_CLEARANCES_PAGE_PATH},
-            {name: page.OPERATIONS_AFFORDS_PAGE, path: path.OPERATION_AFFORDS_PAGE_PATH}
-        ]
-    }
-}
-
-// Build recoveries menu
-function buildRecoveriesMenu() {
-    return {
-        name: page.RECOVERIES,
-        icon: 'fa fa-share',
-        sub: [
-            {name: page.RECOVERIES_CASH_PAGE, path: path.RECOVERIES_CASH_PAGE_PATH},
-            {name: page.RECOVERIES_FLEET_PAGE, path: path.RECOVERIES_FLEETS_PAGE_PATH},
-        ]
     };
 }
 
