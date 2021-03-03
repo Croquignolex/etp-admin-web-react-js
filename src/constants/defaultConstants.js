@@ -1,6 +1,6 @@
+export const USER_ROLE = "ADMIN";
 export const AGENT_SCOPE = "AGENT_SCOPE";
 export const PROFILE_SCOPE = "PROFILE_SCOPE";
-export const USER_ROLE = "SUPERVISEUR";
 
 export const DEFAULT_GUEST_MESSAGE = "Request failed with status code 401";
 
