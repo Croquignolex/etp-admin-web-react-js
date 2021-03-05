@@ -11,15 +11,18 @@ import HeaderComponent from "../components/HeaderComponent";
 import {DASHBOARD_PAGE} from "../constants/pageNameConstants";
 import AppLayoutContainer from "../containers/AppLayoutContainer";
 import {storeAllSimsRequestReset} from "../redux/requests/sims/actions";
+import {emitAllAdministratorsFetch} from "../redux/administrators/actions";
 import {storeAllAgentsRequestReset} from "../redux/requests/agents/actions";
 import DashboardCardComponent from "../components/dashboard/DashboardCardComponent";
 
 // Component
-function DashboardPage({agents, settings, dispatch, location, allAgentsRequests}) {
+function DashboardPage({agents, settings, dispatch, location, administrators,
+                           allAgentsRequests, allAdministratorsRequests}) {
     // Local effects
     useEffect(() => {
         dispatch(emitAllSimsFetch());
         dispatch(emitAllAgentsFetch());
+        dispatch(emitAllAdministratorsFetch());
         // Cleaner error alert while component did unmount without store dependency
         return () => {
             shouldResetErrorData();
@@ -48,6 +51,17 @@ function DashboardPage({agents, settings, dispatch, location, allAgentsRequests}
                 <section className="content">
                     <div className='container-fluid'>
                         <div className="row">
+                            {cardsData.includes(setting.CARD_ADMINS) &&
+                                <div className="col-lg-3 col-md-4 col-sm-6">
+                                    <DashboardCardComponent color='bg-danger'
+                                                            icon='fa fa-user-secret'
+                                                            url={path.ADMINS_PAGE_PATH}
+                                                            label={setting.LABEL_ADMINS}
+                                                            data={administrators.length}
+                                                            request={allAdministratorsRequests}
+                                    />
+                                </div>
+                            }
                             {cardsData.includes(setting.CARD_AGENTS) &&
                                 <div className="col-lg-3 col-md-4 col-sm-6">
                                     <DashboardCardComponent color='bg-primary'

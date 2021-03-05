@@ -9,8 +9,9 @@ import {
     storeSetAdministratorData,
     EMIT_ADMINISTRATORS_FETCH,
     storeSetAdministratorsData,
-    EMIT_NEXT_ADMINISTRATORS_FETCH,
+    EMIT_ALL_ADMINISTRATORS_FETCH,
     storeSetNextAdministratorsData,
+    EMIT_NEXT_ADMINISTRATORS_FETCH,
     storeStopInfiniteScrollAdministratorData
 } from "./actions";
 import {
@@ -19,11 +20,34 @@ import {
     storeAdministratorRequestFailed,
     storeAdministratorsRequestFailed,
     storeAdministratorRequestSucceed,
+    storeAllAdministratorsRequestInit,
     storeAdministratorsRequestSucceed,
     storeNextAdministratorsRequestInit,
+    storeAllAdministratorsRequestFailed,
     storeNextAdministratorsRequestFailed,
+    storeAllAdministratorsRequestSucceed,
     storeNextAdministratorsRequestSucceed,
 } from "../requests/administrators/actions";
+
+// Fetch all administrators from API
+export function* emitAllAdministratorsFetch() {
+    yield takeLatest(EMIT_ALL_ADMINISTRATORS_FETCH, function*() {
+        try {
+            // Fire event for request
+            yield put(storeAllAdministratorsRequestInit());
+            const apiResponse = yield call(apiGetRequest, api.ALL_ADMINISTRATORS_API_PATH);
+            // Extract data
+            const administrators = extractAdministratorsData(apiResponse.data.administrateurs);
+            // Fire event to redux
+            yield put(storeSetAdministratorsData({administrators, hasMoreData: false, page: 0}));
+            // Fire event for request
+            yield put(storeAllAdministratorsRequestSucceed({message: apiResponse.message}));
+        } catch (message) {
+            // Fire event for request
+            yield put(storeAllAdministratorsRequestFailed({message}));
+        }
+    });
+}
 
 // Fetch administrators from API
 export function* emitAdministratorsFetch() {
@@ -132,6 +156,7 @@ export default function* sagaAdministrators() {
     yield all([
         fork(emitAdministratorFetch),
         fork(emitAdministratorsFetch),
+        fork(emitAllAdministratorsFetch),
         fork(emitNextAdministratorsFetch),
     ]);
 }
