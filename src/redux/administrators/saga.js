@@ -3,7 +3,7 @@ import { all, takeLatest, put, fork, call } from 'redux-saga/effects'
 import * as api from "../../constants/apiConstants";
 import {APPROVE} from "../../constants/typeConstants";
 import {PROFILE_SCOPE} from "../../constants/defaultConstants";
-import {apiGetRequest, getImageFromServer} from "../../functions/axiosFunctions";
+import {apiGetRequest, apiPostRequest, getImageFromServer} from "../../functions/axiosFunctions";
 import {
     EMIT_ADMINISTRATOR_FETCH,
     storeSetAdministratorData,
@@ -12,7 +12,7 @@ import {
     EMIT_ALL_ADMINISTRATORS_FETCH,
     storeSetNextAdministratorsData,
     EMIT_NEXT_ADMINISTRATORS_FETCH,
-    storeStopInfiniteScrollAdministratorData
+    storeStopInfiniteScrollAdministratorData, EMIT_NEW_ADMINISTRATOR, storeSetNewAdministratorData
 } from "./actions";
 import {
     storeAdministratorRequestInit,
@@ -27,7 +27,16 @@ import {
     storeNextAdministratorsRequestFailed,
     storeAllAdministratorsRequestSucceed,
     storeNextAdministratorsRequestSucceed,
+    storeAddAdministratorRequestInit,
+    storeAddAdministratorRequestSucceed,
+    storeAddAdministratorRequestFailed,
 } from "../requests/administrators/actions";
+import {EMIT_NEW_SUPERVISOR, storeSetNewSupervisorData} from "../supervisors/actions";
+import {
+    storeAddSupervisorRequestFailed,
+    storeAddSupervisorRequestInit,
+    storeAddSupervisorRequestSucceed
+} from "../requests/supervisors/actions";
 
 // Fetch all administrators from API
 export function* emitAllAdministratorsFetch() {
@@ -86,6 +95,32 @@ export function* emitNextAdministratorsFetch() {
             // Fire event for request
             yield put(storeNextAdministratorsRequestFailed({message}));
             yield put(storeStopInfiniteScrollAdministratorData());
+        }
+    });
+}
+
+// New administrator into API
+export function* emitNewAdministrator() {
+    yield takeLatest(EMIT_NEW_ADMINISTRATOR, function*({name, address, phone, email, password,  description}) {
+        try {
+            // Fire event for request
+            yield put(storeAddAdministratorRequestInit());
+            // From data
+            const data = {name, phone, email, password, description, adresse: address}
+            // API request
+            const apiResponse = yield call(apiPostRequest, api.CREATE_ADMINISTRATOR_API_PATH, data);
+            // Extract data
+            const supervisor = extractAdministratorData(
+                apiResponse.data.administrateur,
+                apiResponse.data.caisse
+            );
+            // Fire event to redux
+            yield put(storeSetNewAdministratorData({supervisor}));
+            // Fire event for request
+            yield put(storeAddAdministratorRequestSucceed({message: apiResponse.message}));
+        } catch (message) {
+            // Fire event for request
+            yield put(storeAddAdministratorRequestFailed({message}));
         }
     });
 }
@@ -154,6 +189,7 @@ function extractAdministratorsData(apiAdministrators) {
 // Combine to export all functions at once
 export default function* sagaAdministrators() {
     yield all([
+        fork(emitNewAdministrator),
         fork(emitAdministratorFetch),
         fork(emitAdministratorsFetch),
         fork(emitAllAdministratorsFetch),

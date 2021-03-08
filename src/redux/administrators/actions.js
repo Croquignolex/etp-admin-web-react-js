@@ -1,14 +1,16 @@
 // Reducer action types
 export const STORE_SET_ADMINISTRATOR_DATA = 'STORE_SET_ADMINISTRATOR_DATA';
 export const STORE_SET_ADMINISTRATORS_DATA = 'STORE_SET_ADMINISTRATORS_DATA';
+export const STORE_SET_NEW_ADMINISTRATOR_DATA = 'STORE_SET_NEW_ADMINISTRATOR_DATA';
 export const STORE_SET_NEXT_ADMINISTRATORS_DATA = 'STORE_SET_NEXT_ADMINISTRATORS_DATA';
 export const STORE_STOP_INFINITE_SCROLL_ADMINISTRATORS_DATA = 'STORE_STOP_INFINITE_SCROLL_ADMINISTRATORS_DATA';
 
 // Middleware action types
+export const EMIT_NEW_ADMINISTRATOR = 'EMIT_NEW_ADMINISTRATOR';
 export const EMIT_ADMINISTRATOR_FETCH = 'EMIT_ADMINISTRATOR_FETCH';
-export const EMIT_ADMINISTRATORS_FETCH = 'EMIT_ADMINISTRATORS_FETCH'; 
+export const EMIT_ADMINISTRATORS_FETCH = 'EMIT_ADMINISTRATORS_FETCH';
 export const EMIT_NEXT_ADMINISTRATORS_FETCH = 'EMIT_NEXT_SIMS_FETCH';
-export const EMIT_ALL_ADMINISTRATORS_FETCH = 'EMIT_ALL_ADMINISTRATORS_FETCH'; 
+export const EMIT_ALL_ADMINISTRATORS_FETCH = 'EMIT_ALL_ADMINISTRATORS_FETCH';
 
 //====================== Reducer trigger actions
 // Set administrators data in store
@@ -17,6 +19,12 @@ export const storeSetAdministratorsData = ({administrators, hasMoreData, page}) 
     administrators,
     hasMoreData,
     type: STORE_SET_ADMINISTRATORS_DATA
+});
+
+// Set new administrator data in store
+export const storeSetNewAdministratorData = ({administrator}) => ({
+    administrator,
+    type: STORE_SET_NEW_ADMINISTRATOR_DATA
 });
 
 // Set administrator data in store
@@ -60,4 +68,15 @@ export const emitAllAdministratorsFetch = () => ({
 export const emitAdministratorFetch = ({id}) => ({
     id,
     type: EMIT_ADMINISTRATOR_FETCH
+});
+
+// Emit new administrator fetch
+export const emitNewAdministrator = ({name, address, phone, email, password,  description}) => ({
+    name,
+    phone,
+    email,
+    address,
+    password,
+    description,
+    type: EMIT_NEW_ADMINISTRATOR
 });

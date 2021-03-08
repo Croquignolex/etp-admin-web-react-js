@@ -6,14 +6,14 @@ import ButtonComponent from "../form/ButtonComponent";
 import ErrorAlertComponent from "../ErrorAlertComponent";
 import TextareaComponent from "../form/TextareaComponent";
 import * as constants from "../../constants/defaultConstants";
-import {emitNewSupervisor} from "../../redux/supervisors/actions";
 import {playWarningSound} from "../../functions/playSoundFunctions";
+import {emitNewAdministrator} from "../../redux/administrators/actions";
 import {phoneChecker, requiredChecker} from "../../functions/checkerFunctions";
-import {storeAddSupervisorRequestReset} from "../../redux/requests/supervisors/actions";
 import {applySuccess, requestFailed, requestLoading, requestSucceeded} from "../../functions/generalFunctions";
+import {storeAddAdministratorRequestReset} from "../../redux/requests/administrators/actions";
 
 // Component
-function SupervisorNewComponent({request, dispatch, handleClose}) {
+function AdministratorNewComponent({request, dispatch, handleClose}) {
     // Local state
     const [name, setName] = useState(constants.DEFAULT_FORM_DATA);
     const [phone, setPhone] = useState(constants.DEFAULT_FORM_DATA);
@@ -67,7 +67,7 @@ function SupervisorNewComponent({request, dispatch, handleClose}) {
 
     // Reset error alert
     const shouldResetErrorData = () => {
-        dispatch(storeAddSupervisorRequestReset());
+        dispatch(storeAddAdministratorRequestReset());
     };
 
     // Trigger new agent form submit
@@ -82,7 +82,7 @@ function SupervisorNewComponent({request, dispatch, handleClose}) {
         const validationOK = (_name.isValid && _phone.isValid);
         // Check
         if(validationOK)
-            dispatch(emitNewSupervisor({
+            dispatch(emitNewAdministrator({
                 name: _name.data,
                 email: email.data,
                 phone: _phone.data,
@@ -155,10 +155,10 @@ function SupervisorNewComponent({request, dispatch, handleClose}) {
 }
 
 // Prop types to ensure destroyed props data type
-SupervisorNewComponent.propTypes = {
+AdministratorNewComponent.propTypes = {
     dispatch: PropTypes.func.isRequired,
     request: PropTypes.object.isRequired,
     handleClose: PropTypes.func.isRequired
 };
 
-export default React.memo(SupervisorNewComponent);
+export default React.memo(AdministratorNewComponent);

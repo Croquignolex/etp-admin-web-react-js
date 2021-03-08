@@ -14,6 +14,11 @@ export const STORE_ALL_ADMINISTRATORS_REQUEST_RESET = 'STORE_ALL_ADMINISTRATORS_
 export const STORE_ALL_ADMINISTRATORS_REQUEST_FAILED = 'STORE_ALL_ADMINISTRATORS_REQUEST_FAILED';
 export const STORE_ALL_ADMINISTRATORS_REQUEST_SUCCEEDED = 'STORE_ALL_ADMINISTRATORS_REQUEST_SUCCEEDED';
 
+export const STORE_ADD_ADMINISTRATOR_REQUEST_INIT = 'STORE_ADD_ADMINISTRATOR_REQUEST_INIT';
+export const STORE_ADD_ADMINISTRATOR_REQUEST_RESET = 'STORE_ADD_ADMINISTRATOR_REQUEST_RESET';
+export const STORE_ADD_ADMINISTRATOR_REQUEST_FAILED = 'STORE_ADD_ADMINISTRATOR_REQUEST_FAILED';
+export const STORE_ADD_ADMINISTRATOR_REQUEST_SUCCEEDED = 'STORE_ADD_ADMINISTRATOR_REQUEST_SUCCEEDED';
+
 export const STORE_ADMINISTRATOR_REQUEST_INIT = 'STORE_ADMINISTRATOR_REQUEST_INIT';
 export const STORE_ADMINISTRATOR_REQUEST_RESET = 'STORE_ADMINISTRATOR_REQUEST_RESET';
 export const STORE_ADMINISTRATOR_REQUEST_FAILED = 'STORE_ADMINISTRATOR_REQUEST_FAILED';
@@ -84,6 +89,28 @@ export const storeAllAdministratorsRequestSucceed = ({message}) => ({
 // Set all administrators reset data into store
 export const storeAllAdministratorsRequestReset = () => ({
     type: STORE_ALL_ADMINISTRATORS_REQUEST_RESET
+});
+// ======================================================== Add supervisor
+// Set add administrator init data into store
+export const storeAddAdministratorRequestInit = () => ({
+    type: STORE_ADD_ADMINISTRATOR_REQUEST_INIT
+});
+
+// Set add administrator failed data into store
+export const storeAddAdministratorRequestFailed = ({message}) => ({
+    message,
+    type: STORE_ADD_ADMINISTRATOR_REQUEST_FAILED
+});
+
+// Set add administrator succeeded data into store
+export const storeAddAdministratorRequestSucceed = ({message}) => ({
+    message,
+    type: STORE_ADD_ADMINISTRATOR_REQUEST_SUCCEEDED
+});
+
+// Set add administrator reset data into store
+export const storeAddAdministratorRequestReset = () => ({
+    type: STORE_ADD_ADMINISTRATOR_REQUEST_RESET
 });
 // ======================================================== Administrator
 // Set administrator init data into store

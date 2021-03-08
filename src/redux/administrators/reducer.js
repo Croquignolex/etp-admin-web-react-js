@@ -36,6 +36,10 @@ function reduce(state = initialState, action) {
                 };
             }
             return nextState || state;
+        // Resolve event to set new administrator data
+        case actions.STORE_SET_NEW_ADMINISTRATOR_DATA:
+            nextState = {...state, list: [action.administrator, ...state.list]}
+            return nextState || state;
         // Resolve event to set next administrators data
         case actions.STORE_SET_NEXT_ADMINISTRATORS_DATA:
             nextState = {...state, list: [...state.list, ...action.administrators], page: action.page, hasMoreData: action.hasMoreData};

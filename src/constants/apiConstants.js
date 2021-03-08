@@ -76,8 +76,9 @@ export const TOGGLE_SUPERVISOR_STATUS_API_PATH = `${API_URL}/edit_user_status`;
 
 // Administrators
 export const ADMINISTRATORS_API_PATH = `${API_URL}/administrateurs`;
-export const ALL_ADMINISTRATORS_API_PATH = `${API_URL}/administrateurs`;
 export const ADMINISTRATOR_DETAILS_API_PATH = `${API_URL}/details_user`;
+export const ALL_ADMINISTRATORS_API_PATH = `${API_URL}/administrateurs`;
+export const CREATE_ADMINISTRATOR_API_PATH = `${API_URL}/create_administrateur`;
 
 // Operators
 export const OPERATOR_API_PATH = `${API_URL}/show_flote`;
