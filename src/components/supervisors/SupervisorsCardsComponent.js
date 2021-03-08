@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
-import {dateToString, formatNumber} from "../../functions/generalFunctions"; 
+import LoaderComponent from "../LoaderComponent";
+import {dateToString, formatNumber} from "../../functions/generalFunctions";
 
 // Component
-function SupervisorsCardsComponent({supervisors, handleSupervisorDetailsModalShow}) {
+function SupervisorsCardsComponent({supervisors, handleBlock, handleBlockModalShow, handleSupervisorDetailsModalShow}) {
     // Render
     return (
         <>
@@ -28,6 +29,18 @@ function SupervisorsCardsComponent({supervisors, handleSupervisorDetailsModalSho
                                 <div className="card-body">
                                     <div className="text-center mb-3">
                                         <img src={item.avatar} alt="avatar..." className="profile-user-img img-fluid img-circle" />
+                                        <div className="float-right">
+                                            {item.actionLoader ? <LoaderComponent little={true} /> :(
+                                                item.status
+                                                    ? <i onClick={() => handleBlockModalShow(item)}
+
+                                                         className='fa fa-lock-open text-success hand-cursor'
+                                                    />
+                                                    : <i className='fa fa-lock text-danger hand-cursor'
+                                                         onClick={() => handleBlock(item.id)}
+                                                    />
+                                            )}
+                                        </div>
                                     </div>
                                     <ul className="list-group list-group-unbordered">
                                         <li className="list-group-item">
@@ -62,7 +75,9 @@ function SupervisorsCardsComponent({supervisors, handleSupervisorDetailsModalSho
 
 // Prop types to ensure destroyed props data type
 SupervisorsCardsComponent.propTypes = {
+    handleBlock: PropTypes.func.isRequired,
     supervisors: PropTypes.array.isRequired,
+    handleBlockModalShow: PropTypes.func.isRequired,
     handleSupervisorDetailsModalShow: PropTypes.func.isRequired,
 };
 
