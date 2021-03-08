@@ -108,6 +108,7 @@ function SupervisorsPage({supervisors, supervisorsRequests, hasMoreData, page, d
                                             {/* Error message */}
                                             {requestFailed(supervisorsRequests.list) && <ErrorAlertComponent message={supervisorsRequests.list.message} />}
                                             {requestFailed(supervisorsRequests.next) && <ErrorAlertComponent message={supervisorsRequests.next.message} />}
+                                            {requestFailed(supervisorsRequests.status) && <ErrorAlertComponent message={supervisorsRequests.status.message} />}
                                             <button type="button"
                                                     className="btn btn-theme mr-2 mb-2"
                                                     onClick={handleNewSupervisorModalShow}
@@ -150,7 +151,7 @@ function SupervisorsPage({supervisors, supervisorsRequests, hasMoreData, page, d
                                  handleClose={handleBlockModalHide}
             />
             <FormModalComponent modal={newSupervisorModal} handleClose={handleNewSupervisorModalHide}>
-                <SupervisorNewContainer type={newSupervisorModal.type} handleClose={handleNewSupervisorModalHide} />
+                <SupervisorNewContainer handleClose={handleNewSupervisorModalHide} />
             </FormModalComponent>
             <FormModalComponent modal={supervisorDetailsModal} handleClose={handleSupervisorDetailsModalHide}>
                 <SupervisorDetailsContainer id={supervisorDetailsModal.id} />

@@ -167,7 +167,7 @@ function CollectorsPage({collectors, collectorsRequests, hasMoreData, page, disp
                                  handleClose={handleBlockModalHide}
             />
             <FormModalComponent modal={newCollectorModal} handleClose={handleNewCollectorModalHide}>
-                <CollectorNewContainer type={newCollectorModal.type} handleClose={handleNewCollectorModalHide} />
+                <CollectorNewContainer handleClose={handleNewCollectorModalHide} />
             </FormModalComponent>
             <FormModalComponent modal={collectorDetailsModal} handleClose={handleCollectorDetailsModalHide}>
                 <CollectorDetailsContainer id={collectorDetailsModal.id} />

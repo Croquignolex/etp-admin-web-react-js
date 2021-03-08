@@ -9,6 +9,7 @@ import AppLayoutContainer from "../../containers/AppLayoutContainer";
 import ErrorAlertComponent from "../../components/ErrorAlertComponent";
 import TableSearchComponent from "../../components/TableSearchComponent";
 import FormModalComponent from "../../components/modals/FormModalComponent";
+import AdministratorNewContainer from "../../containers/administrators/AdministratorNewContainer";
 import AdministratorsCardsComponent from "../../components/administrators/AdministratorsCardsComponent";
 import {emitAdministratorsFetch, emitNextAdministratorsFetch} from "../../redux/administrators/actions";
 import AdministratorDetailsContainer from "../../containers/administrators/AdministratorDetailsContainer";
@@ -19,6 +20,7 @@ import {storeAdministratorsRequestReset, storeNextAdministratorsRequestReset} fr
 function AdministratorsPage({administrators, administratorsRequests, hasMoreData, page, dispatch, location}) {
     // Local states
     const [needle, setNeedle] = useState('');
+    const [newAdministratorModal, setNewAdministratorModal] = useState({show: false, header: ''});
     const [administratorDetailsModal, setAdministratorDetailsModal] = useState({show: false, header: "DETAIL DE L'ADMINISTRATEUR", id: ''});
 
     // Local effects
@@ -44,6 +46,16 @@ function AdministratorsPage({administrators, administratorsRequests, hasMoreData
     // Fetch next administrator data to enhance infinite scroll
     const handleNextAdministratorsData = () => {
         dispatch(emitNextAdministratorsFetch({page}));
+    }
+
+    // Show new administrator modal form
+    const handleNewAdministratorModalShow = () => {
+        setNewAdministratorModal({newAdministratorModal, header: "NOUVEL ADMINISTRATEUR", show: true})
+    }
+
+    // Hide new administrator modal form
+    const handleNewAdministratorModalHide = () => {
+        setNewAdministratorModal({...newAdministratorModal, show: false})
     }
 
     // Show administrator details modal form
@@ -77,6 +89,12 @@ function AdministratorsPage({administrators, administratorsRequests, hasMoreData
                                             {/* Error message */}
                                             {requestFailed(administratorsRequests.list) && <ErrorAlertComponent message={administratorsRequests.list.message} />}
                                             {requestFailed(administratorsRequests.next) && <ErrorAlertComponent message={administratorsRequests.next.message} />}
+                                            <button type="button"
+                                                    className="btn btn-theme mr-2 mb-2"
+                                                    onClick={handleNewAdministratorModalShow}
+                                            >
+                                                <i className="fa fa-plus" /> Nouvel administrateur
+                                            </button>
                                             {/* Search result & Infinite scroll */}
                                             {(needle !== '' && needle !== undefined)
                                                 ? <AdministratorsCardsComponent administrators={searchEngine(administrators, needle)}
@@ -106,6 +124,9 @@ function AdministratorsPage({administrators, administratorsRequests, hasMoreData
             {/* Modal */}
             <FormModalComponent modal={administratorDetailsModal} handleClose={handleAdministratorDetailsModalHide}>
                 <AdministratorDetailsContainer id={administratorDetailsModal.id} />
+            </FormModalComponent>
+            <FormModalComponent modal={newAdministratorModal} handleClose={handleNewAdministratorModalHide}>
+                <AdministratorNewContainer handleClose={handleNewAdministratorModalHide} />
             </FormModalComponent>
         </>
     )
