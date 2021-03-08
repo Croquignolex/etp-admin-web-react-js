@@ -26,9 +26,10 @@ import {storeAllAdministratorsRequestReset} from "../redux/requests/administrato
 
 // Component
 function DashboardPage({agents, settings, dispatch, location, administrators, supervisors,
-                           managers, collectors, companies,
+                           managers, collectors, companies, sims,
                            allAgentsRequests, allAdministratorsRequests, allSupervisorsRequests,
-                           allManagersRequests, allCollectorsRequests, allCompaniesRequests}) {
+                           allManagersRequests, allCollectorsRequests, allCompaniesRequests,
+                           allSimsRequests}) {
     // Local effects
     useEffect(() => {
         dispatch(emitAllSimsFetch());
@@ -148,6 +149,17 @@ function DashboardPage({agents, settings, dispatch, location, administrators, su
                                     />
                                 </div>
                             }
+                            {cardsData.includes(setting.CARD_SIMS) &&
+                                <div className="col-lg-3 col-md-4 col-sm-6">
+                                    <DashboardCardComponent color='bg-warning'
+                                                            data={sims.length}
+                                                            icon='fa fa-sim-card'
+                                                            url={path.SIMS_PAGE_PATH}
+                                                            label={setting.LABEL_SIMS}
+                                                            request={allSimsRequests}
+                                    />
+                                </div>
+                            }
                         </div>
                     </div>
                 </section>
@@ -158,6 +170,7 @@ function DashboardPage({agents, settings, dispatch, location, administrators, su
 
 // Prop types to ensure destroyed props data type
 DashboardPage.propTypes = {
+    sims: PropTypes.array.isRequired,
     user: PropTypes.object.isRequired,
     agents: PropTypes.array.isRequired,
     dispatch: PropTypes.func.isRequired,
@@ -168,6 +181,7 @@ DashboardPage.propTypes = {
     collectors: PropTypes.array.isRequired,
     supervisors: PropTypes.array.isRequired,
     administrators: PropTypes.array.isRequired,
+    allSimsRequests: PropTypes.object.isRequired,
     allAgentsRequests: PropTypes.object.isRequired,
     allManagersRequests: PropTypes.object.isRequired,
     allCompaniesRequests: PropTypes.object.isRequired,
