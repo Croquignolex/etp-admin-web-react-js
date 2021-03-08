@@ -10,6 +10,7 @@ import {emitAllAgentsFetch} from "../redux/agents/actions";
 import HeaderComponent from "../components/HeaderComponent";
 import {DASHBOARD_PAGE} from "../constants/pageNameConstants";
 import {emitAllManagersFetch} from "../redux/managers/actions";
+import {emitAllCompaniesFetch} from "../redux/companies/actions";
 import AppLayoutContainer from "../containers/AppLayoutContainer";
 import {emitAllCollectorsFetch} from "../redux/collectors/actions";
 import {emitAllSupervisorsFetch} from "../redux/supervisors/actions";
@@ -17,6 +18,7 @@ import {storeAllSimsRequestReset} from "../redux/requests/sims/actions";
 import {emitAllAdministratorsFetch} from "../redux/administrators/actions";
 import {storeAllAgentsRequestReset} from "../redux/requests/agents/actions";
 import {storeAllManagersRequestReset} from "../redux/requests/managers/actions";
+import {storeAllCompaniesRequestReset} from "../redux/requests/companies/actions";
 import DashboardCardComponent from "../components/dashboard/DashboardCardComponent";
 import {storeAllCollectorsRequestReset} from "../redux/requests/collectors/actions";
 import {storeAllSupervisorsRequestReset} from "../redux/requests/supervisors/actions";
@@ -24,14 +26,15 @@ import {storeAllAdministratorsRequestReset} from "../redux/requests/administrato
 
 // Component
 function DashboardPage({agents, settings, dispatch, location, administrators, supervisors,
-                           managers, collectors,
+                           managers, collectors, companies,
                            allAgentsRequests, allAdministratorsRequests, allSupervisorsRequests,
-                           allManagersRequests, allCollectorsRequests}) {
+                           allManagersRequests, allCollectorsRequests, allCompaniesRequests}) {
     // Local effects
     useEffect(() => {
         dispatch(emitAllSimsFetch());
         dispatch(emitAllAgentsFetch());
         dispatch(emitAllManagersFetch());
+        dispatch(emitAllCompaniesFetch());
         dispatch(emitAllCollectorsFetch());
         dispatch(emitAllSupervisorsFetch());
         dispatch(emitAllAdministratorsFetch());
@@ -47,6 +50,7 @@ function DashboardPage({agents, settings, dispatch, location, administrators, su
         dispatch(storeAllSimsRequestReset());
         dispatch(storeAllAgentsRequestReset());
         dispatch(storeAllManagersRequestReset());
+        dispatch(storeAllCompaniesRequestReset());
         dispatch(storeAllCollectorsRequestReset());
         dispatch(storeAllSupervisorsRequestReset());
         dispatch(storeAllAdministratorsRequestReset());
@@ -133,6 +137,17 @@ function DashboardPage({agents, settings, dispatch, location, administrators, su
                                     />
                                 </div>
                             }
+                            {cardsData.includes(setting.CARD_COMPANIES) &&
+                                <div className="col-lg-3 col-md-4 col-sm-6">
+                                    <DashboardCardComponent color='bg-danger'
+                                                            data={companies.length}
+                                                            icon='fa fa-university'
+                                                            url={path.COMPANIES_PAGE_PATH}
+                                                            label={setting.LABEL_COMPANIES}
+                                                            request={allCompaniesRequests}
+                                    />
+                                </div>
+                            }
                         </div>
                     </div>
                 </section>
@@ -147,6 +162,7 @@ DashboardPage.propTypes = {
     agents: PropTypes.array.isRequired,
     dispatch: PropTypes.func.isRequired,
     managers: PropTypes.array.isRequired,
+    companies: PropTypes.array.isRequired,
     location: PropTypes.object.isRequired,
     settings: PropTypes.object.isRequired,
     collectors: PropTypes.array.isRequired,
@@ -154,6 +170,7 @@ DashboardPage.propTypes = {
     administrators: PropTypes.array.isRequired,
     allAgentsRequests: PropTypes.object.isRequired,
     allManagersRequests: PropTypes.object.isRequired,
+    allCompaniesRequests: PropTypes.object.isRequired,
     allCollectorsRequests: PropTypes.object.isRequired,
     allSupervisorsRequests: PropTypes.object.isRequired,
     allAdministratorsRequests: PropTypes.object.isRequired,

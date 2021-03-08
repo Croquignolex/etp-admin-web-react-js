@@ -57,7 +57,8 @@ function SettingsPage({settings, request, dispatch, location}) {
                 {value: setting.CARD_ADMINS, label: setting.LABEL_ADMINS},
                 {value: setting.CARD_SUPERVISORS, label: setting.LABEL_SUPERVISORS},
                 {value: setting.CARD_MANAGERS, label: setting.LABEL_MANAGERS},
-                {value: setting.CARD_MANAGERS, label: setting.LABEL_MANAGERS},
+                {value: setting.CARD_COLLECTORS, label: setting.LABEL_COLLECTORS},
+                {value: setting.CARD_COMPANIES, label: setting.LABEL_COMPANIES},
             ],
             charts: [
                 // {value: 0, label: 'name'}

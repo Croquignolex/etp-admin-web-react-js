@@ -12,6 +12,7 @@ const mapStateToProps = (state) => ({
     settings: state.settings,
     agents: state.agents.list,
     managers: state.managers.list,
+    companies: state.companies.list,
     collectors: state.collectors.list,
     supervisors: state.supervisors.list,
     administrators: state.administrators.list,
@@ -20,6 +21,7 @@ const mapStateToProps = (state) => ({
     allCollectorsRequests: state.collectorsRequests.all,
     allSupervisorsRequests: state.supervisorsRequests.all,
     allAdministratorsRequests: state.administratorsRequests.all,
+    allCompaniesRequests: state.companiesRequests.all,
 });
 
 // Map dispatch function to component props
