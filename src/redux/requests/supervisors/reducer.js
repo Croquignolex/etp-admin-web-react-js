@@ -8,6 +8,8 @@ const initialState = {
     list: {failed: false, loading: false, succeeded: false, message: ""},
     next: {failed: false, loading: false, succeeded: false, message: ""},
     show: {failed: false, loading: false, succeeded: false, message: ""},
+    edit: {failed: false, loading: false, succeeded: false, message: ""},
+    status: {failed: false, loading: false, succeeded: false, message: ""},
 };
 
 // Reduce
@@ -98,6 +100,40 @@ function reduce(state = initialState, action) {
         // Resolve event to set supervisor reset request store data
         case actions.STORE_SUPERVISOR_REQUEST_RESET:
             nextState = {...state, show: initialState.show};
+            return nextState || state;
+        // ======================================================== Supervisor status toggle
+        // Resolve event to set supervisor status toggle init request store data
+        case actions.STORE_SUPERVISOR_STATUS_TOGGLE_REQUEST_INIT:
+            nextState = {...state, status: requestInitValue()};
+            return nextState || state;
+        // Resolve event to set supervisor status toggle failed request store data
+        case actions.STORE_SUPERVISOR_STATUS_TOGGLE_REQUEST_FAILED:
+            nextState = {...state, status: requestFailedValue(action.message)};
+            return nextState || state;
+        // Resolve event to set supervisor status toggle succeeded request store data
+        case actions.STORE_SUPERVISOR_STATUS_TOGGLE_REQUEST_SUCCEEDED:
+            nextState = {...state, status: requestSucceededValue(action.message)};
+            return nextState || state;
+        // Resolve event to set supervisor status toggle reset request store data
+        case actions.STORE_SUPERVISOR_STATUS_TOGGLE_REQUEST_RESET:
+            nextState = {...state, status: initialState.status};
+            return nextState || state;
+        // ======================================================== Supervisor edit info
+        // Resolve event to set supervisor edit info init request store data
+        case actions.STORE_SUPERVISOR_EDIT_INFO_REQUEST_INIT:
+            nextState = {...state, edit: requestInitValue()};
+            return nextState || state;
+        // Resolve event to set supervisor edit info failed request store data
+        case actions.STORE_SUPERVISOR_EDIT_INFO_REQUEST_FAILED:
+            nextState = {...state, edit: requestFailedValue(action.message)};
+            return nextState || state;
+        // Resolve event to set supervisor edit info succeeded request store data
+        case actions.STORE_SUPERVISOR_EDIT_INFO_REQUEST_SUCCEEDED:
+            nextState = {...state, edit: requestSucceededValue(action.message)};
+            return nextState || state;
+        // Resolve event to set supervisor edit info reset request store data
+        case actions.STORE_SUPERVISOR_EDIT_INFO_REQUEST_RESET:
+            nextState = {...state, edit: initialState.edit};
             return nextState || state;
         // ========================================================
         // Unknown action

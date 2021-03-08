@@ -1,13 +1,31 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from "prop-types";
 
+import FormModalComponent from "../modals/FormModalComponent";
 import {dateToString, formatNumber} from "../../functions/generalFunctions";
+import SupervisorInfoEditContainer from "../../containers/supervisors/SupervisorInfoEditContainer";
 
 // Component
 function SupervisorInfoComponent({supervisor}) {
+    // Local states
+    const [infoEditModal, setInfoEditModal] = useState({show: false, header: 'MODIFIER LES INFO DE ' + supervisor.name});
+
+    // Show info edit modal form
+    const handleInfoEditModalShow = () => {
+        setInfoEditModal({...infoEditModal, show: true})
+    }
+
+    // Hide info edit modal form
+    const handleInfoEditModalHide = () => {
+        setInfoEditModal({...infoEditModal, show: false})
+    }
+
     // Render
     return (
         <>
+            <button type="button" className="btn btn-theme mb-1 mr-1" onClick={handleInfoEditModalShow}>
+                <i className="fa fa-pencil" /> Modifier les info
+            </button>
             <div className="card">
                 <div className="card-header bg-secondary">
                     <h3 className="card-title">{supervisor.name}</h3>
@@ -54,6 +72,10 @@ function SupervisorInfoComponent({supervisor}) {
                     </ul>
                 </div>
             </div>
+            {/* Modal */}
+            <FormModalComponent modal={infoEditModal} handleClose={handleInfoEditModalHide}>
+                <SupervisorInfoEditContainer handleClose={handleInfoEditModalHide} />
+            </FormModalComponent>
         </>
     )
 }

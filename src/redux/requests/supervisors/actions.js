@@ -22,7 +22,17 @@ export const STORE_ADD_SUPERVISOR_REQUEST_SUCCEEDED = 'STORE_ADD_SUPERVISOR_REQU
 export const STORE_SUPERVISOR_REQUEST_INIT = 'STORE_SUPERVISOR_REQUEST_INIT';
 export const STORE_SUPERVISOR_REQUEST_RESET = 'STORE_SUPERVISOR_REQUEST_RESET';
 export const STORE_SUPERVISOR_REQUEST_FAILED = 'STORE_SUPERVISOR_REQUEST_FAILED';
-export const STORE_SUPERVISOR_REQUEST_SUCCEEDED = 'STORE_SUPERVISOR_REQUEST_SUCCEEDED';  
+export const STORE_SUPERVISOR_REQUEST_SUCCEEDED = 'STORE_SUPERVISOR_REQUEST_SUCCEEDED';
+
+export const STORE_SUPERVISOR_STATUS_TOGGLE_REQUEST_INIT = 'STORE_SUPERVISOR_STATUS_TOGGLE_REQUEST_INIT';
+export const STORE_SUPERVISOR_STATUS_TOGGLE_REQUEST_RESET = 'STORE_SUPERVISOR_STATUS_TOGGLE_REQUEST_RESET';
+export const STORE_SUPERVISOR_STATUS_TOGGLE_REQUEST_FAILED = 'STORE_SUPERVISOR_STATUS_TOGGLE_REQUEST_FAILED';
+export const STORE_SUPERVISOR_STATUS_TOGGLE_REQUEST_SUCCEEDED = 'STORE_SUPERVISOR_STATUS_TOGGLE_REQUEST_SUCCEEDED';
+
+export const STORE_SUPERVISOR_EDIT_INFO_REQUEST_INIT = 'STORE_SUPERVISOR_EDIT_INFO_REQUEST_INIT';
+export const STORE_SUPERVISOR_EDIT_INFO_REQUEST_RESET = 'STORE_SUPERVISOR_EDIT_INFO_REQUEST_RESET';
+export const STORE_SUPERVISOR_EDIT_INFO_REQUEST_FAILED = 'STORE_SUPERVISOR_EDIT_INFO_REQUEST_FAILED';
+export const STORE_SUPERVISOR_EDIT_INFO_REQUEST_SUCCEEDED = 'STORE_SUPERVISOR_EDIT_INFO_REQUEST_SUCCEEDED';
 
 // ======================================================== Supervisors
 // Set supervisors init data into store
@@ -133,4 +143,48 @@ export const storeSupervisorRequestSucceed = ({message}) => ({
 // Set supervisor reset data into store
 export const storeSupervisorRequestReset = () => ({
     type: STORE_SUPERVISOR_REQUEST_RESET
-}); 
+});
+// ======================================================== Supervisor status toggle
+// Set supervisor status toggle init data into store
+export const storeSupervisorStatusToggleRequestInit = () => ({
+    type: STORE_SUPERVISOR_STATUS_TOGGLE_REQUEST_INIT
+});
+
+// Set supervisor status toggle failed data into store
+export const storeSupervisorStatusToggleRequestFailed = ({message}) => ({
+    message,
+    type: STORE_SUPERVISOR_STATUS_TOGGLE_REQUEST_FAILED
+});
+
+// Set supervisor status toggle succeeded data into store
+export const storeSupervisorStatusToggleRequestSucceed = ({message}) => ({
+    message,
+    type: STORE_SUPERVISOR_STATUS_TOGGLE_REQUEST_SUCCEEDED
+});
+
+// Set supervisor status toggle reset data into store
+export const storeSupervisorStatusToggleRequestReset = () => ({
+    type: STORE_SUPERVISOR_STATUS_TOGGLE_REQUEST_RESET
+});
+// ======================================================== Supervisor edit info
+// Set supervisor edit info init data into store
+export const storeSupervisorEditInfoRequestInit = () => ({
+    type: STORE_SUPERVISOR_EDIT_INFO_REQUEST_INIT
+});
+
+// Set supervisor edit info failed data into store
+export const storeSupervisorEditInfoRequestFailed = ({message}) => ({
+    message,
+    type: STORE_SUPERVISOR_EDIT_INFO_REQUEST_FAILED
+});
+
+// Set supervisor edit info succeeded data into store
+export const storeSupervisorEditInfoRequestSucceed = ({message}) => ({
+    message,
+    type: STORE_SUPERVISOR_EDIT_INFO_REQUEST_SUCCEEDED
+});
+
+// Set supervisor edit info reset data into store
+export const storeSupervisorEditInfoRequestReset = () => ({
+    type: STORE_SUPERVISOR_EDIT_INFO_REQUEST_RESET
+});
