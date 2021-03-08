@@ -12,10 +12,12 @@ const mapStateToProps = (state) => ({
     settings: state.settings,
     agents: state.agents.list,
     managers: state.managers.list,
+    collectors: state.collectors.list,
     supervisors: state.supervisors.list,
     administrators: state.administrators.list,
     allAgentsRequests: state.agentsRequests.all,
     allManagersRequests: state.managersRequests.all,
+    allCollectorsRequests: state.collectorsRequests.all,
     allSupervisorsRequests: state.supervisorsRequests.all,
     allAdministratorsRequests: state.administratorsRequests.all,
 });

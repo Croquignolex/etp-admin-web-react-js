@@ -11,25 +11,28 @@ import HeaderComponent from "../components/HeaderComponent";
 import {DASHBOARD_PAGE} from "../constants/pageNameConstants";
 import {emitAllManagersFetch} from "../redux/managers/actions";
 import AppLayoutContainer from "../containers/AppLayoutContainer";
+import {emitAllCollectorsFetch} from "../redux/collectors/actions";
 import {emitAllSupervisorsFetch} from "../redux/supervisors/actions";
 import {storeAllSimsRequestReset} from "../redux/requests/sims/actions";
 import {emitAllAdministratorsFetch} from "../redux/administrators/actions";
 import {storeAllAgentsRequestReset} from "../redux/requests/agents/actions";
 import {storeAllManagersRequestReset} from "../redux/requests/managers/actions";
 import DashboardCardComponent from "../components/dashboard/DashboardCardComponent";
+import {storeAllCollectorsRequestReset} from "../redux/requests/collectors/actions";
 import {storeAllSupervisorsRequestReset} from "../redux/requests/supervisors/actions";
 import {storeAllAdministratorsRequestReset} from "../redux/requests/administrators/actions";
 
 // Component
 function DashboardPage({agents, settings, dispatch, location, administrators, supervisors,
-                           managers,
+                           managers, collectors,
                            allAgentsRequests, allAdministratorsRequests, allSupervisorsRequests,
-                           allManagersRequests}) {
+                           allManagersRequests, allCollectorsRequests}) {
     // Local effects
     useEffect(() => {
         dispatch(emitAllSimsFetch());
         dispatch(emitAllAgentsFetch());
         dispatch(emitAllManagersFetch());
+        dispatch(emitAllCollectorsFetch());
         dispatch(emitAllSupervisorsFetch());
         dispatch(emitAllAdministratorsFetch());
         // Cleaner error alert while component did unmount without store dependency
@@ -44,6 +47,7 @@ function DashboardPage({agents, settings, dispatch, location, administrators, su
         dispatch(storeAllSimsRequestReset());
         dispatch(storeAllAgentsRequestReset());
         dispatch(storeAllManagersRequestReset());
+        dispatch(storeAllCollectorsRequestReset());
         dispatch(storeAllSupervisorsRequestReset());
         dispatch(storeAllAdministratorsRequestReset());
     };
@@ -88,11 +92,22 @@ function DashboardPage({agents, settings, dispatch, location, administrators, su
                             {cardsData.includes(setting.CARD_MANAGERS) &&
                                 <div className="col-lg-3 col-md-4 col-sm-6">
                                     <DashboardCardComponent color='bg-success'
+                                                            icon='fa fa-user-tag'
                                                             data={managers.length}
-                                                            icon='fa fa-user-astronaut'
                                                             url={path.MANAGERS_PAGE_PATH}
                                                             label={setting.LABEL_MANAGERS}
                                                             request={allManagersRequests}
+                                    />
+                                </div>
+                            }
+                            {cardsData.includes(setting.CARD_COLLECTORS) &&
+                                <div className="col-lg-3 col-md-4 col-sm-6">
+                                    <DashboardCardComponent color='bg-dark'
+                                                            icon='fa fa-user-clock'
+                                                            data={collectors.length}
+                                                            url={path.COLLECTORS_PAGE_PATH}
+                                                            label={setting.LABEL_COLLECTORS}
+                                                            request={allCollectorsRequests}
                                     />
                                 </div>
                             }
@@ -134,10 +149,12 @@ DashboardPage.propTypes = {
     managers: PropTypes.array.isRequired,
     location: PropTypes.object.isRequired,
     settings: PropTypes.object.isRequired,
+    collectors: PropTypes.array.isRequired,
     supervisors: PropTypes.array.isRequired,
     administrators: PropTypes.array.isRequired,
     allAgentsRequests: PropTypes.object.isRequired,
     allManagersRequests: PropTypes.object.isRequired,
+    allCollectorsRequests: PropTypes.object.isRequired,
     allSupervisorsRequests: PropTypes.object.isRequired,
     allAdministratorsRequests: PropTypes.object.isRequired,
 };

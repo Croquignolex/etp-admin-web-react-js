@@ -35,7 +35,7 @@ import {
 } from "../requests/supervisors/actions";
 
 // Fetch all supervisors from API
-export function* emitAllAdministratorsFetch() {
+export function* emitAllSupervisorsFetch() {
     yield takeLatest(EMIT_ALL_SUPERVISORS_FETCH, function*() {
         try {
             // Fire event for request
@@ -194,7 +194,7 @@ export default function* sagaSupervisors() {
         fork(emitNewSupervisor),
         fork(emitSupervisorFetch),
         fork(emitSupervisorsFetch),
+        fork(emitAllSupervisorsFetch),
         fork(emitNextSupervisorsFetch),
-        fork(emitAllAdministratorsFetch),
     ]);
 }
