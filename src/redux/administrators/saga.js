@@ -110,12 +110,12 @@ export function* emitNewAdministrator() {
             // API request
             const apiResponse = yield call(apiPostRequest, api.CREATE_ADMINISTRATOR_API_PATH, data);
             // Extract data
-            const supervisor = extractAdministratorData(
+            const administrator = extractAdministratorData(
                 apiResponse.data.administrateur,
                 apiResponse.data.caisse
             );
             // Fire event to redux
-            yield put(storeSetNewAdministratorData({supervisor}));
+            yield put(storeSetNewAdministratorData({administrator}));
             // Fire event for request
             yield put(storeAddAdministratorRequestSucceed({message: apiResponse.message}));
         } catch (message) {
