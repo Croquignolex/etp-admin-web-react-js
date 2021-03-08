@@ -14,8 +14,8 @@ import SupervisorNewContainer from "../../containers/supervisors/SupervisorNewCo
 import SupervisorsCardsComponent from "../../components/supervisors/SupervisorsCardsComponent";
 import SupervisorDetailsContainer from "../../containers/supervisors/SupervisorDetailsContainer";
 import {dateToString, needleSearch, requestFailed, requestLoading} from "../../functions/generalFunctions";
-import {storeSupervisorsRequestReset, storeNextSupervisorsRequestReset} from "../../redux/requests/supervisors/actions";
 import {emitSupervisorsFetch, emitNextSupervisorsFetch, emitToggleSupervisorStatus} from "../../redux/supervisors/actions";
+import {storeSupervisorsRequestReset, storeNextSupervisorsRequestReset,storeSupervisorStatusToggleRequestReset} from "../../redux/requests/supervisors/actions";
 
 // Component
 function SupervisorsPage({supervisors, supervisorsRequests, hasMoreData, page, dispatch, location}) {
@@ -43,7 +43,7 @@ function SupervisorsPage({supervisors, supervisorsRequests, hasMoreData, page, d
     const shouldResetErrorData = () => {
         dispatch(storeSupervisorsRequestReset());
         dispatch(storeNextSupervisorsRequestReset());
-        dispatch(storeSupervisorsStatusToggleRequestReset());
+        dispatch(storeSupervisorStatusToggleRequestReset());
     };
 
     // Fetch next supervisor data to enhance infinite scroll
