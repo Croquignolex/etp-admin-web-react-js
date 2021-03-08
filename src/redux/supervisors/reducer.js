@@ -48,6 +48,26 @@ function reduce(state = initialState, action) {
         case actions.STORE_STOP_INFINITE_SCROLL_SUPERVISORS_DATA:
             nextState = {...state, hasMoreData: false};
             return nextState || state;
+        // Resolve event to toggle supervisor status data,
+        case actions.STORE_SET_SUPERVISOR_TOGGLE_DATA:
+            nextState = {
+                ...state,
+                list: Lodash.map(state.list, (item) => {
+                    if(item.id === action.id) item.status = !item.status;
+                    return item;
+                })
+            };
+            return nextState || state;
+        // Resolve event to set supervisor action data
+        case actions.STORE_SET_SUPERVISOR_ACTION_DATA:
+            nextState = {
+                ...state,
+                list: Lodash.map(state.list, (item) => {
+                    if(item.id === action.id) item.actionLoader = !item.actionLoader;
+                    return item;
+                })
+            };
+            return nextState || state;
         // Unknown action
         default: return state;
     }

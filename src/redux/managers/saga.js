@@ -7,17 +7,17 @@ import {apiGetRequest, apiPostRequest, getImageFromServer} from "../../functions
 import {
     EMIT_NEW_MANAGER,
     EMIT_MANAGER_FETCH,
-    storeSetManagerData,
     EMIT_MANAGERS_FETCH,
+    storeSetManagerData,
     storeSetManagersData,
-    storeSetNewManagerData,
     EMIT_ALL_MANAGERS_FETCH,
-    EMIT_NEXT_MANAGERS_FETCH,
-    storeSetNextManagersData,
     EMIT_UPDATE_MANAGER_INFO,
+    EMIT_NEXT_MANAGERS_FETCH,
+    storeSetNewManagerData,
+    EMIT_TOGGLE_MANAGER_STATUS,
+    storeSetNextManagersData,
     storeSetManagerActionData,
     storeSetManagerToggleData,
-    EMIT_TOGGLE_MANAGER_STATUS,
     storeStopInfiniteScrollManagerData
 } from "./actions";
 import {

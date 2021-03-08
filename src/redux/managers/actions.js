@@ -51,7 +51,7 @@ export const storeStopInfiniteScrollManagerData = () => ({
     type: STORE_STOP_INFINITE_SCROLL_MANAGERS_DATA
 });
 
-// Set sim action data in store
+// Set manager action data in store
 export const storeSetManagerActionData = ({id}) => ({
     id,
     type: STORE_SET_MANAGER_ACTION_DATA

@@ -12,8 +12,12 @@ import {
     storeSetSupervisorsData,
     EMIT_ALL_SUPERVISORS_FETCH,
     EMIT_NEXT_SUPERVISORS_FETCH,
+    EMIT_UPDATE_SUPERVISOR_INFO,
     storeSetNewSupervisorData,
+    EMIT_TOGGLE_SUPERVISOR_STATUS,
     storeSetNextSupervisorsData,
+    storeSetSupervisorActionData,
+    storeSetSupervisorToggleData,
     storeStopInfiniteScrollSupervisorData
 } from "./actions";
 import {
@@ -32,6 +36,12 @@ import {
     storeNextSupervisorsRequestFailed,
     storeAllSupervisorsRequestSucceed,
     storeNextSupervisorsRequestSucceed,
+    storeSupervisorEditInfoRequestInit,
+    storeSupervisorEditInfoRequestFailed,
+    storeSupervisorEditInfoRequestSucceed,
+    storeSupervisorStatusToggleRequestInit,
+    storeSupervisorStatusToggleRequestFailed,
+    storeSupervisorStatusToggleRequestSucceed,
 } from "../requests/supervisors/actions";
 
 // Fetch all supervisors from API
@@ -144,6 +154,51 @@ export function* emitSupervisorFetch() {
     });
 }
 
+// Update supervisor info
+export function* emitUpdateSupervisorInfo() {
+    yield takeLatest(EMIT_UPDATE_SUPERVISOR_INFO, function*({id, email, name, address, description}) {
+        try {
+            // Fire event for request
+            yield put(storeSupervisorEditInfoRequestInit());
+            const data = {email, name, adresse: address, description};
+            const apiResponse = yield call(apiPostRequest, `${api.EDIT_SUPERVISORS_API_PATH}/${id}`, data);
+            // Extract data
+            const supervisor = extractSupervisorData(
+                apiResponse.data.user,
+                apiResponse.data.caisse,
+            );
+            // Fire event to redux
+            yield put(storeSetSupervisorData({supervisor, alsoInList: true}));
+            // Fire event for request
+            yield put(storeSupervisorEditInfoRequestSucceed({message: apiResponse.message}));
+        } catch (message) {
+            // Fire event for request
+            yield put(storeSupervisorEditInfoRequestFailed({message}));
+        }
+    });
+}
+
+// Toggle supervisor status into API
+export function* emitToggleSupervisorStatus() {
+    yield takeLatest(EMIT_TOGGLE_SUPERVISOR_STATUS, function*({id}) {
+        try {
+            // Fire event for request
+            yield put(storeSetSupervisorActionData({id}));
+            yield put(storeSupervisorStatusToggleRequestInit());
+            const apiResponse = yield call(apiPostRequest, `${api.TOGGLE_SUPERVISOR_STATUS_API_PATH}/${id}`);
+            // Fire event to redux
+            yield put(storeSetSupervisorToggleData({id}));
+            // Fire event for request
+            yield put(storeSupervisorStatusToggleRequestSucceed({message: apiResponse.message}));
+            yield put(storeSetSupervisorActionData({id}));
+        } catch (message) {
+            // Fire event for request
+            yield put(storeSetSupervisorActionData({id}));
+            yield put(storeSupervisorStatusToggleRequestFailed({message}));
+        }
+    });
+}
+
 // Extract supervisor data
 function extractSupervisorData(apiSupervisor, apiAccount) {
     let supervisor = {
@@ -195,6 +250,8 @@ export default function* sagaSupervisors() {
         fork(emitSupervisorFetch),
         fork(emitSupervisorsFetch),
         fork(emitAllSupervisorsFetch),
+        fork(emitUpdateSupervisorInfo),
         fork(emitNextSupervisorsFetch),
+        fork(emitToggleSupervisorStatus),
     ]);
 }
