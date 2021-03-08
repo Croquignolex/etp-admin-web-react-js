@@ -4,6 +4,7 @@ import React, {useEffect, useMemo} from 'react';
 import * as types from "../constants/typeConstants";
 import * as path from "../constants/pagePathConstants";
 import {emitAllSimsFetch} from "../redux/sims/actions";
+import {emitAllZonesFetch} from "../redux/zones/actions";
 import * as setting from "../constants/settingsConstants";
 import {formatNumber} from "../functions/generalFunctions";
 import {emitAllAgentsFetch} from "../redux/agents/actions";
@@ -15,6 +16,7 @@ import AppLayoutContainer from "../containers/AppLayoutContainer";
 import {emitAllCollectorsFetch} from "../redux/collectors/actions";
 import {emitAllSupervisorsFetch} from "../redux/supervisors/actions";
 import {storeAllSimsRequestReset} from "../redux/requests/sims/actions";
+import {storeAllZonesRequestReset} from "../redux/requests/zones/actions";
 import {emitAllAdministratorsFetch} from "../redux/administrators/actions";
 import {storeAllAgentsRequestReset} from "../redux/requests/agents/actions";
 import {storeAllManagersRequestReset} from "../redux/requests/managers/actions";
@@ -26,13 +28,14 @@ import {storeAllAdministratorsRequestReset} from "../redux/requests/administrato
 
 // Component
 function DashboardPage({agents, settings, dispatch, location, administrators, supervisors,
-                           managers, collectors, companies, sims,
+                           managers, collectors, companies, sims, zones,
                            allAgentsRequests, allAdministratorsRequests, allSupervisorsRequests,
                            allManagersRequests, allCollectorsRequests, allCompaniesRequests,
-                           allSimsRequests}) {
+                           allSimsRequests, allZonesRequests}) {
     // Local effects
     useEffect(() => {
         dispatch(emitAllSimsFetch());
+        dispatch(emitAllZonesFetch());
         dispatch(emitAllAgentsFetch());
         dispatch(emitAllManagersFetch());
         dispatch(emitAllCompaniesFetch());
@@ -49,6 +52,7 @@ function DashboardPage({agents, settings, dispatch, location, administrators, su
     // Reset error alert
     const shouldResetErrorData = () => {
         dispatch(storeAllSimsRequestReset());
+        dispatch(storeAllZonesRequestReset());
         dispatch(storeAllAgentsRequestReset());
         dispatch(storeAllManagersRequestReset());
         dispatch(storeAllCompaniesRequestReset());
@@ -160,6 +164,17 @@ function DashboardPage({agents, settings, dispatch, location, administrators, su
                                     />
                                 </div>
                             }
+                            {cardsData.includes(setting.CARD_ZONES) &&
+                                <div className="col-lg-3 col-md-4 col-sm-6">
+                                    <DashboardCardComponent icon='fa fa-map'
+                                                            color='bg-success'
+                                                            data={zones.length}
+                                                            url={path.ZONES_PAGE_PATH}
+                                                            label={setting.LABEL_ZONES}
+                                                            request={allZonesRequests}
+                                    />
+                                </div>
+                            }
                         </div>
                     </div>
                 </section>
@@ -171,6 +186,7 @@ function DashboardPage({agents, settings, dispatch, location, administrators, su
 // Prop types to ensure destroyed props data type
 DashboardPage.propTypes = {
     sims: PropTypes.array.isRequired,
+    zones: PropTypes.array.isRequired,
     user: PropTypes.object.isRequired,
     agents: PropTypes.array.isRequired,
     dispatch: PropTypes.func.isRequired,
@@ -182,6 +198,7 @@ DashboardPage.propTypes = {
     supervisors: PropTypes.array.isRequired,
     administrators: PropTypes.array.isRequired,
     allSimsRequests: PropTypes.object.isRequired,
+    allZonesRequests: PropTypes.object.isRequired,
     allAgentsRequests: PropTypes.object.isRequired,
     allManagersRequests: PropTypes.object.isRequired,
     allCompaniesRequests: PropTypes.object.isRequired,

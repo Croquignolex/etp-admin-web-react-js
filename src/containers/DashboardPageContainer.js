@@ -10,6 +10,7 @@ setPageTitle(DASHBOARD_PAGE);
 const mapStateToProps = (state) => ({
     user: state.user,
     sims: state.sims.list,
+    zones: state.zones.list,
     settings: state.settings,
     agents: state.agents.list,
     managers: state.managers.list,
@@ -18,6 +19,7 @@ const mapStateToProps = (state) => ({
     supervisors: state.supervisors.list,
     allSimsRequests: state.simsRequests.all,
     administrators: state.administrators.list,
+    allZonesRequests: state.zonesRequests.all,
     allAgentsRequests: state.agentsRequests.all,
     allManagersRequests: state.managersRequests.all,
     allCompaniesRequests: state.companiesRequests.all,

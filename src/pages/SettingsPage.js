@@ -60,6 +60,7 @@ function SettingsPage({settings, request, dispatch, location}) {
                 {value: setting.CARD_COLLECTORS, label: setting.LABEL_COLLECTORS},
                 {value: setting.CARD_COMPANIES, label: setting.LABEL_COMPANIES},
                 {value: setting.CARD_SIMS, label: setting.LABEL_SIMS},
+                {value: setting.CARD_ZONES, label: setting.LABEL_ZONES},
             ],
             charts: [
                 // {value: 0, label: 'name'}
