@@ -9,17 +9,19 @@ import AppLayoutContainer from "../../containers/AppLayoutContainer";
 import ErrorAlertComponent from "../../components/ErrorAlertComponent";
 import TableSearchComponent from "../../components/TableSearchComponent";
 import FormModalComponent from "../../components/modals/FormModalComponent";
+import BlockModalComponent from "../../components/modals/BlockModalComponent";
 import SupervisorNewContainer from "../../containers/supervisors/SupervisorNewContainer";
 import SupervisorsCardsComponent from "../../components/supervisors/SupervisorsCardsComponent";
-import {emitSupervisorsFetch, emitNextSupervisorsFetch} from "../../redux/supervisors/actions";
 import SupervisorDetailsContainer from "../../containers/supervisors/SupervisorDetailsContainer";
 import {dateToString, needleSearch, requestFailed, requestLoading} from "../../functions/generalFunctions";
 import {storeSupervisorsRequestReset, storeNextSupervisorsRequestReset} from "../../redux/requests/supervisors/actions";
+import {emitSupervisorsFetch, emitNextSupervisorsFetch, emitToggleSupervisorStatus} from "../../redux/supervisors/actions";
 
 // Component
 function SupervisorsPage({supervisors, supervisorsRequests, hasMoreData, page, dispatch, location}) {
     // Local states
     const [needle, setNeedle] = useState('');
+    const [blockModal, setBlockModal] = useState({show: false, body: '', id: 0});
     const [newSupervisorModal, setNewSupervisorModal] = useState({show: false, header: ''});
     const [supervisorDetailsModal, setSupervisorDetailsModal] = useState({show: false, header: "DETAIL DU SUPERVISEUR", id: ''});
 
@@ -41,6 +43,7 @@ function SupervisorsPage({supervisors, supervisorsRequests, hasMoreData, page, d
     const shouldResetErrorData = () => {
         dispatch(storeSupervisorsRequestReset());
         dispatch(storeNextSupervisorsRequestReset());
+        dispatch(storeSupervisorsStatusToggleRequestReset());
     };
 
     // Fetch next supervisor data to enhance infinite scroll
@@ -67,6 +70,22 @@ function SupervisorsPage({supervisors, supervisorsRequests, hasMoreData, page, d
     const handleSupervisorDetailsModalHide = () => {
         setSupervisorDetailsModal({...supervisorDetailsModal, show: false})
     }
+
+    // Trigger when user block status confirmed on modal
+    const handleBlockModalShow = ({id, name}) => {
+        setBlockModal({...blockModal, show: true, id, body: `Bloquer le superviseur ${name}?`})
+    };
+
+    // Hide block confirmation modal
+    const handleBlockModalHide = () => {
+        setBlockModal({...blockModal, show: false})
+    }
+
+    // Trigger when user change status confirmed on modal
+    const handleBlock = (id) => {
+        handleBlockModalHide();
+        dispatch(emitToggleSupervisorStatus({id}));
+    };
 
     // Render
     return (
@@ -97,7 +116,9 @@ function SupervisorsPage({supervisors, supervisorsRequests, hasMoreData, page, d
                                             </button>
                                             {/* Search result & Infinite scroll */}
                                             {(needle !== '' && needle !== undefined)
-                                                ? <SupervisorsCardsComponent supervisors={searchEngine(supervisors, needle)}
+                                                ? <SupervisorsCardsComponent handleBlock={handleBlock}
+                                                                             handleBlockModalShow={handleBlockModalShow}
+                                                                             supervisors={searchEngine(supervisors, needle)}
                                                                              handleSupervisorDetailsModalShow={handleSupervisorDetailsModalShow}
                                                 />
                                                 : (requestLoading(supervisorsRequests.list) ? <LoaderComponent /> :
@@ -107,7 +128,9 @@ function SupervisorsPage({supervisors, supervisorsRequests, hasMoreData, page, d
                                                                         next={handleNextSupervisorsData}
                                                                         style={{ overflow: 'hidden' }}
                                                         >
-                                                            <SupervisorsCardsComponent supervisors={supervisors}
+                                                            <SupervisorsCardsComponent handleBlock={handleBlock}
+                                                                                       supervisors={supervisors}
+                                                                                       handleBlockModalShow={handleBlockModalShow}
                                                                                        handleSupervisorDetailsModalShow={handleSupervisorDetailsModalShow}
                                                             />
                                                         </InfiniteScroll>
@@ -122,6 +145,10 @@ function SupervisorsPage({supervisors, supervisorsRequests, hasMoreData, page, d
                 </div>
             </AppLayoutContainer>
             {/* Modal */}
+            <BlockModalComponent modal={blockModal}
+                                 handleBlock={handleBlock}
+                                 handleClose={handleBlockModalHide}
+            />
             <FormModalComponent modal={newSupervisorModal} handleClose={handleNewSupervisorModalHide}>
                 <SupervisorNewContainer type={newSupervisorModal.type} handleClose={handleNewSupervisorModalHide} />
             </FormModalComponent>
