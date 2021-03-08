@@ -7,11 +7,12 @@ import {apiGetRequest, apiPostRequest, getImageFromServer} from "../../functions
 import {
     EMIT_NEW_SUPERVISOR,
     EMIT_SUPERVISOR_FETCH,
-    storeSetSupervisorData,
     EMIT_SUPERVISORS_FETCH,
+    storeSetSupervisorData,
     storeSetSupervisorsData,
-    storeSetNewSupervisorData,
+    EMIT_ALL_SUPERVISORS_FETCH,
     EMIT_NEXT_SUPERVISORS_FETCH,
+    storeSetNewSupervisorData,
     storeSetNextSupervisorsData,
     storeStopInfiniteScrollSupervisorData
 } from "./actions";
@@ -23,12 +24,35 @@ import {
     storeSupervisorsRequestFailed,
     storeSupervisorRequestSucceed,
     storeSupervisorsRequestSucceed,
+    storeAllSupervisorsRequestInit,
     storeNextSupervisorsRequestInit,
     storeAddSupervisorRequestFailed,
     storeAddSupervisorRequestSucceed,
+    storeAllSupervisorsRequestFailed,
     storeNextSupervisorsRequestFailed,
+    storeAllSupervisorsRequestSucceed,
     storeNextSupervisorsRequestSucceed,
 } from "../requests/supervisors/actions";
+
+// Fetch all supervisors from API
+export function* emitAllAdministratorsFetch() {
+    yield takeLatest(EMIT_ALL_SUPERVISORS_FETCH, function*() {
+        try {
+            // Fire event for request
+            yield put(storeAllSupervisorsRequestInit());
+            const apiResponse = yield call(apiGetRequest, api.ALL_SUPERVISORS_API_PATH);
+            // Extract data
+            const supervisors = extractSupervisorsData(apiResponse.data.superviseurs);
+            // Fire event to redux
+            yield put(storeSetSupervisorsData({supervisors, hasMoreData: false, page: 0}));
+            // Fire event for request
+            yield put(storeAllSupervisorsRequestSucceed({message: apiResponse.message}));
+        } catch (message) {
+            // Fire event for request
+            yield put(storeAllSupervisorsRequestFailed({message}));
+        }
+    });
+}
 
 // Fetch supervisors from API
 export function* emitSupervisorsFetch() {
@@ -171,5 +195,6 @@ export default function* sagaSupervisors() {
         fork(emitSupervisorFetch),
         fork(emitSupervisorsFetch),
         fork(emitNextSupervisorsFetch),
+        fork(emitAllAdministratorsFetch),
     ]);
 }
