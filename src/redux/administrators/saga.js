@@ -5,14 +5,16 @@ import {APPROVE} from "../../constants/typeConstants";
 import {PROFILE_SCOPE} from "../../constants/defaultConstants";
 import {apiGetRequest, apiPostRequest, getImageFromServer} from "../../functions/axiosFunctions";
 import {
+    EMIT_NEW_ADMINISTRATOR,
     EMIT_ADMINISTRATOR_FETCH,
-    storeSetAdministratorData,
     EMIT_ADMINISTRATORS_FETCH,
+    storeSetAdministratorData,
     storeSetAdministratorsData,
     EMIT_ALL_ADMINISTRATORS_FETCH,
-    storeSetNextAdministratorsData,
     EMIT_NEXT_ADMINISTRATORS_FETCH,
-    storeStopInfiniteScrollAdministratorData, EMIT_NEW_ADMINISTRATOR, storeSetNewAdministratorData
+    storeSetNewAdministratorData,
+    storeSetNextAdministratorsData,
+    storeStopInfiniteScrollAdministratorData
 } from "./actions";
 import {
     storeAdministratorRequestInit,
@@ -20,23 +22,17 @@ import {
     storeAdministratorRequestFailed,
     storeAdministratorsRequestFailed,
     storeAdministratorRequestSucceed,
+    storeAddAdministratorRequestInit,
     storeAllAdministratorsRequestInit,
     storeAdministratorsRequestSucceed,
     storeNextAdministratorsRequestInit,
+    storeAddAdministratorRequestFailed,
     storeAllAdministratorsRequestFailed,
+    storeAddAdministratorRequestSucceed,
     storeNextAdministratorsRequestFailed,
     storeAllAdministratorsRequestSucceed,
     storeNextAdministratorsRequestSucceed,
-    storeAddAdministratorRequestInit,
-    storeAddAdministratorRequestSucceed,
-    storeAddAdministratorRequestFailed,
 } from "../requests/administrators/actions";
-import {EMIT_NEW_SUPERVISOR, storeSetNewSupervisorData} from "../supervisors/actions";
-import {
-    storeAddSupervisorRequestFailed,
-    storeAddSupervisorRequestInit,
-    storeAddSupervisorRequestSucceed
-} from "../requests/supervisors/actions";
 
 // Fetch all administrators from API
 export function* emitAllAdministratorsFetch() {
