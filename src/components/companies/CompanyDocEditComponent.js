@@ -68,7 +68,7 @@ function CompanyDocEditComponent({request, company, dispatch, handleClose}) {
                     <div className='col'>
                         <FileDocumentComponent id='file'
                                                input={doc}
-                                               label='Dossier agent'
+                                               label='Dossier'
                                                handleInput={handleFileInput}
                         />
                     </div>
