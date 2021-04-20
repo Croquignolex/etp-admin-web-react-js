@@ -51,14 +51,11 @@ function AppLayoutComponent({userCheckRequest, dispatch, pathname, children}) {
 
     // Render
     return (
-        <>
-            <NotificationContainer />
-            <div className="wrapper">
-                <NavBarContainer />
-                <SideBarContainer pathname={pathname} />
-                {children}
-            </div>
-        </>
+        <div className="wrapper">
+            <NavBarContainer />
+            <SideBarContainer pathname={pathname} />
+            {children}
+        </div>
     )
 }
 
