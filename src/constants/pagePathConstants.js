@@ -16,3 +16,9 @@ export const ADMINS_PAGE_PATH = "/users/admins";
 export const MANAGERS_PAGE_PATH = "/users/managers";
 export const COLLECTORS_PAGE_PATH = "/users/collectors";
 export const SUPERVISORS_PAGE_PATH = "/users/supervisors";
+
+// Sims
+export const FLEETS_SIMS_PAGE_PATH = "/sims/fleet";
+export const AGENTS_SIMS_PAGE_PATH = "/sims/agent";
+export const RESOURCES_SIMS_PAGE_PATH = "/sims/resource";
+export const COLLECTORS_SIMS_PAGE_PATH = "/sims/collector";
