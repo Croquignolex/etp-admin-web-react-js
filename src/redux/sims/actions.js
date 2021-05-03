@@ -13,6 +13,7 @@ export const EMIT_UPDATE_SIM = 'EMIT_UPDATE_SIM';
 export const EMIT_SIMS_FETCH = 'EMIT_SIMS_FETCH';
 export const EMIT_ALL_SIMS_FETCH = 'EMIT_ALL_SIMS_FETCH';
 export const EMIT_NEXT_SIMS_FETCH = 'EMIT_NEXT_SIMS_FETCH';
+export const EMIT_SEARCH_SIMS_FETCH = 'EMIT_SEARCH_SIMS_FETCH';
 export const EMIT_FLEETS_SIMS_FETCH = 'EMIT_FLEETS_SIMS_FETCH';
 export const EMIT_AGENTS_SIMS_FETCH = 'EMIT_AGENTS_SIMS_FETCH';
 export const EMIT_MASTERS_SIMS_FETCH = 'EMIT_MASTERS_SIMS_FETCH';
@@ -159,5 +160,11 @@ export const emitMastersSimsFetch = () => ({
 export const emitNextMastersSimsFetch = ({page}) => ({
     page,
     type: EMIT_NEXT_MASTERS_SIMS_FETCH
+});
+
+// Emit search sims fetch
+export const emitSearchSimsFetch = ({needle}) => ({
+    needle,
+    type: EMIT_SEARCH_SIMS_FETCH
 });
 

@@ -13,8 +13,6 @@ import {emitAllOperatorsFetch} from "../../redux/operators/actions";
 import AppLayoutContainer from "../../containers/AppLayoutContainer";
 import {emitAllCollectorsFetch} from "../../redux/collectors/actions";
 import ErrorAlertComponent from "../../components/ErrorAlertComponent";
-import TableSearchComponent from "../../components/TableSearchComponent";
-import {emitNextSimsFetch, emitSimsFetch} from "../../redux/sims/actions";
 import SimsCardsComponent from "../../components/sims/SimsCardsComponent";
 import FormModalComponent from "../../components/modals/FormModalComponent";
 import SimDetailsContainer from "../../containers/sims/SimDetailsContainer";
@@ -23,6 +21,8 @@ import {storeAllCompaniesRequestReset} from "../../redux/requests/companies/acti
 import {storeAllSimsTypesRequestReset} from "../../redux/requests/simsTypes/actions";
 import {storeAllOperatorsRequestReset} from "../../redux/requests/operators/actions";
 import {storeAllCollectorsRequestReset} from "../../redux/requests/collectors/actions";
+import TableSearchWithButtonComponent from "../../components/TableSearchWithButtonComponent";
+import {emitNextSimsFetch, emitSearchSimsFetch, emitSimsFetch} from "../../redux/sims/actions";
 import {storeNextSimsRequestReset, storeSimsRequestReset} from "../../redux/requests/sims/actions";
 import {dateToString, needleSearch, requestFailed, requestLoading} from "../../functions/generalFunctions";
 
@@ -50,6 +50,10 @@ function SimsPage({sims, simsRequests, hasMoreData, page, dispatch, location}) {
 
     const handleNeedleInput = (data) => {
         setNeedle(data)
+    }
+
+    const handleSearchInput = () => {
+        dispatch(emitSearchSimsFetch({needle}));
     }
 
     // Reset error alert
@@ -102,7 +106,10 @@ function SimsPage({sims, simsRequests, hasMoreData, page, dispatch, location}) {
                                         {/* Search input */}
                                         <div className="card-header">
                                             <div className="card-tools">
-                                                <TableSearchComponent needle={needle} handleNeedle={handleNeedleInput} />
+                                                <TableSearchWithButtonComponent needle={needle}
+                                                                                handleNeedle={handleNeedleInput}
+                                                                                handleSearch={handleSearchInput}
+                                                />
                                             </div>
                                         </div>
                                         <div className="card-body">
@@ -116,19 +123,25 @@ function SimsPage({sims, simsRequests, hasMoreData, page, dispatch, location}) {
                                                 <i className="fa fa-plus" /> Nouvelle puce
                                             </button>
                                             {/* Search result & Infinite scroll */}
-                                            {(needle !== '' && needle !== undefined)
-                                                ? <SimsCardsComponent sims={searchEngine(sims, needle)} handleSimDetailsModalShow={handleSimDetailsModalShow} />
-                                                : (requestLoading(simsRequests.list) ? <LoaderComponent /> :
+                                            {requestLoading(simsRequests.list) ? <LoaderComponent /> : ((needle !== '' && needle !== undefined) ?
+                                                    (
+                                                        <SimsCardsComponent sims={searchEngine(sims, needle)}
+                                                                            handleSimDetailsModalShow={handleSimDetailsModalShow}
+                                                        />
+                                                    ) :
+                                                    (
                                                         <InfiniteScroll hasMore={hasMoreData}
                                                                         dataLength={sims.length}
                                                                         next={handleNextSimsData}
                                                                         loader={<LoaderComponent />}
                                                                         style={{ overflow: 'hidden' }}
                                                         >
-                                                            <SimsCardsComponent sims={sims} handleSimDetailsModalShow={handleSimDetailsModalShow} />
+                                                            <SimsCardsComponent sims={sims}
+                                                                                handleSimDetailsModalShow={handleSimDetailsModalShow}
+                                                            />
                                                         </InfiniteScroll>
-                                                )
-                                            }
+                                                    )
+                                            )}
                                         </div>
                                     </div>
                                 </div>
