@@ -127,11 +127,14 @@ export const REFUELS_API_PATH = `${API_URL}/list_destockage_collector`;
 // Affords
 export const AFFORDS_API_PATH = `${API_URL}/list_approvisionnement_collector`;
 
+
+// Sims
 // Sims
 export const SIM_API_PATH = `${API_URL}/show_puce`;
 export const SIMS_API_PATH = `${API_URL}/puce_list`;
 export const EDIT_SIM_API_PATH = `${API_URL}/edit_puce`;
 export const CREATE_SIM_API_PATH = `${API_URL}/store_puce`;
+export const All_SIMS_API_PATH = `${API_URL}/puce_list_all`;
 export const AGENTS_SIMS_API_PATH = `${API_URL}/puce_list_all_agent`;
 export const FLEETS_SIMS_API_PATH = `${API_URL}/puce_list_gestionnaire`;
 export const COLLECTORS_SIMS_API_PATH = `${API_URL}/puce_list_collector`;
