@@ -421,7 +421,7 @@ export function* emitSearchSimsFetch() {
             yield put(storeSimsRequestInit());
             const apiResponse = yield call(apiGetRequest, `${api.SEARCH_SIMS_API_PATH}?needle=${needle}`);
             // Extract data
-            const sims = extractSimsData(apiResponse.data.agents);
+            const sims = extractSimsData(apiResponse.data.puces);
             // Fire event to redux
             yield put(storeSetSimsData({sims, hasMoreData: false, page: 0}));
             // Fire event for request
