@@ -15,10 +15,12 @@ export const EMIT_ALL_SIMS_FETCH = 'EMIT_ALL_SIMS_FETCH';
 export const EMIT_NEXT_SIMS_FETCH = 'EMIT_NEXT_SIMS_FETCH';
 export const EMIT_FLEETS_SIMS_FETCH = 'EMIT_FLEETS_SIMS_FETCH';
 export const EMIT_AGENTS_SIMS_FETCH = 'EMIT_AGENTS_SIMS_FETCH';
+export const EMIT_MASTERS_SIMS_FETCH = 'EMIT_MASTERS_SIMS_FETCH';
 export const EMIT_RESOURCES_SIMS_FETCH = 'EMIT_RESOURCES_SIMS_FETCH';
 export const EMIT_COLLECTORS_SIMS_FETCH = 'EMIT_COLLECTORS_SIMS_FETCH';
 export const EMIT_NEXT_AGENTS_SIMS_FETCH = 'EMIT_NEXT_AGENTS_SIMS_FETCH';
 export const EMIT_NEXT_FLEETS_SIMS_FETCH = 'EMIT_NEXT_FLEETS_SIMS_FETCH';
+export const EMIT_NEXT_MASTERS_SIMS_FETCH = 'EMIT_NEXT_MASTERS_SIMS_FETCH';
 export const EMIT_NEXT_RESOURCES_SIMS_FETCH = 'EMIT_NEXT_RESOURCES_SIMS_FETCH';
 export const EMIT_NEXT_COLLECTORS_SIMS_FETCH = 'EMIT_NEXT_COLLECTORS_SIMS_FETCH';
 
@@ -147,3 +149,15 @@ export const emitNextCollectorsSimsFetch = ({page}) => ({
     page,
     type: EMIT_NEXT_COLLECTORS_SIMS_FETCH
 });
+
+// Emit masters sims fetch
+export const emitMastersSimsFetch = () => ({
+    type: EMIT_MASTERS_SIMS_FETCH
+});
+
+// Emit next masters sims fetch
+export const emitNextMastersSimsFetch = ({page}) => ({
+    page,
+    type: EMIT_NEXT_MASTERS_SIMS_FETCH
+});
+

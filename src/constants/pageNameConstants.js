@@ -46,6 +46,7 @@ export const REQUESTS_CLEARANCES_PAGE = 'Déstockages';
 // Sims
 export const AGENTS_SIMS = 'Puces agent';
 export const COLLECTORS_SIMS = 'Puces RZ';
+export const MASTERS_SIMS = 'Puces master';
 export const SIMS_PAGE = 'Toutes les puces';
 export const FLEETS_SIMS = 'Puces de flottage';
 export const RESOURCES_SIMS = 'Puces ressource';
