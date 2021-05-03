@@ -159,10 +159,15 @@ function buildZonesMenu() {
 function buildSimsMenu() {
     return {
         name: page.SIMS_PAGE,
-        path: path.SIMS_PAGE_PATH,
         icon: 'fa fa-sim-card',
-        sub: []
-    };
+        sub: [
+            {name: page.SIMS_PAGE, path: path.SIMS_PAGE_PATH},
+            {name: page.FLEETS_SIMS, path: path.FLEETS_SIMS_PAGE_PATH},
+            {name: page.COLLECTORS_SIMS, path: path.COLLECTORS_SIMS_PAGE_PATH},
+            {name: page.AGENTS_SIMS, path: path.AGENTS_SIMS_PAGE_PATH},
+            {name: page.RESOURCES_SIMS, path: path.RESOURCES_SIMS_PAGE_PATH},
+        ]
+    }
 }
 
 // Build operators menu
