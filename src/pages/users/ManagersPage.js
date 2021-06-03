@@ -159,7 +159,7 @@ function ManagersPage({managers, managersRequests, hasMoreData, page, dispatch, 
                                  handleClose={handleBlockModalHide}
             />
             <FormModalComponent modal={newManagerModal} handleClose={handleNewManagerModalHide}>
-                <ManagerNewContainer handleClose={handleNewManagerModalHide} />
+                <ManagerNewContainer type={newManagerModal.type} handleClose={handleNewManagerModalHide} />
             </FormModalComponent>
             <FormModalComponent modal={managerDetailsModal} handleClose={handleManagerDetailsModalHide}>
                 <ManagerDetailsContainer id={managerDetailsModal.id} />
