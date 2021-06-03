@@ -21,6 +21,7 @@ function SideBarComponent({user, pathname}) {
             buildZonesMenu(),
             buildSimsMenu(),
             buildCompaniesMenu(),
+            buildVendorsMenu(),
             buildOperatorsMenu(),
         ];
         // eslint-disable-next-line
@@ -169,6 +170,16 @@ function buildSimsMenu() {
             {name: page.RESOURCES_SIMS, path: path.RESOURCES_SIMS_PAGE_PATH},
         ]
     }
+}
+
+// Build vendors menu
+function buildVendorsMenu() {
+    return {
+        name: page.VENDORS_PAGE,
+        path: path.VENDORS_PAGE_PATH,
+        icon: 'fa fa-user-ninja',
+        sub: []
+    };
 }
 
 // Build operators menu
