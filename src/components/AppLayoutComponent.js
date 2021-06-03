@@ -1,19 +1,13 @@
 import PropTypes from "prop-types";
-import React, {useEffect, useLayoutEffect} from 'react';
-import {NotificationManager} from "react-notifications";
+import React, {useLayoutEffect} from 'react';
 
 import 'react-notifications/lib/notifications.css';
 
 import NavBarContainer from "../containers/NavBarContainer";
 import SideBarContainer from "../containers/SideBarContainer";
-import {requestSucceeded} from "../functions/generalFunctions";
-import {playSuccessSound} from "../functions/playSoundFunctions";
-import {ENABLE_NOTIFICATION} from "../constants/generalConstants";
-import {storeUserCheckRequestReset} from "../redux/requests/user/actions";
-import {emitUnreadNotificationsFetch} from "../redux/notifications/actions";
 
 // Component
-function AppLayoutComponent({userCheckRequest, dispatch, pathname, children}) {
+function AppLayoutComponent({pathname, children}) {
     // Local layout effect
     useLayoutEffect(() => {
        if(is_mobile()) {
@@ -22,32 +16,6 @@ function AppLayoutComponent({userCheckRequest, dispatch, pathname, children}) {
            document.getElementsByTagName('body')[0].classList.add('sidebar-collapse')
        }
     }, [pathname]);
-
-    // Local effect
-    useEffect(() => {
-        // Welcome form the first check
-        if(requestSucceeded(userCheckRequest)) {
-            playSuccessSound();
-            NotificationManager.success(userCheckRequest.message);
-            dispatch(storeUserCheckRequestReset());
-        }
-        // Ask user permission for desktop notification
-        if (Notification.permission !== "denied") {
-            Notification.requestPermission()
-        }
-        // Check notification settings
-        if(ENABLE_NOTIFICATION) {
-            // First call
-            let intervalValue = setInterval(() => {
-                dispatch(emitUnreadNotificationsFetch());
-            }, 20000);
-            // Cleaner interval to avoid infinite loop or performance break
-            return () => {
-                clearInterval(intervalValue)
-            }
-        }
-        // eslint-disable-next-line
-    }, []);
 
     // Render
     return (
@@ -69,10 +37,8 @@ function is_mobile() {
 
 // Prop types to ensure destroyed props data type
 AppLayoutComponent.propTypes = {
-    dispatch: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
     pathname: PropTypes.string.isRequired,
-    userCheckRequest: PropTypes.object.isRequired,
 };
 
 // Connect component to Redux

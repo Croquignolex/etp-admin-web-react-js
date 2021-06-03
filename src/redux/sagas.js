@@ -12,7 +12,6 @@ import companies from './companies/saga';
 import simsTypes from './simsTypes/saga';
 import collectors from './collectors/saga';
 import supervisors from './supervisors/saga';
-import notifications from './notifications/saga';
 import administrators from './administrators/saga';
 
 // Combine all saga middleware
@@ -30,7 +29,6 @@ export default function* sagas() {
         operators(),
         collectors(),
         supervisors(),
-        notifications(),
         administrators(),
     ]);
 }

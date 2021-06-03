@@ -2,7 +2,6 @@
 export const PROFILE_PAGE_PATH = "/profile";
 export const SETTINGS_PAGE_PATH = "/settings";
 export const DASHBOARD_PAGE_PATH = "/dashboard";
-export const NOTIFICATIONS_PAGE_PATH = "/notifications";
 
 // Commons
 export const SIMS_PAGE_PATH = "/sims";

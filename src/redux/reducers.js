@@ -12,7 +12,6 @@ import collectors from './collectors/reducer';
 import supervisors from './supervisors/reducer';
 import userRequests from './requests/user/reducer';
 import simsRequests from './requests/sims/reducer';
-import notifications from './notifications/reducer';
 import zonesRequests from './requests/zones/reducer';
 import administrators from './administrators/reducer';
 import agentsRequests from './requests/agents/reducer';
@@ -24,7 +23,6 @@ import simsTypesRequests from './requests/simsTypes/reducer';
 import companiesRequests from './requests/companies/reducer';
 import collectorsRequests from './requests/collectors/reducer';
 import supervisorsRequests from './requests/supervisors/reducer';
-import notificationsRequests from './requests/notifications/reducer';
 import administratorsRequests from './requests/administrators/reducer';
 
 // Combine all reducers
@@ -44,7 +42,6 @@ export default {
     simsRequests,
     userRequests,
     zonesRequests,
-    notifications,
     agentsRequests,
     administrators,
     vendorsRequests,
@@ -55,6 +52,5 @@ export default {
     companiesRequests,
     collectorsRequests,
     supervisorsRequests,
-    notificationsRequests,
     administratorsRequests,
 };

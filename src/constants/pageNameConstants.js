@@ -2,11 +2,6 @@
 export const PROFILE_PAGE = 'Mon profil';
 export const SETTINGS_PAGE = 'Paramètres';
 export const DASHBOARD_PAGE = 'Tableau de bord';
-export const NOTIFICATIONS_PAGE = 'Notifications';
-
-// Network
-export const MY_NETWORK = 'Mon réseau';
-export const MY_NETWORK_FLEET = 'Flottages';
 
 // Commons
 export const ZONES_PAGE = 'Zones';
