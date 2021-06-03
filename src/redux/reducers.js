@@ -2,6 +2,7 @@ import user from './user/reducer';
 import sims from './sims/reducer';
 import zones from './zones/reducer';
 import agents from './agents/reducer';
+import vendors from './vendors/reducer';
 import settings from './settings/reducer';
 import managers from './managers/reducer';
 import operators from './operators/reducer';
@@ -15,6 +16,7 @@ import notifications from './notifications/reducer';
 import zonesRequests from './requests/zones/reducer';
 import administrators from './administrators/reducer';
 import agentsRequests from './requests/agents/reducer';
+import vendorsRequests from './requests/vendors/reducer';
 import settingsRequests from './requests/settings/reducer';
 import managersRequests from './requests/managers/reducer';
 import operatorsRequests from './requests/operators/reducer';
@@ -31,6 +33,7 @@ export default {
     sims,
     zones,
     agents,
+    vendors,
     settings,
     managers,
     operators,
@@ -44,6 +47,7 @@ export default {
     notifications,
     agentsRequests,
     administrators,
+    vendorsRequests,
     managersRequests,
     settingsRequests,
     simsTypesRequests,

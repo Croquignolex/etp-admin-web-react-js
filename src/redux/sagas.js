@@ -4,6 +4,7 @@ import user from './user/saga';
 import sims from './sims/saga';
 import zones from './zones/saga';
 import agents from './agents/saga';
+import vendors from './vendors/saga';
 import settings from './settings/saga';
 import managers from './managers/saga';
 import operators from './operators/saga';
@@ -21,6 +22,7 @@ export default function* sagas() {
         sims(),
         zones(),
         agents(),
+        vendors(),
         managers(),
         settings(),
         companies(),

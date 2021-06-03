@@ -8,6 +8,7 @@ import {emitAllZonesFetch} from "../redux/zones/actions";
 import * as setting from "../constants/settingsConstants";
 import {emitAllAgentsFetch} from "../redux/agents/actions";
 import HeaderComponent from "../components/HeaderComponent";
+import {emitAllVendorsFetch} from "../redux/vendors/actions";
 import {DASHBOARD_PAGE} from "../constants/pageNameConstants";
 import {emitAllManagersFetch} from "../redux/managers/actions";
 import {emitAllCompaniesFetch} from "../redux/companies/actions";
@@ -19,6 +20,7 @@ import {storeAllSimsRequestReset} from "../redux/requests/sims/actions";
 import {storeAllZonesRequestReset} from "../redux/requests/zones/actions";
 import {emitAllAdministratorsFetch} from "../redux/administrators/actions";
 import {storeAllAgentsRequestReset} from "../redux/requests/agents/actions";
+import {storeAllVendorsRequestReset} from "../redux/requests/vendors/actions";
 import {storeAllManagersRequestReset} from "../redux/requests/managers/actions";
 import {storeAllCompaniesRequestReset} from "../redux/requests/companies/actions";
 import {storeAllOperatorsRequestReset} from "../redux/requests/operators/actions";
@@ -28,16 +30,17 @@ import {storeAllSupervisorsRequestReset} from "../redux/requests/supervisors/act
 import {storeAllAdministratorsRequestReset} from "../redux/requests/administrators/actions";
 
 // Component
-function DashboardPage({agents, settings, dispatch, location, administrators,
-                           supervisors, managers, collectors, companies, sims,
+function DashboardPage({agents, settings, dispatch, location, administrators, vendors,
                            zones, operators, allAgentsRequests, allAdministratorsRequests,
                            allSupervisorsRequests, allManagersRequests, allCollectorsRequests,
+                           supervisors, managers, collectors, companies, sims, allVendorsRequests,
                            allCompaniesRequests, allSimsRequests, allZonesRequests, allOperatorsRequests}) {
     // Local effects
     useEffect(() => {
         dispatch(emitAllSimsFetch());
         dispatch(emitAllZonesFetch());
         dispatch(emitAllAgentsFetch());
+        dispatch(emitAllVendorsFetch());
         dispatch(emitAllManagersFetch());
         dispatch(emitAllCompaniesFetch());
         dispatch(emitAllOperatorsFetch());
@@ -56,6 +59,7 @@ function DashboardPage({agents, settings, dispatch, location, administrators,
         dispatch(storeAllSimsRequestReset());
         dispatch(storeAllZonesRequestReset());
         dispatch(storeAllAgentsRequestReset());
+        dispatch(storeAllVendorsRequestReset());
         dispatch(storeAllManagersRequestReset());
         dispatch(storeAllCompaniesRequestReset());
         dispatch(storeAllOperatorsRequestReset());
@@ -189,6 +193,17 @@ function DashboardPage({agents, settings, dispatch, location, administrators,
                                     />
                                 </div>
                             }
+                            {cardsData.includes(setting.CARD_VENDORS) &&
+                                <div className="col-lg-3 col-md-4 col-sm-6">
+                                    <DashboardCardComponent color='bg-info'
+                                                            data={vendors.length}
+                                                            icon='fa fa-user-ninja'
+                                                            request={allVendorsRequests}
+                                                            url={path.VENDORS_PAGE_PATH}
+                                                            label={setting.LABEL_VENDORS}
+                                    />
+                                </div>
+                            }
                         </div>
                     </div>
                 </section>
@@ -203,6 +218,7 @@ DashboardPage.propTypes = {
     zones: PropTypes.array.isRequired,
     user: PropTypes.object.isRequired,
     agents: PropTypes.array.isRequired,
+    vendors: PropTypes.array.isRequired,
     dispatch: PropTypes.func.isRequired,
     managers: PropTypes.array.isRequired,
     operators: PropTypes.array.isRequired,
@@ -215,6 +231,7 @@ DashboardPage.propTypes = {
     allSimsRequests: PropTypes.object.isRequired,
     allZonesRequests: PropTypes.object.isRequired,
     allAgentsRequests: PropTypes.object.isRequired,
+    allVendorsRequests: PropTypes.object.isRequired,
     allManagersRequests: PropTypes.object.isRequired,
     allCompaniesRequests: PropTypes.object.isRequired,
     allOperatorsRequests: PropTypes.object.isRequired,

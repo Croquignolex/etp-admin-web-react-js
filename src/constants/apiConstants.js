@@ -90,6 +90,13 @@ export const ZONES_DETAILS_API_PATH = `${API_URL}/show_zone`;
 export const All_ZONES_API_PATH = `${API_URL}/zone_list_all`;
 export const ZONE_ADD_AGENT_API_PATH = `${API_URL}/ajouter_agent_zone`;
 
+// Vendors
+export const VENDORS_API_PATH = `${API_URL}/vendors`;
+export const ALL_VENDORS_API_PATH = `${API_URL}/all_vendors`;
+export const EDIT_VENDOR_API_PATH = `${API_URL}/edit_vendor`;
+export const CREATE_VENDOR_API_PATH = `${API_URL}/new_vendor`;
+export const VENDOR_DETAILS_API_PATH = `${API_URL}/show_vendor`;
+
 // Companies
 export const COMPANY_API_PATH = `${API_URL}/show_corporate`;
 export const COMPANIES_API_PATH = `${API_URL}/corporate_list`;
