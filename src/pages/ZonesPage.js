@@ -6,7 +6,7 @@ import {ZONES_PAGE} from "../constants/pageNameConstants";
 import {emitAllAgentsFetch} from "../redux/agents/actions";
 import HeaderComponent from "../components/HeaderComponent";
 import LoaderComponent from "../components/LoaderComponent";
-import AppLayoutContainer from "../containers/AppLayoutContainer";
+import AppLayoutComponent from "../components/AppLayoutComponent";
 import {emitAllCollectorsFetch} from "../redux/collectors/actions";
 import ZoneNewContainer from "../containers/zones/ZoneNewContainer";
 import ErrorAlertComponent from "../components/ErrorAlertComponent";
@@ -79,7 +79,7 @@ function ZonesPage({zones, zonesRequests, hasMoreData, page, dispatch, location}
     // Render
     return (
         <>
-            <AppLayoutContainer pathname={location.pathname}>
+            <AppLayoutComponent pathname={location.pathname}>
                 <div className="content-wrapper">
                     <HeaderComponent title={ZONES_PAGE} icon={'fa fa-map-marked'} />
                     <section className="content">
@@ -128,7 +128,7 @@ function ZonesPage({zones, zonesRequests, hasMoreData, page, dispatch, location}
                         </div>
                     </section>
                 </div>
-            </AppLayoutContainer>
+            </AppLayoutComponent>
             {/* Modal */}
             <FormModalComponent modal={newZoneModal} handleClose={handleNewZoneModalHide}>
                 <ZoneNewContainer handleClose={handleNewZoneModalHide} />

@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';S
+import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 import InfiniteScroll from "react-infinite-scroll-component";
 

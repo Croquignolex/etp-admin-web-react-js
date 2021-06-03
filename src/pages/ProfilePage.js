@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import HeaderComponent from "../components/HeaderComponent";
 import {PROFILE_PAGE} from "../constants/pageNameConstants";
-import AppLayoutContainer from "../containers/AppLayoutContainer";
+import AppLayoutComponent from "../components/AppLayoutComponent";
 import ProfileEditContainer from "../containers/profile/ProfileEditContainer";
 import ProfileAvatarContainer from "../containers/profile/ProfileAvatarContainer";
 import ProfileDetailContainer from "../containers/profile/ProfileDetailContainer";
@@ -13,7 +13,7 @@ import ProfilePasswordContainer from "../containers/profile/ProfilePasswordConta
 function ProfilePage({location}) {
     // Render
     return (
-        <AppLayoutContainer pathname={location.pathname}>
+        <AppLayoutComponent pathname={location.pathname}>
             <div className="content-wrapper">
                 <HeaderComponent title={PROFILE_PAGE} icon={'fa fa-user'} />
                 <section className="content">
@@ -68,7 +68,7 @@ function ProfilePage({location}) {
                     </div>
                 </section>
             </div>
-        </AppLayoutContainer>
+        </AppLayoutComponent>
     )
 }
 

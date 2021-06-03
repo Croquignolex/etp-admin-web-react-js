@@ -5,7 +5,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import HeaderComponent from "../components/HeaderComponent";
 import LoaderComponent from "../components/LoaderComponent";
 import {COMPANIES_PAGE} from "../constants/pageNameConstants";
-import AppLayoutContainer from "../containers/AppLayoutContainer";
+import AppLayoutComponent from "../components/AppLayoutComponent";
 import ErrorAlertComponent from "../components/ErrorAlertComponent";
 import TableSearchComponent from "../components/TableSearchComponent";
 import FormModalComponent from "../components/modals/FormModalComponent";
@@ -71,7 +71,7 @@ function CompaniesPage({companies, companiesRequests, hasMoreData, page, dispatc
     // Render
     return (
         <>
-            <AppLayoutContainer pathname={location.pathname}>
+            <AppLayoutComponent pathname={location.pathname}>
                 <div className="content-wrapper">
                     <HeaderComponent title={COMPANIES_PAGE} icon={'fa fa-university'} />
                     <section className="content">
@@ -120,7 +120,7 @@ function CompaniesPage({companies, companiesRequests, hasMoreData, page, dispatc
                         </div>
                     </section>
                 </div>
-            </AppLayoutContainer>
+            </AppLayoutComponent>
             {/* Modal */}
             <FormModalComponent modal={newCompanyModal} handleClose={handleNewCompanyModalHide}>
                 <CompanyNewContainer handleClose={handleNewCompanyModalHide} />

@@ -5,7 +5,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import {ADMINS} from "../../constants/pageNameConstants";
 import HeaderComponent from "../../components/HeaderComponent";
 import LoaderComponent from "../../components/LoaderComponent";
-import AppLayoutContainer from "../../containers/AppLayoutContainer";
+import AppLayoutComponent from "../../components/AppLayoutComponent";
 import ErrorAlertComponent from "../../components/ErrorAlertComponent";
 import TableSearchComponent from "../../components/TableSearchComponent";
 import FormModalComponent from "../../components/modals/FormModalComponent";
@@ -71,7 +71,7 @@ function AdministratorsPage({administrators, administratorsRequests, hasMoreData
     // Render
     return (
         <>
-            <AppLayoutContainer pathname={location.pathname}>
+            <AppLayoutComponent pathname={location.pathname}>
                 <div className="content-wrapper">
                     <HeaderComponent title={ADMINS} icon={'fa fa-user-secret'} />
                     <section className="content">
@@ -120,7 +120,7 @@ function AdministratorsPage({administrators, administratorsRequests, hasMoreData
                         </div>
                     </section>
                 </div>
-            </AppLayoutContainer>
+            </AppLayoutComponent>
             {/* Modal */}
             <FormModalComponent modal={administratorDetailsModal} handleClose={handleAdministratorDetailsModalHide}>
                 <AdministratorDetailsContainer id={administratorDetailsModal.id} />

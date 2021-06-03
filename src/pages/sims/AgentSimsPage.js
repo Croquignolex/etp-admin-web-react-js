@@ -5,7 +5,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import {AGENTS_SIMS} from "../../constants/pageNameConstants";
 import LoaderComponent from "../../components/LoaderComponent";
 import HeaderComponent from "../../components/HeaderComponent";
-import AppLayoutContainer from "../../containers/AppLayoutContainer";
+import AppLayoutComponent from "../../components/AppLayoutComponent";
 import ErrorAlertComponent from "../../components/ErrorAlertComponent";
 import TableSearchComponent from "../../components/TableSearchComponent";
 import SimsCardsComponent from "../../components/sims/SimsCardsComponent";
@@ -59,7 +59,7 @@ function AgentSimsPage({sims, simsRequests, hasMoreData, page, dispatch, locatio
     // Render
     return (
         <>
-            <AppLayoutContainer pathname={location.pathname}>
+            <AppLayoutComponent pathname={location.pathname}>
                 <div className="content-wrapper">
                     <HeaderComponent title={AGENTS_SIMS} icon={'fa fa-sim-card'} />
                     <section className="content">
@@ -98,7 +98,7 @@ function AgentSimsPage({sims, simsRequests, hasMoreData, page, dispatch, locatio
                         </div>
                     </section>
                 </div>
-            </AppLayoutContainer>
+            </AppLayoutComponent>
             {/* Modal */}
             <FormModalComponent small={true} modal={simDetailsModal} handleClose={handleSimDetailsModalHide}>
                 <SimDetailsContainer id={simDetailsModal.id} />

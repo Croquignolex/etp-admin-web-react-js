@@ -10,7 +10,7 @@ import InputComponent from "../components/form/InputComponent";
 import {playWarningSound} from "../functions/playSoundFunctions";
 import ButtonComponent from "../components/form/ButtonComponent";
 import SelectComponent from "../components/form/SelectComponent";
-import AppLayoutContainer from "../containers/AppLayoutContainer";
+import AppLayoutComponent from "../components/AppLayoutComponent";
 import ErrorAlertComponent from "../components/ErrorAlertComponent";
 import TextareaComponent from "../components/form/TextareaComponent";
 import CheckBoxComponent from "../components/form/CheckBoxComponent";
@@ -130,7 +130,7 @@ function SettingsPage({settings, request, dispatch, location}) {
 
     // Render
     return (
-        <AppLayoutContainer pathname={location.pathname}>
+        <AppLayoutComponent pathname={location.pathname}>
             <div className="content-wrapper">
                 <HeaderComponent title={SETTINGS_PAGE} icon={'fa fa-cogs'} />
                 <section className="content">
@@ -218,7 +218,7 @@ function SettingsPage({settings, request, dispatch, location}) {
                     </div>
                 </section>
             </div>
-        </AppLayoutContainer>
+        </AppLayoutComponent>
     )
 }
 

@@ -5,7 +5,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import HeaderComponent from "../../components/HeaderComponent";
 import LoaderComponent from "../../components/LoaderComponent";
 import {agentTypeBadgeColor} from "../../functions/typeFunctions";
-import AppLayoutContainer from "../../containers/AppLayoutContainer";
+import AppLayoutComponent from "../../components/AppLayoutComponent";
 import ErrorAlertComponent from "../../components/ErrorAlertComponent";
 import {AGENT_TYPE, RESOURCE_TYPE} from "../../constants/typeConstants";
 import AgentNewContainer from "../../containers/agents/AgentNewContainer";
@@ -125,7 +125,7 @@ function AgentsPage({agents, agentsRequests, hasMoreData, page, dispatch, locati
     // Render
     return (
         <>
-            <AppLayoutContainer pathname={location.pathname}>
+            <AppLayoutComponent pathname={location.pathname}>
                 <div className="content-wrapper">
                     <HeaderComponent title="Tous les agents/ressources" icon={'fa fa-user-cog'} />
                     <section className="content">
@@ -190,7 +190,7 @@ function AgentsPage({agents, agentsRequests, hasMoreData, page, dispatch, locati
                         </div>
                     </section>
                 </div>
-            </AppLayoutContainer>
+            </AppLayoutComponent>
             {/* Modal */}
             <BlockModalComponent modal={blockModal}
                                  handleBlock={handleBlock}

@@ -5,7 +5,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import {VENDORS_PAGE} from "../constants/pageNameConstants";
 import HeaderComponent from "../components/HeaderComponent";
 import LoaderComponent from "../components/LoaderComponent";
-import AppLayoutContainer from "../containers/AppLayoutContainer";
+import AppLayoutComponent from "../components/AppLayoutComponent";
 import ErrorAlertComponent from "../components/ErrorAlertComponent";
 import TableSearchComponent from "../components/TableSearchComponent";
 import FormModalComponent from "../components/modals/FormModalComponent";
@@ -71,7 +71,7 @@ function VendorsPage({vendors, vendorsRequests, hasMoreData, page, dispatch, loc
     // Render
     return (
         <>
-            <AppLayoutContainer pathname={location.pathname}>
+            <AppLayoutComponent pathname={location.pathname}>
                 <div className="content-wrapper">
                     <HeaderComponent title={VENDORS_PAGE} icon={'fa fa-user-ninja'} />
                     <section className="content">
@@ -120,7 +120,7 @@ function VendorsPage({vendors, vendorsRequests, hasMoreData, page, dispatch, loc
                         </div>
                     </section>
                 </div>
-            </AppLayoutContainer>
+            </AppLayoutComponent>
             {/* Modal */}
             <FormModalComponent modal={newVendorModal} handleClose={handleNewVendorModalHide}>
                 <VendorNewContainer handleClose={handleNewVendorModalHide} />

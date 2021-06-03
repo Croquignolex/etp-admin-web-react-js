@@ -6,7 +6,7 @@ import {ALL_SIMS} from "../../constants/pageNameConstants";
 import LoaderComponent from "../../components/LoaderComponent";
 import HeaderComponent from "../../components/HeaderComponent";
 import SimNewContainer from "../../containers/sims/SimNewContainer";
-import AppLayoutContainer from "../../containers/AppLayoutContainer";
+import AppLayoutComponent from "../../components/AppLayoutComponent";
 import ErrorAlertComponent from "../../components/ErrorAlertComponent";
 import SimsCardsComponent from "../../components/sims/SimsCardsComponent";
 import FormModalComponent from "../../components/modals/FormModalComponent";
@@ -75,7 +75,7 @@ function SimsPage({sims, simsRequests, hasMoreData, page, dispatch, location}) {
     // Render
     return (
         <>
-            <AppLayoutContainer pathname={location.pathname}>
+            <AppLayoutComponent pathname={location.pathname}>
                 <div className="content-wrapper">
                     <HeaderComponent title={ALL_SIMS} icon={'fa fa-sim-card'} />
                     <section className="content">
@@ -129,7 +129,7 @@ function SimsPage({sims, simsRequests, hasMoreData, page, dispatch, location}) {
                         </div>
                     </section>
                 </div>
-            </AppLayoutContainer>
+            </AppLayoutComponent>
             {/* Modal */}
             <FormModalComponent modal={newSimModal} handleClose={handleNewSimModalHide}>
                 <SimNewContainer handleClose={handleNewSimModalHide} />

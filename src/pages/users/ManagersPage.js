@@ -4,7 +4,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 import HeaderComponent from "../../components/HeaderComponent";
 import LoaderComponent from "../../components/LoaderComponent";
-import AppLayoutContainer from "../../containers/AppLayoutContainer";
+import AppLayoutComponent from "../../components/AppLayoutComponent";
 import ErrorAlertComponent from "../../components/ErrorAlertComponent";
 import TableSearchComponent from "../../components/TableSearchComponent";
 import FormModalComponent from "../../components/modals/FormModalComponent";
@@ -98,7 +98,7 @@ function ManagersPage({managers, managersRequests, hasMoreData, page, dispatch, 
     // Render
     return (
         <>
-            <AppLayoutContainer pathname={location.pathname}>
+            <AppLayoutComponent pathname={location.pathname}>
                 <div className="content-wrapper">
                     <HeaderComponent title="Gestinnaires de flottes" icon={'fa fa-user-tag'} />
                     <section className="content">
@@ -152,7 +152,7 @@ function ManagersPage({managers, managersRequests, hasMoreData, page, dispatch, 
                         </div>
                     </section>
                 </div>
-            </AppLayoutContainer>
+            </AppLayoutComponent>
             {/* Modal */}
             <BlockModalComponent modal={blockModal}
                                  handleBlock={handleBlock}

@@ -13,7 +13,7 @@ import {DASHBOARD_PAGE} from "../constants/pageNameConstants";
 import {emitAllManagersFetch} from "../redux/managers/actions";
 import {emitAllCompaniesFetch} from "../redux/companies/actions";
 import {emitAllOperatorsFetch} from "../redux/operators/actions";
-import AppLayoutContainer from "../containers/AppLayoutContainer";
+import AppLayoutComponent from "../components/AppLayoutComponent";
 import {emitAllCollectorsFetch} from "../redux/collectors/actions";
 import {emitAllSupervisorsFetch} from "../redux/supervisors/actions";
 import {storeAllSimsRequestReset} from "../redux/requests/sims/actions";
@@ -77,7 +77,7 @@ function DashboardPage({agents, settings, dispatch, location, administrators, ve
 
     // Render
     return (
-        <AppLayoutContainer pathname={location.pathname}>
+        <AppLayoutComponent pathname={location.pathname}>
             <div className="content-wrapper">
                 <HeaderComponent title={DASHBOARD_PAGE} icon={'fa fa-tachometer-alt'} />
                 <section className="content">
@@ -208,7 +208,7 @@ function DashboardPage({agents, settings, dispatch, location, administrators, ve
                     </div>
                 </section>
             </div>
-        </AppLayoutContainer>
+        </AppLayoutComponent>
     )
 }
 
