@@ -159,7 +159,7 @@ function buildZonesMenu() {
 // Build sims menu
 function buildSimsMenu() {
     return {
-        name: page.SIMS_PAGE,
+        name: "Comptes",
         icon: 'fa fa-sim-card',
         sub: [
             {name: page.SIMS_PAGE, path: path.SIMS_PAGE_PATH},

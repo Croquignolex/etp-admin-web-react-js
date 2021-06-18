@@ -15,7 +15,7 @@ function SimsCardsComponent({sims, handleSimDetailsModalShow}) {
                         <div className="col-lg-4 col-md-6" key={key}>
                             <div className="card">
                                 <div className={`${simTypeBadgeColor(item.type.name).background} card-header`}>
-                                    <h3 className="card-title">PUCE {simTypeBadgeColor(item.type.name).text}</h3>
+                                    <h3 className="card-title">COMPTE {simTypeBadgeColor(item.type.name).text}</h3>
                                     <div className="card-tools">
                                         <button type="button"
                                                 title="Détails"
