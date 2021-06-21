@@ -7,6 +7,7 @@ import {emitAllSimsFetch} from "../redux/sims/actions";
 import {emitAllZonesFetch} from "../redux/zones/actions";
 import * as setting from "../constants/settingsConstants";
 import {emitAllAgentsFetch} from "../redux/agents/actions";
+import {emitUserFactoryReset} from "../redux/user/actions";
 import LoaderComponent from "../components/LoaderComponent";
 import HeaderComponent from "../components/HeaderComponent";
 import {emitAllVendorsFetch} from "../redux/vendors/actions";
@@ -16,6 +17,7 @@ import {emitAllCompaniesFetch} from "../redux/companies/actions";
 import {emitAllOperatorsFetch} from "../redux/operators/actions";
 import AppLayoutComponent from "../components/AppLayoutComponent";
 import {emitAllCollectorsFetch} from "../redux/collectors/actions";
+import ErrorAlertComponent from "../components/ErrorAlertComponent";
 import {emitAllSupervisorsFetch} from "../redux/supervisors/actions";
 import {storeAllSimsRequestReset} from "../redux/requests/sims/actions";
 import {storeAllZonesRequestReset} from "../redux/requests/zones/actions";
@@ -31,7 +33,7 @@ import DashboardCardComponent from "../components/dashboard/DashboardCardCompone
 import {storeAllCollectorsRequestReset} from "../redux/requests/collectors/actions";
 import {storeAllSupervisorsRequestReset} from "../redux/requests/supervisors/actions";
 import {storeAllAdministratorsRequestReset} from "../redux/requests/administrators/actions";
-import {applySuccess, requestLoading, requestSucceeded} from "../functions/generalFunctions";
+import {applySuccess, requestFailed, requestLoading, requestSucceeded} from "../functions/generalFunctions";
 
 // Component
 function DashboardPage({agents, settings, dispatch, location, administrators, vendors,
@@ -104,9 +106,9 @@ function DashboardPage({agents, settings, dispatch, location, administrators, ve
     }
 
     // Trigger when clearance confirm confirmed on modal
-    const handleConfirm = (id) => {
+    const handleConfirm = () => {
         handleConfirmModalHide();
-        // dispatch(emitConfirmPayment({id}));
+        dispatch(emitUserFactoryReset());
     };
 
     // Data
@@ -126,6 +128,7 @@ function DashboardPage({agents, settings, dispatch, location, administrators, ve
                         <div className='container-fluid'>
                             <div className="row">
                                 <div className="col">
+                                    {requestFailed(resetUserRequests) && <ErrorAlertComponent message={resetUserRequests.message} />}
                                     {requestLoading(resetUserRequests) ? <div className='small-box'><LoaderComponent /></div> : (
                                         <button type="button"
                                                 onClick={handleConfirmModalShow}
