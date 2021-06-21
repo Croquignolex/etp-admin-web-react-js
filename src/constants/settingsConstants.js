@@ -12,7 +12,7 @@ export const CARD_COLLECTORS = 6;
 export const CARD_SUPERVISORS = 4;
 
 // Labels
-export const LABEL_SIMS = "PUCES";
+export const LABEL_SIMS = "COMPTES";
 export const LABEL_ZONES = "ZONES";
 export const LABEL_AGENTS = "AGENTS";
 export const LABEL_VENDORS = "FOURNISSEURS";
