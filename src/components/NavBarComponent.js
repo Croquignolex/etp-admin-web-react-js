@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import {emitUserLogout} from "../redux/user/actions";
 import {USER_ROLE} from "../constants/defaultConstants";
 import {formatString} from "../functions/generalFunctions";
-import {PROFILE_PAGE, RESET_PAGE, SETTINGS_PAGE} from "../constants/pageNameConstants";
-import {PROFILE_PAGE_PATH, RESET_PAGE_PATH, SETTINGS_PAGE_PATH} from "../constants/pagePathConstants";
+import {PROFILE_PAGE, SETTINGS_PAGE} from "../constants/pageNameConstants";
+import {PROFILE_PAGE_PATH, SETTINGS_PAGE_PATH} from "../constants/pagePathConstants";
 
 // Component
 function NavBarComponent({userName, dispatch}) {
@@ -45,10 +45,6 @@ function NavBarComponent({userName, dispatch}) {
                         <div className="dropdown-divider"/>
                         <Link to={SETTINGS_PAGE_PATH} className="dropdown-item dropdown-header">
                             <i className='fa fa-cogs' /> {SETTINGS_PAGE}
-                        </Link>
-                        <div className="dropdown-divider"/>
-                        <Link to={RESET_PAGE_PATH} className="dropdown-item dropdown-header">
-                            <i className='fa fa-backward' /> {RESET_PAGE}
                         </Link>
                         <div className="dropdown-divider"/>
                         {/* Logout */}
