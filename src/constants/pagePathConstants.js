@@ -1,4 +1,5 @@
 // User
+export const RESET_PAGE_PATH = "/reset";
 export const PROFILE_PAGE_PATH = "/profile";
 export const SETTINGS_PAGE_PATH = "/settings";
 export const DASHBOARD_PAGE_PATH = "/dashboard";

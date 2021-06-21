@@ -1,6 +1,7 @@
 // User
 export const PROFILE_PAGE = 'Mon profil';
 export const SETTINGS_PAGE = 'Paramètres';
+export const RESET_PAGE = 'Rémise à zéro';
 export const DASHBOARD_PAGE = 'Tableau de bord';
 
 // Commons

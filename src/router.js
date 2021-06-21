@@ -19,6 +19,7 @@ function AppRoutes({history}) {
                 {/* Available pages on auth mode */}
                 {/* Common pages */}
                 <RestrictedRouteContainer exact path={path.PROFILE_PAGE_PATH} component={asyncComponent(() => import('./pages/ProfilePage'))} />
+                <RestrictedRouteContainer exact path={path.RESET_PAGE_PATH} component={asyncComponent(() => import('./containers/ResetPageContainer'))} />
                 <RestrictedRouteContainer exact path={path.SETTINGS_PAGE_PATH} component={asyncComponent(() => import('./containers/SettingsPageContainer'))} />
                 <RestrictedRouteContainer exact path={path.DASHBOARD_PAGE_PATH} component={asyncComponent(() => import('./containers/DashboardPageContainer'))} />
                 {/* Users */}
