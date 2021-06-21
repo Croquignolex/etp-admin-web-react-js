@@ -83,14 +83,15 @@ function DashboardPage({agents, settings, dispatch, location, administrators, ve
                 <section className="content">
                     <div className='container-fluid'>
                         <div className="row">
-                            <button type="button"
-                                    className="btn btn-theme mr-2 mb-2"
+                            <div className="col">
+                                <button type="button"
+                                        className="btn btn-theme mr-2 mb-2"
 
-                            >
-                                <i className="fa fa-backward" /> Rémise à zéro
-                            </button>
+                                >
+                                    <i className="fa fa-backward" /> Rémise à zéro
+                                </button>
+                            </div>
                         </div>
-
                         <div className="row">
                             {cardsData.includes(setting.CARD_ADMINS) &&
                                 <div className="col-lg-3 col-md-4 col-sm-6">
