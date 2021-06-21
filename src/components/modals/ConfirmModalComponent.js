@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {Modal} from "react-bootstrap";
 
 // Component
-function ConfirmModelComponent({modal, handleModal, handleClose}) {
+function ConfirmModalComponent({modal, handleModal, handleClose}) {
     // Data
     const {show, body, id} = modal;
 
@@ -32,10 +32,10 @@ function ConfirmModelComponent({modal, handleModal, handleClose}) {
 }
 
 // Prop types to ensure destroyed props data type
-ConfirmModelComponent.propTypes = {
+ConfirmModalComponent.propTypes = {
     modal: PropTypes.object.isRequired,
     handleClose: PropTypes.func.isRequired,
     handleModal: PropTypes.func.isRequired
 };
 
-export default React.memo(ConfirmModelComponent);
+export default React.memo(ConfirmModalComponent);

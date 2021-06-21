@@ -23,6 +23,7 @@ const mapStateToProps = (state) => ({
     administrators: state.administrators.list,
     allZonesRequests: state.zonesRequests.all,
     allAgentsRequests: state.agentsRequests.all,
+    resetUserRequests: state.userRequests.reset,
     allVendorsRequests: state.vendorsRequests.all,
     allManagersRequests: state.managersRequests.all,
     allCompaniesRequests: state.companiesRequests.all,

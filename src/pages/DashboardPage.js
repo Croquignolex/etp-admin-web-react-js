@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useMemo} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 
 import * as types from "../constants/typeConstants";
 import * as path from "../constants/pagePathConstants";
@@ -20,8 +20,10 @@ import {storeAllSimsRequestReset} from "../redux/requests/sims/actions";
 import {storeAllZonesRequestReset} from "../redux/requests/zones/actions";
 import {emitAllAdministratorsFetch} from "../redux/administrators/actions";
 import {storeAllAgentsRequestReset} from "../redux/requests/agents/actions";
+import {applySuccess, requestSucceeded} from "../functions/generalFunctions";
 import {storeAllVendorsRequestReset} from "../redux/requests/vendors/actions";
 import {storeAllManagersRequestReset} from "../redux/requests/managers/actions";
+import {storeUserFactoryResetRequestReset} from "../redux/requests/user/actions";
 import {storeAllCompaniesRequestReset} from "../redux/requests/companies/actions";
 import {storeAllOperatorsRequestReset} from "../redux/requests/operators/actions";
 import DashboardCardComponent from "../components/dashboard/DashboardCardComponent";
@@ -34,7 +36,10 @@ function DashboardPage({agents, settings, dispatch, location, administrators, ve
                            zones, operators, allAgentsRequests, allAdministratorsRequests,
                            allSupervisorsRequests, allManagersRequests, allCollectorsRequests,
                            supervisors, managers, collectors, companies, sims, allVendorsRequests,
-                           allCompaniesRequests, allSimsRequests, allZonesRequests, allOperatorsRequests}) {
+                           allCompaniesRequests, allSimsRequests, allZonesRequests, allOperatorsRequests, resetUserRequests}) {
+    // Local states
+    const [confirmModal, setConfirmModal] = useState({show: false, body: ''});
+
     // Local effects
     useEffect(() => {
         dispatch(emitAllSimsFetch());
@@ -54,6 +59,15 @@ function DashboardPage({agents, settings, dispatch, location, administrators, ve
         // eslint-disable-next-line
     }, []);
 
+    // Local effects
+    useEffect(() => {
+        // Reset inputs while toast (well done) into current scope
+        if(requestSucceeded(resetUserRequests)) {
+            applySuccess(resetUserRequests.message);
+        }
+        // eslint-disable-next-line
+    }, [resetUserRequests]);
+
     // Reset error alert
     const shouldResetErrorData = () => {
         dispatch(storeAllSimsRequestReset());
@@ -65,6 +79,7 @@ function DashboardPage({agents, settings, dispatch, location, administrators, ve
         dispatch(storeAllOperatorsRequestReset());
         dispatch(storeAllCollectorsRequestReset());
         dispatch(storeAllSupervisorsRequestReset());
+        dispatch(storeUserFactoryResetRequestReset());
         dispatch(storeAllAdministratorsRequestReset());
     };
 
@@ -241,6 +256,7 @@ DashboardPage.propTypes = {
     allSimsRequests: PropTypes.object.isRequired,
     allZonesRequests: PropTypes.object.isRequired,
     allAgentsRequests: PropTypes.object.isRequired,
+    resetUserRequests: PropTypes.object.isRequired,
     allVendorsRequests: PropTypes.object.isRequired,
     allManagersRequests: PropTypes.object.isRequired,
     allCompaniesRequests: PropTypes.object.isRequired,
