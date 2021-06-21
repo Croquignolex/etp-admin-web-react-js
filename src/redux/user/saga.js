@@ -17,6 +17,7 @@ import {
     storeResetUserData,
     storeSetUserFullData,
     storeSetUserAvatarData,
+    EMIT_USER_FACTORY_RESET,
     EMIT_USER_AVATAR_UPDATE,
     EMIT_USER_PASSWORD_UPDATE,
     storeSetUserInformationData,
@@ -32,12 +33,16 @@ import {
     storeUserProfileEditRequestInit,
     storeUserPasswordEditRequestInit,
     storeUserAvatarEditRequestFailed,
+    storeUserFactoryResetRequestInit,
     storeUserProfileEditRequestFailed,
     storeUserAvatarEditRequestSucceed,
     storeUserPasswordEditRequestFailed,
     storeUserProfileEditRequestSucceed,
+    storeUserFactoryResetRequestFailed,
     storeUserPasswordEditRequestSucceed,
+    storeUserFactoryResetRequestSucceed,
 } from "../requests/user/actions";
+import {USER_FACTORY_RESET_API_PATH} from "../../constants/apiConstants";
 
 // Check user authentication from data in local storage
 export function* emitCheckUserAuthentication() {
@@ -193,6 +198,23 @@ export function* emitUserAvatarUpdate() {
         } catch (message) {
             // Fire event for request
             yield put(storeUserAvatarEditRequestFailed({message}));
+        }
+    });
+}
+
+// Update user factory reset from API
+export function* emitUserFactoryReset() {
+    yield takeLatest(EMIT_USER_FACTORY_RESET, function*() {
+        try {
+            // Fire event for request
+            yield put(storeUserFactoryResetRequestInit());
+            // API call
+            const apiResponse = yield call(apiPostRequest, api.USER_FACTORY_RESET_API_PATH);
+            // Fire event for request
+            yield put(storeUserFactoryResetRequestSucceed({message: apiResponse.message}));
+        } catch (message) {
+            // Fire event for request
+            yield put(storeUserFactoryResetRequestFailed({message}));
         }
     });
 }
