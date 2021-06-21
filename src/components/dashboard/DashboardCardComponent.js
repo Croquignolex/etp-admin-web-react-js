@@ -11,7 +11,7 @@ function DashboardCardComponent({request, label, color, data, url, icon}) {
     // Render
     return (
         <>
-            {requestLoading(request)  ? <div className='small-box'><LoaderComponent /></div> : (
+            {requestLoading(request) ? <div className='small-box'><LoaderComponent /></div> : (
                 requestFailed(request) ? <ErrorAlertComponent message={request.message} /> : (
                     <div className={`small-box ${color}`}>
                         <div className="inner">

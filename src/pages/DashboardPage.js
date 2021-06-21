@@ -7,6 +7,7 @@ import {emitAllSimsFetch} from "../redux/sims/actions";
 import {emitAllZonesFetch} from "../redux/zones/actions";
 import * as setting from "../constants/settingsConstants";
 import {emitAllAgentsFetch} from "../redux/agents/actions";
+import LoaderComponent from "../components/LoaderComponent";
 import HeaderComponent from "../components/HeaderComponent";
 import {emitAllVendorsFetch} from "../redux/vendors/actions";
 import {DASHBOARD_PAGE} from "../constants/pageNameConstants";
@@ -20,7 +21,7 @@ import {storeAllSimsRequestReset} from "../redux/requests/sims/actions";
 import {storeAllZonesRequestReset} from "../redux/requests/zones/actions";
 import {emitAllAdministratorsFetch} from "../redux/administrators/actions";
 import {storeAllAgentsRequestReset} from "../redux/requests/agents/actions";
-import {applySuccess, requestSucceeded} from "../functions/generalFunctions";
+import DeleteModalComponent from "../components/modals/DeleteModalComponent";
 import {storeAllVendorsRequestReset} from "../redux/requests/vendors/actions";
 import {storeAllManagersRequestReset} from "../redux/requests/managers/actions";
 import {storeUserFactoryResetRequestReset} from "../redux/requests/user/actions";
@@ -30,6 +31,7 @@ import DashboardCardComponent from "../components/dashboard/DashboardCardCompone
 import {storeAllCollectorsRequestReset} from "../redux/requests/collectors/actions";
 import {storeAllSupervisorsRequestReset} from "../redux/requests/supervisors/actions";
 import {storeAllAdministratorsRequestReset} from "../redux/requests/administrators/actions";
+import {applySuccess, requestLoading, requestSucceeded} from "../functions/generalFunctions";
 
 // Component
 function DashboardPage({agents, settings, dispatch, location, administrators, vendors,
@@ -83,6 +85,30 @@ function DashboardPage({agents, settings, dispatch, location, administrators, ve
         dispatch(storeAllAdministratorsRequestReset());
     };
 
+    // Show confirm modal form
+    const handleConfirmModalShow = () => {
+        setConfirmModal({
+            ...confirmModal,
+            body: `
+                Confirmer la rémise à zéro du système?
+                Toutes des transactions seront perdus.
+                Pensez à les sauvegarder avant d'éffectuer la rémise à zéro
+            `,
+            show: true
+        });
+    }
+
+    // Hide confirm modal form
+    const handleConfirmModalHide = () => {
+        setConfirmModal({...confirmModal, show: false})
+    }
+
+    // Trigger when clearance confirm confirmed on modal
+    const handleConfirm = (id) => {
+        handleConfirmModalHide();
+        // dispatch(emitConfirmPayment({id}));
+    };
+
     // Data
     const cardsData = settings.cards;
     const resourcesData = useMemo(() => {
@@ -92,148 +118,159 @@ function DashboardPage({agents, settings, dispatch, location, administrators, ve
 
     // Render
     return (
-        <AppLayoutComponent pathname={location.pathname}>
-            <div className="content-wrapper">
-                <HeaderComponent title={DASHBOARD_PAGE} icon={'fa fa-tachometer-alt'} />
-                <section className="content">
-                    <div className='container-fluid'>
-                        <div className="row">
-                            <div className="col">
-                                <button type="button"
-                                        className="btn btn-theme mr-2 mb-2"
-
-                                >
-                                    <i className="fa fa-backward" /> Rémise à zéro
-                                </button>
+        <>
+            <AppLayoutComponent pathname={location.pathname}>
+                <div className="content-wrapper">
+                    <HeaderComponent title={DASHBOARD_PAGE} icon={'fa fa-tachometer-alt'} />
+                    <section className="content">
+                        <div className='container-fluid'>
+                            <div className="row">
+                                <div className="col">
+                                    {requestLoading(resetUserRequests) ? <div className='small-box'><LoaderComponent /></div> : (
+                                        <button type="button"
+                                                onClick={handleConfirmModalShow}
+                                                className="btn btn-theme mr-2 mb-2"
+                                        >
+                                            <i className="fa fa-backward" /> Rémise à zéro
+                                        </button>
+                                    )}
+                                </div>
                             </div>
+                            {!requestLoading(resetUserRequests) && (
+                                <div className="row">
+                                    {cardsData.includes(setting.CARD_ADMINS) &&
+                                        <div className="col-lg-3 col-md-4 col-sm-6">
+                                            <DashboardCardComponent color='bg-danger'
+                                                                    icon='fa fa-user-secret'
+                                                                    url={path.ADMINS_PAGE_PATH}
+                                                                    label={setting.LABEL_ADMINS}
+                                                                    data={administrators.length}
+                                                                    request={allAdministratorsRequests}
+                                            />
+                                        </div>
+                                    }
+                                    {cardsData.includes(setting.CARD_SUPERVISORS) &&
+                                        <div className="col-lg-3 col-md-4 col-sm-6">
+                                            <DashboardCardComponent color='bg-warning'
+                                                                    data={supervisors.length}
+                                                                    icon='fa fa-user-astronaut'
+                                                                    url={path.SUPERVISORS_PAGE_PATH}
+                                                                    label={setting.LABEL_SUPERVISORS}
+                                                                    request={allSupervisorsRequests}
+                                            />
+                                        </div>
+                                    }
+                                    {cardsData.includes(setting.CARD_MANAGERS) &&
+                                        <div className="col-lg-3 col-md-4 col-sm-6">
+                                            <DashboardCardComponent color='bg-success'
+                                                                    icon='fa fa-user-tag'
+                                                                    data={managers.length}
+                                                                    url={path.MANAGERS_PAGE_PATH}
+                                                                    label={setting.LABEL_MANAGERS}
+                                                                    request={allManagersRequests}
+                                            />
+                                        </div>
+                                    }
+                                    {cardsData.includes(setting.CARD_COLLECTORS) &&
+                                        <div className="col-lg-3 col-md-4 col-sm-6">
+                                            <DashboardCardComponent color='bg-dark'
+                                                                    icon='fa fa-user-clock'
+                                                                    data={collectors.length}
+                                                                    url={path.COLLECTORS_PAGE_PATH}
+                                                                    label={setting.LABEL_COLLECTORS}
+                                                                    request={allCollectorsRequests}
+                                            />
+                                        </div>
+                                    }
+                                    {cardsData.includes(setting.CARD_AGENTS) &&
+                                        <div className="col-lg-3 col-md-4 col-sm-6">
+                                            <DashboardCardComponent color='bg-primary'
+                                                                    icon='fa fa-user-cog'
+                                                                    request={allAgentsRequests}
+                                                                    url={path.AGENTS_PAGE_PATH}
+                                                                    label={setting.LABEL_AGENTS}
+                                                                    data={agents.length - resourcesData}
+                                            />
+                                        </div>
+                                    }
+                                    {cardsData.includes(setting.CARD_RESOURCES) &&
+                                        <div className="col-lg-3 col-md-4 col-sm-6">
+                                            <DashboardCardComponent color='bg-info'
+                                                                    data={resourcesData}
+                                                                    icon='fa fa-user-clock'
+                                                                    url={path.AGENTS_PAGE_PATH}
+                                                                    request={allAgentsRequests}
+                                                                    label={setting.LABEL_RESOURCES}
+                                            />
+                                        </div>
+                                    }
+                                    {cardsData.includes(setting.CARD_COMPANIES) &&
+                                        <div className="col-lg-3 col-md-4 col-sm-6">
+                                            <DashboardCardComponent color='bg-danger'
+                                                                    data={companies.length}
+                                                                    icon='fa fa-university'
+                                                                    url={path.COMPANIES_PAGE_PATH}
+                                                                    label={setting.LABEL_COMPANIES}
+                                                                    request={allCompaniesRequests}
+                                            />
+                                        </div>
+                                    }
+                                    {cardsData.includes(setting.CARD_SIMS) &&
+                                        <div className="col-lg-3 col-md-4 col-sm-6">
+                                            <DashboardCardComponent color='bg-warning'
+                                                                    data={sims.length}
+                                                                    icon='fa fa-sim-card'
+                                                                    url={path.SIMS_PAGE_PATH}
+                                                                    label={setting.LABEL_SIMS}
+                                                                    request={allSimsRequests}
+                                            />
+                                        </div>
+                                    }
+                                    {cardsData.includes(setting.CARD_ZONES) &&
+                                        <div className="col-lg-3 col-md-4 col-sm-6">
+                                            <DashboardCardComponent icon='fa fa-map'
+                                                                    color='bg-success'
+                                                                    data={zones.length}
+                                                                    url={path.ZONES_PAGE_PATH}
+                                                                    label={setting.LABEL_ZONES}
+                                                                    request={allZonesRequests}
+                                            />
+                                        </div>
+                                    }
+                                    {cardsData.includes(setting.CARD_OPERATORS) &&
+                                        <div className="col-lg-3 col-md-4 col-sm-6">
+                                            <DashboardCardComponent color='bg-primary'
+                                                                    icon='fa fa-globe'
+                                                                    data={operators.length}
+                                                                    url={path.OPERATORS_PAGE_PATH}
+                                                                    label={setting.LABEL_OPERATORS}
+                                                                    request={allOperatorsRequests}
+                                            />
+                                        </div>
+                                    }
+                                    {cardsData.includes(setting.CARD_VENDORS) &&
+                                        <div className="col-lg-3 col-md-4 col-sm-6">
+                                            <DashboardCardComponent color='bg-info'
+                                                                    data={vendors.length}
+                                                                    icon='fa fa-user-ninja'
+                                                                    request={allVendorsRequests}
+                                                                    url={path.VENDORS_PAGE_PATH}
+                                                                    label={setting.LABEL_VENDORS}
+                                            />
+                                        </div>
+                                    }
+                                </div>
+                            )}
                         </div>
-                        <div className="row">
-                            {cardsData.includes(setting.CARD_ADMINS) &&
-                                <div className="col-lg-3 col-md-4 col-sm-6">
-                                    <DashboardCardComponent color='bg-danger'
-                                                            icon='fa fa-user-secret'
-                                                            url={path.ADMINS_PAGE_PATH}
-                                                            label={setting.LABEL_ADMINS}
-                                                            data={administrators.length}
-                                                            request={allAdministratorsRequests}
-                                    />
-                                </div>
-                            }
-                            {cardsData.includes(setting.CARD_SUPERVISORS) &&
-                                <div className="col-lg-3 col-md-4 col-sm-6">
-                                    <DashboardCardComponent color='bg-warning'
-                                                            data={supervisors.length}
-                                                            icon='fa fa-user-astronaut'
-                                                            url={path.SUPERVISORS_PAGE_PATH}
-                                                            label={setting.LABEL_SUPERVISORS}
-                                                            request={allSupervisorsRequests}
-                                    />
-                                </div>
-                            }
-                            {cardsData.includes(setting.CARD_MANAGERS) &&
-                                <div className="col-lg-3 col-md-4 col-sm-6">
-                                    <DashboardCardComponent color='bg-success'
-                                                            icon='fa fa-user-tag'
-                                                            data={managers.length}
-                                                            url={path.MANAGERS_PAGE_PATH}
-                                                            label={setting.LABEL_MANAGERS}
-                                                            request={allManagersRequests}
-                                    />
-                                </div>
-                            }
-                            {cardsData.includes(setting.CARD_COLLECTORS) &&
-                                <div className="col-lg-3 col-md-4 col-sm-6">
-                                    <DashboardCardComponent color='bg-dark'
-                                                            icon='fa fa-user-clock'
-                                                            data={collectors.length}
-                                                            url={path.COLLECTORS_PAGE_PATH}
-                                                            label={setting.LABEL_COLLECTORS}
-                                                            request={allCollectorsRequests}
-                                    />
-                                </div>
-                            }
-                            {cardsData.includes(setting.CARD_AGENTS) &&
-                                <div className="col-lg-3 col-md-4 col-sm-6">
-                                    <DashboardCardComponent color='bg-primary'
-                                                            icon='fa fa-user-cog'
-                                                            request={allAgentsRequests}
-                                                            url={path.AGENTS_PAGE_PATH}
-                                                            label={setting.LABEL_AGENTS}
-                                                            data={agents.length - resourcesData}
-                                    />
-                                </div>
-                            }
-                            {cardsData.includes(setting.CARD_RESOURCES) &&
-                                <div className="col-lg-3 col-md-4 col-sm-6">
-                                    <DashboardCardComponent color='bg-info'
-                                                            data={resourcesData}
-                                                            icon='fa fa-user-clock'
-                                                            url={path.AGENTS_PAGE_PATH}
-                                                            request={allAgentsRequests}
-                                                            label={setting.LABEL_RESOURCES}
-                                    />
-                                </div>
-                            }
-                            {cardsData.includes(setting.CARD_COMPANIES) &&
-                                <div className="col-lg-3 col-md-4 col-sm-6">
-                                    <DashboardCardComponent color='bg-danger'
-                                                            data={companies.length}
-                                                            icon='fa fa-university'
-                                                            url={path.COMPANIES_PAGE_PATH}
-                                                            label={setting.LABEL_COMPANIES}
-                                                            request={allCompaniesRequests}
-                                    />
-                                </div>
-                            }
-                            {cardsData.includes(setting.CARD_SIMS) &&
-                                <div className="col-lg-3 col-md-4 col-sm-6">
-                                    <DashboardCardComponent color='bg-warning'
-                                                            data={sims.length}
-                                                            icon='fa fa-sim-card'
-                                                            url={path.SIMS_PAGE_PATH}
-                                                            label={setting.LABEL_SIMS}
-                                                            request={allSimsRequests}
-                                    />
-                                </div>
-                            }
-                            {cardsData.includes(setting.CARD_ZONES) &&
-                                <div className="col-lg-3 col-md-4 col-sm-6">
-                                    <DashboardCardComponent icon='fa fa-map'
-                                                            color='bg-success'
-                                                            data={zones.length}
-                                                            url={path.ZONES_PAGE_PATH}
-                                                            label={setting.LABEL_ZONES}
-                                                            request={allZonesRequests}
-                                    />
-                                </div>
-                            }
-                            {cardsData.includes(setting.CARD_OPERATORS) &&
-                                <div className="col-lg-3 col-md-4 col-sm-6">
-                                    <DashboardCardComponent color='bg-primary'
-                                                            icon='fa fa-globe'
-                                                            data={operators.length}
-                                                            url={path.OPERATORS_PAGE_PATH}
-                                                            label={setting.LABEL_OPERATORS}
-                                                            request={allOperatorsRequests}
-                                    />
-                                </div>
-                            }
-                            {cardsData.includes(setting.CARD_VENDORS) &&
-                                <div className="col-lg-3 col-md-4 col-sm-6">
-                                    <DashboardCardComponent color='bg-info'
-                                                            data={vendors.length}
-                                                            icon='fa fa-user-ninja'
-                                                            request={allVendorsRequests}
-                                                            url={path.VENDORS_PAGE_PATH}
-                                                            label={setting.LABEL_VENDORS}
-                                    />
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </AppLayoutComponent>
+                    </section>
+                </div>
+            </AppLayoutComponent>
+            {/* Modal */}
+            <DeleteModalComponent modal={confirmModal}
+                                  handleModal={handleConfirm}
+                                  handleClose={handleConfirmModalHide}
+            />
+        </>
     )
 }
 
