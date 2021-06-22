@@ -42,7 +42,7 @@ function DashboardPage({agents, settings, dispatch, location, administrators, ve
                            supervisors, managers, collectors, companies, sims, allVendorsRequests,
                            allCompaniesRequests, allSimsRequests, allZonesRequests, allOperatorsRequests, resetUserRequests}) {
     // Local states
-    const [confirmModal, setConfirmModal] = useState({show: false, body: ''});
+    const [confirmModal, setConfirmModal] = useState({show: false, body: '', id: 0});
 
     // Local effects
     useEffect(() => {

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {Modal} from "react-bootstrap";
 
 // Component
-function DeleteModelComponent({modal, handleModal, handleClose}) {
+function DeleteModalComponent({modal, handleModal, handleClose}) {
     // Data
     const {show, body, id} = modal;
 
@@ -32,10 +32,10 @@ function DeleteModelComponent({modal, handleModal, handleClose}) {
 }
 
 // Prop types to ensure destroyed props data type
-DeleteModelComponent.propTypes = {
+DeleteModalComponent.propTypes = {
     modal: PropTypes.object.isRequired,
     handleClose: PropTypes.func.isRequired,
     handleModal: PropTypes.func.isRequired
 };
 
-export default React.memo(DeleteModelComponent);
+export default React.memo(DeleteModalComponent);

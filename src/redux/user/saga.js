@@ -42,7 +42,6 @@ import {
     storeUserPasswordEditRequestSucceed,
     storeUserFactoryResetRequestSucceed,
 } from "../requests/user/actions";
-import {USER_FACTORY_RESET_API_PATH} from "../../constants/apiConstants";
 
 // Check user authentication from data in local storage
 export function* emitCheckUserAuthentication() {
@@ -252,6 +251,7 @@ function extractUserAndSettingsData(apiResponse) {
 export default function* sagaUser() {
     yield all([
         fork(emitUserLogout),
+        fork(emitUserFactoryReset),
         fork(emitUserAvatarUpdate),
         fork(emitUserPasswordUpdate),
         fork(emitUserInformationUpdate),
