@@ -46,16 +46,7 @@ function DashboardPage({agents, settings, dispatch, location, administrators, ve
 
     // Local effects
     useEffect(() => {
-        dispatch(emitAllSimsFetch());
-        dispatch(emitAllZonesFetch());
-        dispatch(emitAllAgentsFetch());
-        dispatch(emitAllVendorsFetch());
-        dispatch(emitAllManagersFetch());
-        dispatch(emitAllCompaniesFetch());
-        dispatch(emitAllOperatorsFetch());
-        dispatch(emitAllCollectorsFetch());
-        dispatch(emitAllSupervisorsFetch());
-        dispatch(emitAllAdministratorsFetch());
+        fillDashboardData();
         // Cleaner error alert while component did unmount without store dependency
         return () => {
             shouldResetErrorData();
@@ -68,9 +59,24 @@ function DashboardPage({agents, settings, dispatch, location, administrators, ve
         // Reset inputs while toast (well done) into current scope
         if(requestSucceeded(resetUserRequests)) {
             applySuccess(resetUserRequests.message);
+            fillDashboardData();
         }
         // eslint-disable-next-line
     }, [resetUserRequests]);
+
+    // Fill dashboard
+    const fillDashboardData = () => {
+        dispatch(emitAllSimsFetch());
+        dispatch(emitAllZonesFetch());
+        dispatch(emitAllAgentsFetch());
+        dispatch(emitAllVendorsFetch());
+        dispatch(emitAllManagersFetch());
+        dispatch(emitAllCompaniesFetch());
+        dispatch(emitAllOperatorsFetch());
+        dispatch(emitAllCollectorsFetch());
+        dispatch(emitAllSupervisorsFetch());
+        dispatch(emitAllAdministratorsFetch());
+    };
 
     // Reset error alert
     const shouldResetErrorData = () => {
