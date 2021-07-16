@@ -50,6 +50,10 @@ function ManagersCardsComponent({managers, handleBlock, handleBlockModalShow, ha
                                                 {formatNumber(item.account.balance)}
                                             </span>
                                         </li>
+                                        <li className="list-group-item">
+                                            <b>Créer par</b>
+                                            <span className="float-right">{item.creator.name}</span>
+                                        </li>
                                     </ul>
                                     <div className="mt-3 text-right">
                                         <button type="button"
