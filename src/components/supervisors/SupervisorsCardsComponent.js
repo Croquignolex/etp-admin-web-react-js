@@ -48,6 +48,10 @@ function SupervisorsCardsComponent({supervisors, handleBlock, handleBlockModalSh
                                             <b>Solde total</b>
                                             <span className="float-right text-success text-bold">{formatNumber(item.account.balance)}</span>
                                         </li>
+                                        <li className="list-group-item">
+                                            <b>Créer par</b>
+                                            <span className="float-right">{item.creator.name}</span>
+                                        </li>
                                     </ul>
                                     <div className="mt-3 text-right">
                                         <button type="button"
