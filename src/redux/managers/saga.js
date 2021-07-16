@@ -10,14 +10,14 @@ import {
     EMIT_MANAGERS_FETCH,
     storeSetManagerData,
     storeSetManagersData,
+    storeSetNewManagerData,
     EMIT_ALL_MANAGERS_FETCH,
     EMIT_UPDATE_MANAGER_INFO,
     EMIT_NEXT_MANAGERS_FETCH,
-    storeSetNewManagerData,
-    EMIT_TOGGLE_MANAGER_STATUS,
     storeSetNextManagersData,
     storeSetManagerActionData,
     storeSetManagerToggleData,
+    EMIT_TOGGLE_MANAGER_STATUS,
     storeStopInfiniteScrollManagerData
 } from "./actions";
 import {
@@ -139,7 +139,8 @@ export function* emitNewManager() {
             // Extract data
             const manager = extractManagerData(
                 apiResponse.data.gestionnaire,
-                apiResponse.data.caisse
+                apiResponse.data.caisse,
+                apiResponse.data.createur,
             );
             // Fire event to redux
             yield put(storeSetNewManagerData({manager}));
@@ -163,6 +164,7 @@ export function* emitManagerFetch() {
             const manager = extractManagerData(
                 apiResponse.data.user,
                 apiResponse.data.caisse,
+                apiResponse.data.createur,
             );
             // Fire event to redux
             yield put(storeSetManagerData({manager}));
@@ -187,6 +189,7 @@ export function* emitUpdateManagerInfo() {
             const manager = extractManagerData(
                 apiResponse.data.user,
                 apiResponse.data.caisse,
+                apiResponse.data.createur,
             );
             // Fire event to redux
             yield put(storeSetManagerData({manager, alsoInList: true}));
@@ -200,13 +203,19 @@ export function* emitUpdateManagerInfo() {
 }
 
 // Extract manager data
-function extractManagerData(apiManager, apiAccount) {
+function extractManagerData(apiManager, apiAccount, apiCreator) {
     let manager = {
         id: '', name: '', phone: '', email: '', avatar: '', address: '', creation: '', description: '',
 
         account: {id: '', balance: ''},
     };
 
+    if(apiCreator) {
+        manager.creator = {
+            balance: apiCreator.name,
+            id: apiCreator.id.toString(),
+        }
+    }
     if(apiAccount) {
         manager.account = {
             balance: apiAccount.solde,
@@ -237,6 +246,7 @@ function extractManagersData(apiManagers) {
             managers.push(extractManagerData(
                 data.gestionnaire,
                 data.caisse,
+                data.createur,
             ));
         });
     }
