@@ -219,7 +219,7 @@ function extractManagerData(apiManager, apiAccount, apiCreator) {
     }
     if(apiAccount) {
         manager.account = {
-            balance: apiAccount.solde,
+            name: apiAccount.solde,
             id: apiAccount.id.toString(),
         }
     }

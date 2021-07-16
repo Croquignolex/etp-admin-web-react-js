@@ -213,7 +213,7 @@ function extractSupervisorData(apiSupervisor, apiAccount, apiCreator) {
 
     if(apiCreator) {
         supervisor.creator = {
-            balance: apiCreator.name,
+            name: apiCreator.name,
             id: apiCreator.id.toString(),
         }
     }

@@ -282,10 +282,10 @@ function extractCollectorData(apiCollector, apiZone, apiAccount, apiSims, apiCre
 
         sims: []
     };
-
+console.log(apiCreator)
     if(apiCreator) {
         collector.creator = {
-            balance: apiCreator.name,
+            name: apiCreator.name,
             id: apiCreator.id.toString(),
         }
     }

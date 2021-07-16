@@ -154,7 +154,7 @@ function extractAdministratorData(apiAdministrator, apiCreator) {
 
     if(apiCreator) {
         administrator.creator = {
-            balance: apiCreator.name,
+            name: apiCreator.name,
             id: apiCreator.id.toString(),
         }
     }
