@@ -10,14 +10,14 @@ import {
     EMIT_SUPERVISORS_FETCH,
     storeSetSupervisorData,
     storeSetSupervisorsData,
+    storeSetNewSupervisorData,
     EMIT_ALL_SUPERVISORS_FETCH,
     EMIT_NEXT_SUPERVISORS_FETCH,
     EMIT_UPDATE_SUPERVISOR_INFO,
-    storeSetNewSupervisorData,
-    EMIT_TOGGLE_SUPERVISOR_STATUS,
     storeSetNextSupervisorsData,
     storeSetSupervisorActionData,
     storeSetSupervisorToggleData,
+    EMIT_TOGGLE_SUPERVISOR_STATUS,
     storeStopInfiniteScrollSupervisorData
 } from "./actions";
 import {
@@ -118,7 +118,8 @@ export function* emitNewSupervisor() {
             // Extract data
             const supervisor = extractSupervisorData(
                 apiResponse.data.superviseur,
-                apiResponse.data.caisse
+                apiResponse.data.caisse,
+                apiResponse.data.createur,
             );
             // Fire event to redux
             yield put(storeSetNewSupervisorData({supervisor}));
@@ -142,6 +143,7 @@ export function* emitSupervisorFetch() {
             const supervisor = extractSupervisorData(
                 apiResponse.data.user,
                 apiResponse.data.caisse,
+                apiResponse.data.createur,
             );
             // Fire event to redux
             yield put(storeSetSupervisorData({supervisor}));
@@ -166,6 +168,7 @@ export function* emitUpdateSupervisorInfo() {
             const supervisor = extractSupervisorData(
                 apiResponse.data.user,
                 apiResponse.data.caisse,
+                apiResponse.data.createur,
             );
             // Fire event to redux
             yield put(storeSetSupervisorData({supervisor, alsoInList: true}));
@@ -200,13 +203,20 @@ export function* emitToggleSupervisorStatus() {
 }
 
 // Extract supervisor data
-function extractSupervisorData(apiSupervisor, apiAccount) {
+function extractSupervisorData(apiSupervisor, apiAccount, apiCreator) {
     let supervisor = {
         id: '', name: '', phone: '', email: '', avatar: '', address: '', creation: '', description: '',
 
+        creator: {id: '', name: ''},
         account: {id: '', balance: ''},
     };
 
+    if(apiCreator) {
+        supervisor.creator = {
+            balance: apiCreator.name,
+            id: apiCreator.id.toString(),
+        }
+    }
     if(apiAccount) {
         supervisor.account = {
             balance: apiAccount.solde,
@@ -237,6 +247,7 @@ function extractSupervisorsData(apiSupervisors) {
             supervisors.push(extractSupervisorData(
                 data.superviseur,
                 data.caisse,
+                data.createur,
             ));
         });
     }
