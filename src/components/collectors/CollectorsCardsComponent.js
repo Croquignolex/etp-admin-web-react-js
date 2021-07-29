@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import LoaderComponent from "../LoaderComponent";
 import FormModalComponent from "../modals/FormModalComponent";
-import {dateToString, formatNumber} from "../../functions/generalFunctions";
+import {dateToString} from "../../functions/generalFunctions";
 import ZoneDetailsContainer from "../../containers/zones/ZoneDetailsContainer";
 
 // Component
@@ -63,12 +63,12 @@ function CollectorsCardsComponent({collectors, handleBlock, handleBlockModalShow
                                                 />
                                             </span>
                                         </li>
-                                        <li className="list-group-item">
+                                        {/*<li className="list-group-item">
                                             <b>Dette</b>
                                             <span className="float-right text-success text-bold">
                                                 {formatNumber(item.debt)}
                                             </span>
-                                        </li>
+                                        </li>*/}
                                         <li className="list-group-item">
                                             <b>Créer par</b>
                                             <span className="float-right">{item.creator.name}</span>
