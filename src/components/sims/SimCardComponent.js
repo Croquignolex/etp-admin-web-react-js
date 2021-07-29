@@ -16,7 +16,7 @@ import {
 } from "../../constants/typeConstants";
 
 // Component
-function SimCardComponent({sim}) {
+function SimCardComponent({sim, handleSimDetailsModalShow}) {
     // Local states
     const [companyDetailsModal, setCompanyDetailsModal] = useState({show: false, header: "DETAIL DE L'ENTREPRISE", id: ''});
     const [agentDetailsModal, setAgentDetailsModal] = useState({show: false, header: "DETAIL DE L'AGENT/RESSOURCE", id: ''});
@@ -100,6 +100,16 @@ function SimCardComponent({sim}) {
                     </li>
                 )}
             </ul>
+            {handleSimDetailsModalShow && (
+                <div className="mt-3 text-right">
+                    <button type="button"
+                            className="btn btn-sm btn-theme"
+                            onClick={() => handleSimDetailsModalShow(sim)}
+                    >
+                        <i className="fa fa-eye" /> Détails
+                    </button>
+                </div>
+            )}
             {/* Modal */}
             <FormModalComponent modal={agentDetailsModal} handleClose={handleAgentDetailsModalHide}>
                 <AgentDetailsContainer id={agentDetailsModal.id} />
@@ -116,7 +126,8 @@ function SimCardComponent({sim}) {
 
 // Prop types to ensure destroyed props data type
 SimCardComponent.propTypes = {
-    sim: PropTypes.object.isRequired
+    sim: PropTypes.object.isRequired,
+    handleSimDetailsModalShow: PropTypes.func,
 };
 
 export default React.memo(SimCardComponent);

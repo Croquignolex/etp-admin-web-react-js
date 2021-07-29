@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, {useMemo, useState} from 'react';
+import React, {useState} from 'react';
 
 import FormModalComponent from "../modals/FormModalComponent";
 import {dateToString} from "../../functions/generalFunctions";
@@ -39,9 +39,9 @@ function CollectorInfoComponent({collector}) {
         setZoneDetailsModal({...zoneDetailsModal, show: false})
     }
 
-    const fleetSimsFleetsData = useMemo(() => {
+    /*const fleetSimsFleetsData = useMemo(() => {
         return collector.sims.reduce((acc, val) => acc + parseInt(val.balance, 10), 0)
-    }, [collector.sims]);
+    }, [collector.sims]);*/
 
     // Render
     return (
