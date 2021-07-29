@@ -10,6 +10,7 @@ import companies from './companies/reducer';
 import simsTypes from './simsTypes/reducer';
 import collectors from './collectors/reducer';
 import supervisors from './supervisors/reducer';
+import accountants from './accountants/reducer';
 import userRequests from './requests/user/reducer';
 import simsRequests from './requests/sims/reducer';
 import zonesRequests from './requests/zones/reducer';
@@ -23,6 +24,7 @@ import simsTypesRequests from './requests/simsTypes/reducer';
 import companiesRequests from './requests/companies/reducer';
 import collectorsRequests from './requests/collectors/reducer';
 import supervisorsRequests from './requests/supervisors/reducer';
+import accountantsRequests from './requests/accountants/reducer';
 import administratorsRequests from './requests/administrators/reducer';
 
 // Combine all reducers
@@ -38,6 +40,7 @@ export default {
     simsTypes,
     companies,
     collectors,
+    accountants,
     supervisors,
     simsRequests,
     userRequests,
@@ -51,6 +54,7 @@ export default {
     operatorsRequests,
     companiesRequests,
     collectorsRequests,
+    accountantsRequests,
     supervisorsRequests,
     administratorsRequests,
 };
