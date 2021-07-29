@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import React, {useState} from 'react';
 
-import {formatNumber} from "../../functions/generalFunctions";
 import FormModalComponent from "../modals/FormModalComponent";
 import SimDetailsContainer from "../../containers/sims/SimDetailsContainer";
 import OperatorAddSimContainer from "../../containers/operators/OperatorAddSimContainer";
@@ -40,7 +39,7 @@ function OperatorSimsListComponent({operator}) {
                             <tr>
                                 <th>NOM</th>
                                 <th>NUMERO</th>
-                                <th>SOLDE</th>
+                                {/*<th>SOLDE</th>*/}
                             </tr>
                         </thead>
                         <tbody>
@@ -54,9 +53,9 @@ function OperatorSimsListComponent({operator}) {
                                             {item.name}
                                         </td>
                                         <td>{item.number}</td>
-                                        <td className='text-right text-success text-bold'>
+                                        {/*<td className='text-right text-success text-bold'>
                                             {formatNumber(item.balance)}
-                                        </td>
+                                        </td>*/}
                                     </tr>
                                 )
                             })}
