@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from "prop-types";
 
 import FormModalComponent from "../modals/FormModalComponent";
-import {dateToString, formatNumber} from "../../functions/generalFunctions";
+import {dateToString} from "../../functions/generalFunctions";
 import SupervisorInfoEditContainer from "../../containers/supervisors/SupervisorInfoEditContainer";
 
 // Component
@@ -55,10 +55,10 @@ function SupervisorInfoComponent({supervisor}) {
                             <b>Email</b>
                             <span className="float-right">{supervisor.email}</span>
                         </li>
-                        <li className="list-group-item">
+                        {/*<li className="list-group-item">
                             <b>Solde caisse</b>
                             <span className="float-right text-success text-bold">{formatNumber(supervisor.account.balance)}</span>
-                        </li>
+                        </li>*/}
                         <li className="list-group-item">
                             <b>Créer par</b>
                             <span className="float-right">{supervisor.creator.name}</span>
