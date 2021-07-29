@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React, {useMemo, useState} from 'react';
 
 import FormModalComponent from "../modals/FormModalComponent";
-import {dateToString, formatNumber} from "../../functions/generalFunctions";
+import {dateToString} from "../../functions/generalFunctions";
 import ZoneDetailsContainer from "../../containers/zones/ZoneDetailsContainer";
 import CollectorInfoEditContainer from "../../containers/collectors/CollectorInfoEditContainer";
 import CollectorZoneEditContainer from "../../containers/collectors/CollectorZoneEditContainer";
@@ -81,7 +81,7 @@ function CollectorInfoComponent({collector}) {
                             <b>Email</b>
                             <span className="float-right">{collector.email}</span>
                         </li>
-                        <li className="list-group-item">
+                       {/* <li className="list-group-item">
                             <b>Dette</b>
                             <span className="float-right text-danger text-bold">
                                 {formatNumber(collector.debt)}
@@ -98,7 +98,7 @@ function CollectorInfoComponent({collector}) {
                             <span className="float-right text-success text-bold">
                                 {formatNumber(fleetSimsFleetsData)}
                             </span>
-                        </li>
+                        </li>*/}
                         <li className="list-group-item">
                             <b>Zone</b>
                             <span className="float-right">

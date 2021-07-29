@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import React, {useState} from 'react';
 
-import {formatNumber} from "../../functions/generalFunctions";
 import FormModalComponent from "../modals/FormModalComponent";
 import SimDetailsContainer from "../../containers/sims/SimDetailsContainer";
 import CollectorAddSimContainer from "../../containers/collectors/CollectorAddSimContainer";
@@ -40,7 +39,7 @@ function CollectorSimsListComponent({collector}) {
                             <tr>
                                 <th>NOM</th>
                                 <th>NUMERO</th>
-                                <th>SOLDE</th>
+                                {/*<th>SOLDE</th>*/}
                             </tr>
                         </thead>
                         <tbody>
@@ -54,7 +53,7 @@ function CollectorSimsListComponent({collector}) {
                                             {item.name}
                                         </td>
                                         <td>{item.number}</td>
-                                        <td className='text-right'>{formatNumber(item.balance)}</td>
+                                        {/*<td className='text-right'>{formatNumber(item.balance)}</td>*/}
                                     </tr>
                                 )
                             })}
