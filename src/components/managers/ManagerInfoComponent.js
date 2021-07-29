@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React, {useState} from 'react';
 
 import FormModalComponent from "../modals/FormModalComponent";
-import {dateToString, formatNumber} from "../../functions/generalFunctions";
+import {dateToString} from "../../functions/generalFunctions";
 import ManagerInfoEditContainer from "../../containers/managers/ManagerInfoEditContainer";
 
 // Component
@@ -55,12 +55,12 @@ function ManagerInfoComponent({manager}) {
                             <b>Email</b>
                             <span className="float-right">{manager.email}</span>
                         </li>
-                        <li className="list-group-item">
+                        {/*<li className="list-group-item">
                             <b>Solde caisse</b>
                             <span className="float-right text-success text-bold">
                                 {formatNumber(manager.account.balance)}
                             </span>
-                        </li>
+                        </li>*/}
                         <li className="list-group-item">
                             <b>Créer par</b>
                             <span className="float-right">{manager.creator.name}</span>
