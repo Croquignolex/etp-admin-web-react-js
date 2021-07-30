@@ -210,7 +210,7 @@ function DashboardPage({agents, overseers, accountants, settings, dispatch, loca
                                     }
                                     {cardsData.includes(setting.CARD_COLLECTORS) &&
                                         <div className="col-lg-3 col-md-4 col-sm-6">
-                                            <DashboardCardComponent color='bg-dark'
+                                            <DashboardCardComponent color='bg-info'
                                                                     icon='fa fa-user-clock'
                                                                     data={collectors.length}
                                                                     url={path.COLLECTORS_PAGE_PATH}
@@ -276,7 +276,7 @@ function DashboardPage({agents, overseers, accountants, settings, dispatch, loca
                                     }
                                     {cardsData.includes(setting.CARD_OPERATORS) &&
                                         <div className="col-lg-3 col-md-4 col-sm-6">
-                                            <DashboardCardComponent color='bg-primary'
+                                            <DashboardCardComponent color='bg-danger'
                                                                     icon='fa fa-globe'
                                                                     data={operators.length}
                                                                     url={path.OPERATORS_PAGE_PATH}
