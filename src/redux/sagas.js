@@ -10,6 +10,7 @@ import managers from './managers/saga';
 import operators from './operators/saga';
 import companies from './companies/saga';
 import simsTypes from './simsTypes/saga';
+import overseers from './overseers/saga';
 import collectors from './collectors/saga';
 import accountants from './accountants/saga';
 import supervisors from './supervisors/saga';
@@ -27,6 +28,7 @@ export default function* sagas() {
         settings(),
         companies(),
         simsTypes(),
+        overseers(),
         operators(),
         collectors(),
         accountants(),
