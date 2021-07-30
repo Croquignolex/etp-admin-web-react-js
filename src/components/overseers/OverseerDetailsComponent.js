@@ -3,16 +3,16 @@ import React, {useEffect} from 'react';
 
 import LoaderComponent from "../LoaderComponent";
 import ErrorAlertComponent from "../ErrorAlertComponent";
-import AccountantInfoComponent from "./OverseerInfoComponent";
-import {emitAccountantFetch} from "../../redux/accountants/actions";
+import OverseerInfoComponent from "./OverseerInfoComponent";
+import {emitOverseerFetch} from "../../redux/overseers/actions";
 import {requestFailed, requestLoading} from "../../functions/generalFunctions";
-import {storeAccountantRequestReset} from "../../redux/requests/accountants/actions";
+import {storeOverseerRequestReset} from "../../redux/requests/overseers/actions";
 
 // Component
-function OverseerDetailsComponent({id, accountant, dispatch, request}) {
+function OverseerDetailsComponent({id, overseer, dispatch, request}) {
     // Local effects
     useEffect(() => {
-        dispatch(emitAccountantFetch({id}));
+        dispatch(emitOverseerFetch({id}));
         // Cleaner error alert while component did unmount without store dependency
         return () => {
             shouldResetErrorData();
@@ -22,7 +22,7 @@ function OverseerDetailsComponent({id, accountant, dispatch, request}) {
 
     // Reset error alert
     const shouldResetErrorData = () => {
-        dispatch(storeAccountantRequestReset());
+        dispatch(storeOverseerRequestReset());
     };
 
     // Render
@@ -32,7 +32,7 @@ function OverseerDetailsComponent({id, accountant, dispatch, request}) {
                 requestFailed(request) ? <ErrorAlertComponent message={request.message} /> : (
                     <div className="row">
                         <div className="col-lg-12 col-md-12">
-                            <AccountantInfoComponent accountant={accountant} />
+                            <OverseerInfoComponent overseer={overseer} />
                         </div>
                     </div>
                 )
@@ -46,7 +46,7 @@ OverseerDetailsComponent.propTypes = {
     id: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
     request: PropTypes.object.isRequired,
-    accountant: PropTypes.object.isRequired,
+    overseer: PropTypes.object.isRequired,
 };
 
 export default React.memo(OverseerDetailsComponent);

@@ -8,17 +8,17 @@ import TextareaComponent from "../form/TextareaComponent";
 import {requiredChecker} from "../../functions/checkerFunctions";
 import {DEFAULT_FORM_DATA} from "../../constants/defaultConstants";
 import {playWarningSound} from "../../functions/playSoundFunctions";
-import {emitUpdateAccountantInfo} from "../../redux/accountants/actions";
-import {storeAccountantEditInfoRequestReset} from "../../redux/requests/accountants/actions";
+import {emitUpdateOverseerInfo} from "../../redux/overseers/actions";
+import {storeOverseerEditInfoRequestReset} from "../../redux/requests/overseers/actions";
 import {applySuccess, requestFailed, requestLoading, requestSucceeded} from "../../functions/generalFunctions";
 
 // Component
-function OverseerInfoEditComponent({request, accountant, dispatch, handleClose}) {
+function OverseerInfoEditComponent({request, overseer, dispatch, handleClose}) {
     // Local state
-    const [name, setName] = useState({...DEFAULT_FORM_DATA, data: accountant.name});
-    const [email, setEmail] = useState({...DEFAULT_FORM_DATA, data: accountant.email});
-    const [address, setAddress] = useState({...DEFAULT_FORM_DATA, data: accountant.address});
-    const [description, setDescription] = useState({...DEFAULT_FORM_DATA, data: accountant.description});
+    const [name, setName] = useState({...DEFAULT_FORM_DATA, data: overseer.name});
+    const [email, setEmail] = useState({...DEFAULT_FORM_DATA, data: overseer.email});
+    const [address, setAddress] = useState({...DEFAULT_FORM_DATA, data: overseer.address});
+    const [description, setDescription] = useState({...DEFAULT_FORM_DATA, data: overseer.description});
 
     // Local effects
     useEffect(() => {
@@ -41,7 +41,7 @@ function OverseerInfoEditComponent({request, accountant, dispatch, handleClose})
 
     // Reset error alert
     const shouldResetErrorData = () => {
-        dispatch(storeAccountantEditInfoRequestReset());
+        dispatch(storeOverseerEditInfoRequestReset());
     };
 
     const handleNameInput = (data) => {
@@ -74,8 +74,8 @@ function OverseerInfoEditComponent({request, accountant, dispatch, handleClose})
         const validationOK = _name.isValid;
         // Check
         if(validationOK) {
-            dispatch(emitUpdateAccountantInfo({
-                id: accountant.id,
+            dispatch(emitUpdateOverseerInfo({
+                id: overseer.id,
                 name: _name.data,
                 email: email.data,
                 address: address.data,
@@ -136,7 +136,7 @@ function OverseerInfoEditComponent({request, accountant, dispatch, handleClose})
 OverseerInfoEditComponent.propTypes = {
     dispatch: PropTypes.func.isRequired,
     request: PropTypes.object.isRequired,
-    accountant: PropTypes.object.isRequired,
+    overseer: PropTypes.object.isRequired,
     handleClose: PropTypes.func.isRequired,
 };
 

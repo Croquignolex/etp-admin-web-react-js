@@ -3,12 +3,12 @@ import React, {useState} from 'react';
 
 import FormModalComponent from "../modals/FormModalComponent";
 import {dateToString} from "../../functions/generalFunctions";
-import AccountantInfoEditContainer from "../../containers/accountants/AccountantInfoEditContainer";
+import OverseerInfoEditContainer from "../../containers/overseers/OverseerInfoEditContainer";
 
 // Component
-function OverseerInfoComponent({accountant}) {
+function OverseerInfoComponent({overseer}) {
     // Local states
-    const [infoEditModal, setInfoEditModal] = useState({show: false, header: 'MODIFIER LES INFO DE ' + accountant.name});
+    const [infoEditModal, setInfoEditModal] = useState({show: false, header: 'MODIFIER LES INFO DE ' + overseer.name});
 
     // Show info edit modal form
     const handleInfoEditModalShow = () => {
@@ -30,9 +30,9 @@ function OverseerInfoComponent({accountant}) {
                 <div className="card-header bg-secondary" />
                 <div className="card-body">
                     <div className="text-center mb-2">
-                        <img src={accountant.avatar} alt="avatar..." className="profile-user-img img-fluid img-circle" />
+                        <img src={overseer.avatar} alt="avatar..." className="profile-user-img img-fluid img-circle" />
                         <div className="float-right">
-                            {accountant.status
+                            {overseer.status
                                 ?  <span className="badge badge-success">Activé</span>
                                 :  <span className="badge badge-danger">Bloqué</span>
                             }
@@ -41,38 +41,38 @@ function OverseerInfoComponent({accountant}) {
                     <ul className="list-group list-group-unbordered mb-3">
                         <li className="list-group-item">
                             <b>Création</b>
-                            <span className="float-right">{dateToString(accountant.creation)}</span>
+                            <span className="float-right">{dateToString(overseer.creation)}</span>
                         </li>
                         <li className="list-group-item">
                             <b>Nom</b>
-                            <span className="float-right">{accountant.name}</span>
+                            <span className="float-right">{overseer.name}</span>
                         </li>
                         <li className="list-group-item">
                             <b>Téléphone</b>
-                            <span className="float-right">{accountant.phone}</span>
+                            <span className="float-right">{overseer.phone}</span>
                         </li>
                         <li className="list-group-item">
                             <b>Email</b>
-                            <span className="float-right">{accountant.email}</span>
+                            <span className="float-right">{overseer.email}</span>
                         </li>
                         <li className="list-group-item">
                             <b>Créer par</b>
-                            <span className="float-right">{accountant.creator.name}</span>
+                            <span className="float-right">{overseer.creator.name}</span>
                         </li>
                         <li className="list-group-item">
                             <b>Adresse</b>
-                            <p>{accountant.address}</p>
+                            <p>{overseer.address}</p>
                         </li>
                         <li className="list-group-item">
                             <b>Description</b>
-                            <p>{accountant.description}</p>
+                            <p>{overseer.description}</p>
                         </li>
                     </ul>
                 </div>
             </div>
             {/* Modal */}
             <FormModalComponent modal={infoEditModal} handleClose={handleInfoEditModalHide}>
-                <AccountantInfoEditContainer handleClose={handleInfoEditModalHide} />
+                <OverseerInfoEditContainer handleClose={handleInfoEditModalHide} />
             </FormModalComponent>
         </>
     )
@@ -80,7 +80,7 @@ function OverseerInfoComponent({accountant}) {
 
 // Prop types to ensure destroyed props data type
 OverseerInfoComponent.propTypes = {
-    accountant: PropTypes.object.isRequired
+    overseer: PropTypes.object.isRequired
 };
 
 export default React.memo(OverseerInfoComponent);

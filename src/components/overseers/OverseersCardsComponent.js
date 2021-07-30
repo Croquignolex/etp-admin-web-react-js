@@ -5,12 +5,12 @@ import LoaderComponent from "../LoaderComponent";
 import {dateToString} from "../../functions/generalFunctions";
 
 // Component
-function OverseersCardsComponent({accountants, handleBlock, handleBlockModalShow,handleAccountantDetailsModalShow}) {
+function OverseersCardsComponent({overseers, handleBlock, handleBlockModalShow,handleOverseerDetailsModalShow}) {
     // Render
     return (
         <>
             <div className="row m-1">
-                {accountants.map((item, key) => {
+                {overseers.map((item, key) => {
                     return (
                         <div className="col-lg-4 col-md-6" key={key}>
                             <div className="card">
@@ -52,7 +52,7 @@ function OverseersCardsComponent({accountants, handleBlock, handleBlockModalShow
                                     <div className="mt-3 text-right">
                                         <button type="button"
                                                 className="btn btn-sm btn-theme mb-1"
-                                                onClick={() => handleAccountantDetailsModalShow(item)}
+                                                onClick={() => handleOverseerDetailsModalShow(item)}
                                         >
                                             <i className="fa fa-eye" /> Détails
                                         </button>
@@ -62,10 +62,10 @@ function OverseersCardsComponent({accountants, handleBlock, handleBlockModalShow
                         </div>
                     )
                 })}
-                {accountants.length === 0 &&
+                {overseers.length === 0 &&
                     <div className="col-12">
                         <div className='alert custom-active text-center'>
-                            Pas de comptables
+                            Pas de controleurs
                         </div>
                     </div>
                 }
@@ -76,10 +76,10 @@ function OverseersCardsComponent({accountants, handleBlock, handleBlockModalShow
 
 // Prop types to ensure destroyed props data type
 OverseersCardsComponent.propTypes = {
-    accountants: PropTypes.array.isRequired,
+    overseers: PropTypes.array.isRequired,
     handleBlock: PropTypes.func.isRequired,
     handleBlockModalShow: PropTypes.func.isRequired,
-    handleAccountantDetailsModalShow: PropTypes.func.isRequired,
+    handleOverseerDetailsModalShow: PropTypes.func.isRequired,
 };
 
 export default React.memo(OverseersCardsComponent);

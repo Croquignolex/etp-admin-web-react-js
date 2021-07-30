@@ -6,10 +6,10 @@ import ButtonComponent from "../form/ButtonComponent";
 import ErrorAlertComponent from "../ErrorAlertComponent";
 import TextareaComponent from "../form/TextareaComponent";
 import * as constants from "../../constants/defaultConstants";
-import {emitNewAccountant} from "../../redux/accountants/actions";
+import {emitNewOverseer} from "../../redux/overseers/actions";
 import {playWarningSound} from "../../functions/playSoundFunctions";
 import {phoneChecker, requiredChecker} from "../../functions/checkerFunctions";
-import {storeAddAccountantRequestReset} from "../../redux/requests/accountants/actions";
+import {storeAddOverseerRequestReset} from "../../redux/requests/overseers/actions";
 import {applySuccess, requestFailed, requestLoading, requestSucceeded} from "../../functions/generalFunctions";
 
 // Component
@@ -67,7 +67,7 @@ function OverseerNewComponent({request, dispatch, handleClose}) {
 
     // Reset error alert
     const shouldResetErrorData = () => {
-        dispatch(storeAddAccountantRequestReset());
+        dispatch(storeAddOverseerRequestReset());
     };
 
     // Trigger new agent form submit
@@ -82,7 +82,7 @@ function OverseerNewComponent({request, dispatch, handleClose}) {
         const validationOK = (_name.isValid && _phone.isValid);
         // Check
         if(validationOK)
-            dispatch(emitNewAccountant({
+            dispatch(emitNewOverseer({
                 name: _name.data,
                 email: email.data,
                 phone: _phone.data,
