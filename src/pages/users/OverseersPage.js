@@ -62,7 +62,7 @@ function OverseersPage({overseers, overseersRequests, hasMoreData, page, dispatc
 
     // Show new overseer modal form
     const handleNewOverseerModalShow = () => {
-        setNewOverseerModal({newOverseerModal, header: "NOUVEAU COMPTABLE", show: true})
+        setNewOverseerModal({newOverseerModal, header: "NOUVEAU CONTROLEUR", show: true})
     }
 
     // Hide new overseer modal form
@@ -82,7 +82,7 @@ function OverseersPage({overseers, overseersRequests, hasMoreData, page, dispatc
 
     // Trigger when user block status confirmed on modal
     const handleBlockModalShow = ({id, name}) => {
-        setBlockModal({...blockModal, show: true, id, body: `Bloquer le comptable ${name}?`})
+        setBlockModal({...blockModal, show: true, id, body: `Bloquer le contôleur ${name}?`})
     };
 
     // Hide block confirmation modal
@@ -122,7 +122,7 @@ function OverseersPage({overseers, overseersRequests, hasMoreData, page, dispatc
                                                     className="btn btn-theme ml-2 mb-2"
                                                     onClick={handleNewOverseerModalShow}
                                             >
-                                                <i className="fa fa-plus" /> Nouveau controleur
+                                                <i className="fa fa-plus" /> Nouveau contrôleur
                                             </button>
                                             {/* Search result & Infinite scroll */}
                                             {(needle !== '' && needle !== undefined)
