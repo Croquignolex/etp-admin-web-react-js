@@ -1,10 +1,10 @@
 import {connect} from "react-redux";
 
-import AccountantNewComponent from "../../components/accountants/AccountantNewComponent";
+import OverseerNewComponent from "../../components/overseers/OverseerNewComponent";
 
 // Map state function to component props
 const mapStateToProps = (state) => ({
-    request: state.accountantsRequests.add
+    request: state.overseersRequests.add
 });
 
 // Map dispatch function to component props
@@ -13,4 +13,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 // Connect component to Redux
-export default connect(mapStateToProps, mapDispatchToProps)(AccountantNewComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(OverseerNewComponent);
