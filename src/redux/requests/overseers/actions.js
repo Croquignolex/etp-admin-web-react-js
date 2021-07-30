@@ -1,190 +1,190 @@
 // Reducer action types
-export const STORE_ACCOUNTANTS_REQUEST_INIT = 'STORE_ACCOUNTANTS_REQUEST_INIT';
-export const STORE_ACCOUNTANTS_REQUEST_RESET = 'STORE_ACCOUNTANTS_REQUEST_RESET';
-export const STORE_ACCOUNTANTS_REQUEST_FAILED = 'STORE_ACCOUNTANTS_REQUEST_FAILED';
-export const STORE_ACCOUNTANTS_REQUEST_SUCCEEDED = 'STORE_ACCOUNTANTS_REQUEST_SUCCEEDED';
+export const STORE_OVERSEERS_REQUEST_INIT = 'STORE_OVERSEERS_REQUEST_INIT';
+export const STORE_OVERSEERS_REQUEST_RESET = 'STORE_OVERSEERS_REQUEST_RESET';
+export const STORE_OVERSEERS_REQUEST_FAILED = 'STORE_OVERSEERS_REQUEST_FAILED';
+export const STORE_OVERSEERS_REQUEST_SUCCEEDED = 'STORE_OVERSEERS_REQUEST_SUCCEEDED';
 
-export const STORE_NEXT_ACCOUNTANTS_REQUEST_INIT = 'STORE_NEXT_ACCOUNTANTS_REQUEST_INIT';
-export const STORE_NEXT_ACCOUNTANTS_REQUEST_RESET = 'STORE_NEXT_ACCOUNTANTS_REQUEST_RESET';
-export const STORE_NEXT_ACCOUNTANTS_REQUEST_FAILED = 'STORE_NEXT_ACCOUNTANTS_REQUEST_FAILED';
-export const STORE_NEXT_ACCOUNTANTS_REQUEST_SUCCEEDED = 'STORE_NEXT_ACCOUNTANTS_REQUEST_SUCCEEDED';
+export const STORE_NEXT_OVERSEERS_REQUEST_INIT = 'STORE_NEXT_OVERSEERS_REQUEST_INIT';
+export const STORE_NEXT_OVERSEERS_REQUEST_RESET = 'STORE_NEXT_OVERSEERS_REQUEST_RESET';
+export const STORE_NEXT_OVERSEERS_REQUEST_FAILED = 'STORE_NEXT_OVERSEERS_REQUEST_FAILED';
+export const STORE_NEXT_OVERSEERS_REQUEST_SUCCEEDED = 'STORE_NEXT_OVERSEERS_REQUEST_SUCCEEDED';
 
-export const STORE_ALL_ACCOUNTANTS_REQUEST_INIT = 'STORE_ALL_ACCOUNTANTS_REQUEST_INIT';
-export const STORE_ALL_ACCOUNTANTS_REQUEST_RESET = 'STORE_ALL_ACCOUNTANTS_REQUEST_RESET';
-export const STORE_ALL_ACCOUNTANTS_REQUEST_FAILED = 'STORE_ALL_ACCOUNTANTS_REQUEST_FAILED';
-export const STORE_ALL_ACCOUNTANTS_REQUEST_SUCCEEDED = 'STORE_ALL_ACCOUNTANTS_REQUEST_SUCCEEDED';
+export const STORE_ALL_OVERSEERS_REQUEST_INIT = 'STORE_ALL_OVERSEERS_REQUEST_INIT';
+export const STORE_ALL_OVERSEERS_REQUEST_RESET = 'STORE_ALL_OVERSEERS_REQUEST_RESET';
+export const STORE_ALL_OVERSEERS_REQUEST_FAILED = 'STORE_ALL_OVERSEERS_REQUEST_FAILED';
+export const STORE_ALL_OVERSEERS_REQUEST_SUCCEEDED = 'STORE_ALL_OVERSEERS_REQUEST_SUCCEEDED';
 
-export const STORE_ADD_ACCOUNTANT_REQUEST_INIT = 'STORE_ADD_ACCOUNTANT_REQUEST_INIT';
-export const STORE_ADD_ACCOUNTANT_REQUEST_RESET = 'STORE_ADD_ACCOUNTANT_REQUEST_RESET';
-export const STORE_ADD_ACCOUNTANT_REQUEST_FAILED = 'STORE_ADD_ACCOUNTANT_REQUEST_FAILED';
-export const STORE_ADD_ACCOUNTANT_REQUEST_SUCCEEDED = 'STORE_ADD_ACCOUNTANT_REQUEST_SUCCEEDED';
+export const STORE_ADD_OVERSEER_REQUEST_INIT = 'STORE_ADD_OVERSEER_REQUEST_INIT';
+export const STORE_ADD_OVERSEER_REQUEST_RESET = 'STORE_ADD_OVERSEER_REQUEST_RESET';
+export const STORE_ADD_OVERSEER_REQUEST_FAILED = 'STORE_ADD_OVERSEER_REQUEST_FAILED';
+export const STORE_ADD_OVERSEER_REQUEST_SUCCEEDED = 'STORE_ADD_OVERSEER_REQUEST_SUCCEEDED';
 
-export const STORE_ACCOUNTANT_REQUEST_INIT = 'STORE_ACCOUNTANT_REQUEST_INIT';
-export const STORE_ACCOUNTANT_REQUEST_RESET = 'STORE_ACCOUNTANT_REQUEST_RESET';
-export const STORE_ACCOUNTANT_REQUEST_FAILED = 'STORE_ACCOUNTANT_REQUEST_FAILED';
-export const STORE_ACCOUNTANT_REQUEST_SUCCEEDED = 'STORE_ACCOUNTANT_REQUEST_SUCCEEDED';
+export const STORE_OVERSEER_REQUEST_INIT = 'STORE_OVERSEER_REQUEST_INIT';
+export const STORE_OVERSEER_REQUEST_RESET = 'STORE_OVERSEER_REQUEST_RESET';
+export const STORE_OVERSEER_REQUEST_FAILED = 'STORE_OVERSEER_REQUEST_FAILED';
+export const STORE_OVERSEER_REQUEST_SUCCEEDED = 'STORE_OVERSEER_REQUEST_SUCCEEDED';
 
-export const STORE_ACCOUNTANT_STATUS_TOGGLE_REQUEST_INIT = 'STORE_ACCOUNTANT_STATUS_TOGGLE_REQUEST_INIT';
-export const STORE_ACCOUNTANT_STATUS_TOGGLE_REQUEST_RESET = 'STORE_ACCOUNTANT_STATUS_TOGGLE_REQUEST_RESET';
-export const STORE_ACCOUNTANT_STATUS_TOGGLE_REQUEST_FAILED = 'STORE_ACCOUNTANT_STATUS_TOGGLE_REQUEST_FAILED';
-export const STORE_ACCOUNTANT_STATUS_TOGGLE_REQUEST_SUCCEEDED = 'STORE_ACCOUNTANT_STATUS_TOGGLE_REQUEST_SUCCEEDED';
+export const STORE_OVERSEER_STATUS_TOGGLE_REQUEST_INIT = 'STORE_OVERSEER_STATUS_TOGGLE_REQUEST_INIT';
+export const STORE_OVERSEER_STATUS_TOGGLE_REQUEST_RESET = 'STORE_OVERSEER_STATUS_TOGGLE_REQUEST_RESET';
+export const STORE_OVERSEER_STATUS_TOGGLE_REQUEST_FAILED = 'STORE_OVERSEER_STATUS_TOGGLE_REQUEST_FAILED';
+export const STORE_OVERSEER_STATUS_TOGGLE_REQUEST_SUCCEEDED = 'STORE_OVERSEER_STATUS_TOGGLE_REQUEST_SUCCEEDED';
 
-export const STORE_ACCOUNTANT_EDIT_INFO_REQUEST_INIT = 'STORE_ACCOUNTANT_EDIT_INFO_REQUEST_INIT';
-export const STORE_ACCOUNTANT_EDIT_INFO_REQUEST_RESET = 'STORE_ACCOUNTANT_EDIT_INFO_REQUEST_RESET';
-export const STORE_ACCOUNTANT_EDIT_INFO_REQUEST_FAILED = 'STORE_ACCOUNTANT_EDIT_INFO_REQUEST_FAILED';
-export const STORE_ACCOUNTANT_EDIT_INFO_REQUEST_SUCCEEDED = 'STORE_ACCOUNTANT_EDIT_INFO_REQUEST_SUCCEEDED';
+export const STORE_OVERSEER_EDIT_INFO_REQUEST_INIT = 'STORE_OVERSEER_EDIT_INFO_REQUEST_INIT';
+export const STORE_OVERSEER_EDIT_INFO_REQUEST_RESET = 'STORE_OVERSEER_EDIT_INFO_REQUEST_RESET';
+export const STORE_OVERSEER_EDIT_INFO_REQUEST_FAILED = 'STORE_OVERSEER_EDIT_INFO_REQUEST_FAILED';
+export const STORE_OVERSEER_EDIT_INFO_REQUEST_SUCCEEDED = 'STORE_OVERSEER_EDIT_INFO_REQUEST_SUCCEEDED';
 
-// ======================================================== Accountants
-// Set accounts init data into store
-export const storeAccountantsRequestInit = () => ({
-    type: STORE_ACCOUNTANTS_REQUEST_INIT
+// ======================================================== Overseers
+// Set overseers init data into store
+export const storeOverseersRequestInit = () => ({
+    type: STORE_OVERSEERS_REQUEST_INIT
 });
 
-// Set accounts failed data into store
-export const storeAccountantsRequestFailed = ({message}) => ({
+// Set overseers failed data into store
+export const storeOverseersRequestFailed = ({message}) => ({
     message,
-    type: STORE_ACCOUNTANTS_REQUEST_FAILED
+    type: STORE_OVERSEERS_REQUEST_FAILED
 });
 
-// Set accounts succeeded data into store
-export const storeAccountantsRequestSucceed = ({message}) => ({
+// Set overseers succeeded data into store
+export const storeOverseersRequestSucceed = ({message}) => ({
     message,
-    type: STORE_ACCOUNTANTS_REQUEST_SUCCEEDED
+    type: STORE_OVERSEERS_REQUEST_SUCCEEDED
 });
 
-// Set accounts reset data into store
-export const storeAccountantsRequestReset = () => ({
-    type: STORE_ACCOUNTANTS_REQUEST_RESET
+// Set overseers reset data into store
+export const storeOverseersRequestReset = () => ({
+    type: STORE_OVERSEERS_REQUEST_RESET
 });
-// ======================================================== Next accounts
-// Set next accounts init data into store
-export const storeNextAccountantsRequestInit = () => ({
-    type: STORE_NEXT_ACCOUNTANTS_REQUEST_INIT
+// ======================================================== Next overseers
+// Set next overseers init data into store
+export const storeNextOverseersRequestInit = () => ({
+    type: STORE_NEXT_OVERSEERS_REQUEST_INIT
 });
 
-// Set next accounts failed data into store
-export const storeNextAccountantsRequestFailed = ({message}) => ({
+// Set next overseers failed data into store
+export const storeNextOverseersRequestFailed = ({message}) => ({
     message,
-    type: STORE_NEXT_ACCOUNTANTS_REQUEST_FAILED
+    type: STORE_NEXT_OVERSEERS_REQUEST_FAILED
 });
 
-// Set next accounts succeeded data into store
-export const storeNextAccountantsRequestSucceed = ({message}) => ({
+// Set next overseers succeeded data into store
+export const storeNextOverseersRequestSucceed = ({message}) => ({
     message,
-    type: STORE_NEXT_ACCOUNTANTS_REQUEST_SUCCEEDED
+    type: STORE_NEXT_OVERSEERS_REQUEST_SUCCEEDED
 });
 
-// Set next accounts reset data into store
-export const storeNextAccountantsRequestReset = () => ({
-    type: STORE_NEXT_ACCOUNTANTS_REQUEST_RESET
+// Set next overseers reset data into store
+export const storeNextOverseersRequestReset = () => ({
+    type: STORE_NEXT_OVERSEERS_REQUEST_RESET
 });
-// ======================================================== All accounts
-// Set all accounts init data into store
-export const storeAllAccountantsRequestInit = () => ({
-    type: STORE_ALL_ACCOUNTANTS_REQUEST_INIT
+// ======================================================== All overseers
+// Set all overseers init data into store
+export const storeAllOverseersRequestInit = () => ({
+    type: STORE_ALL_OVERSEERS_REQUEST_INIT
 });
 
-// Set all accounts failed data into store
-export const storeAllAccountantsRequestFailed = ({message}) => ({
+// Set all overseers failed data into store
+export const storeAllOverseersRequestFailed = ({message}) => ({
     message,
-    type: STORE_ALL_ACCOUNTANTS_REQUEST_FAILED
+    type: STORE_ALL_OVERSEERS_REQUEST_FAILED
 });
 
-// Set all accounts succeeded data into store
-export const storeAllAccountantsRequestSucceed = ({message}) => ({
+// Set all overseers succeeded data into store
+export const storeAllOverseersRequestSucceed = ({message}) => ({
     message,
-    type: STORE_ALL_ACCOUNTANTS_REQUEST_SUCCEEDED
+    type: STORE_ALL_OVERSEERS_REQUEST_SUCCEEDED
 });
 
-// Set all accounts reset data into store
-export const storeAllAccountantsRequestReset = () => ({
-    type: STORE_ALL_ACCOUNTANTS_REQUEST_RESET
+// Set all overseers reset data into store
+export const storeAllOverseersRequestReset = () => ({
+    type: STORE_ALL_OVERSEERS_REQUEST_RESET
 });
-// ======================================================== Add account
-// Set add account init data into store
-export const storeAddAccountantRequestInit = () => ({
-    type: STORE_ADD_ACCOUNTANT_REQUEST_INIT
+// ======================================================== Add overseer
+// Set add overseer init data into store
+export const storeAddOverseerRequestInit = () => ({
+    type: STORE_ADD_OVERSEER_REQUEST_INIT
 });
 
-// Set add account failed data into store
-export const storeAddAccountantRequestFailed = ({message}) => ({
+// Set add overseer failed data into store
+export const storeAddOverseerRequestFailed = ({message}) => ({
     message,
-    type: STORE_ADD_ACCOUNTANT_REQUEST_FAILED
+    type: STORE_ADD_OVERSEER_REQUEST_FAILED
 });
 
-// Set add account succeeded data into store
-export const storeAddAccountantRequestSucceed = ({message}) => ({
+// Set add overseer succeeded data into store
+export const storeAddOverseerRequestSucceed = ({message}) => ({
     message,
-    type: STORE_ADD_ACCOUNTANT_REQUEST_SUCCEEDED
+    type: STORE_ADD_OVERSEER_REQUEST_SUCCEEDED
 });
 
-// Set add account reset data into store
-export const storeAddAccountantRequestReset = () => ({
-    type: STORE_ADD_ACCOUNTANT_REQUEST_RESET
+// Set add overseer reset data into store
+export const storeAddOverseerRequestReset = () => ({
+    type: STORE_ADD_OVERSEER_REQUEST_RESET
 });
-// ======================================================== Accountant
-// Set account init data into store
-export const storeAccountantRequestInit = () => ({
-    type: STORE_ACCOUNTANT_REQUEST_INIT
+// ======================================================== Overseer
+// Set overseer init data into store
+export const storeOverseerRequestInit = () => ({
+    type: STORE_OVERSEER_REQUEST_INIT
 });
 
-// Set account failed data into store
-export const storeAccountantRequestFailed = ({message}) => ({
+// Set overseer failed data into store
+export const storeOverseerRequestFailed = ({message}) => ({
     message,
-    type: STORE_ACCOUNTANT_REQUEST_FAILED
+    type: STORE_OVERSEER_REQUEST_FAILED
 });
 
-// Set account succeeded data into store
-export const storeAccountantRequestSucceed = ({message}) => ({
+// Set overseer succeeded data into store
+export const storeOverseerRequestSucceed = ({message}) => ({
     message,
-    type: STORE_ACCOUNTANT_REQUEST_SUCCEEDED
+    type: STORE_OVERSEER_REQUEST_SUCCEEDED
 });
 
-// Set account reset data into store
-export const storeAccountantRequestReset = () => ({
-    type: STORE_ACCOUNTANT_REQUEST_RESET
+// Set overseer reset data into store
+export const storeOverseerRequestReset = () => ({
+    type: STORE_OVERSEER_REQUEST_RESET
 });
-// ======================================================== Accountant status toggle
-// Set account status toggle init data into store
-export const storeAccountantStatusToggleRequestInit = () => ({
-    type: STORE_ACCOUNTANT_STATUS_TOGGLE_REQUEST_INIT
+// ======================================================== Overseer status toggle
+// Set overseer status toggle init data into store
+export const storeOverseerStatusToggleRequestInit = () => ({
+    type: STORE_OVERSEER_STATUS_TOGGLE_REQUEST_INIT
 });
 
-// Set account status toggle failed data into store
-export const storeAccountantStatusToggleRequestFailed = ({message}) => ({
+// Set overseer status toggle failed data into store
+export const storeOverseerStatusToggleRequestFailed = ({message}) => ({
     message,
-    type: STORE_ACCOUNTANT_STATUS_TOGGLE_REQUEST_FAILED
+    type: STORE_OVERSEER_STATUS_TOGGLE_REQUEST_FAILED
 });
 
-// Set account status toggle succeeded data into store
-export const storeAccountantStatusToggleRequestSucceed = ({message}) => ({
+// Set overseer status toggle succeeded data into store
+export const storeOverseerStatusToggleRequestSucceed = ({message}) => ({
     message,
-    type: STORE_ACCOUNTANT_STATUS_TOGGLE_REQUEST_SUCCEEDED
+    type: STORE_OVERSEER_STATUS_TOGGLE_REQUEST_SUCCEEDED
 });
 
-// Set account status toggle reset data into store
-export const storeAccountantStatusToggleRequestReset = () => ({
-    type: STORE_ACCOUNTANT_STATUS_TOGGLE_REQUEST_RESET
+// Set overseer status toggle reset data into store
+export const storeOverseerStatusToggleRequestReset = () => ({
+    type: STORE_OVERSEER_STATUS_TOGGLE_REQUEST_RESET
 });
-// ======================================================== Accountant edit info
-// Set account edit info init data into store
-export const storeAccountantEditInfoRequestInit = () => ({
-    type: STORE_ACCOUNTANT_EDIT_INFO_REQUEST_INIT
+// ======================================================== Overseer edit info
+// Set overseer edit info init data into store
+export const storeOverseerEditInfoRequestInit = () => ({
+    type: STORE_OVERSEER_EDIT_INFO_REQUEST_INIT
 });
 
-// Set account edit info failed data into store
-export const storeAccountantEditInfoRequestFailed = ({message}) => ({
+// Set overseer edit info failed data into store
+export const storeOverseerEditInfoRequestFailed = ({message}) => ({
     message,
-    type: STORE_ACCOUNTANT_EDIT_INFO_REQUEST_FAILED
+    type: STORE_OVERSEER_EDIT_INFO_REQUEST_FAILED
 });
 
-// Set account edit info succeeded data into store
-export const storeAccountantEditInfoRequestSucceed = ({message}) => ({
+// Set overseer edit info succeeded data into store
+export const storeOverseerEditInfoRequestSucceed = ({message}) => ({
     message,
-    type: STORE_ACCOUNTANT_EDIT_INFO_REQUEST_SUCCEEDED
+    type: STORE_OVERSEER_EDIT_INFO_REQUEST_SUCCEEDED
 });
 
-// Set account edit info reset data into store
-export const storeAccountantEditInfoRequestReset = () => ({
-    type: STORE_ACCOUNTANT_EDIT_INFO_REQUEST_RESET
+// Set overseer edit info reset data into store
+export const storeOverseerEditInfoRequestReset = () => ({
+    type: STORE_OVERSEER_EDIT_INFO_REQUEST_RESET
 });
