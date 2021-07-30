@@ -52,7 +52,7 @@ export function* emitAllOverseersFetch() {
             yield put(storeAllOverseersRequestInit());
             const apiResponse = yield call(apiGetRequest, api.ALL_OVERSEERS_API_PATH);
             // Extract data
-            const overseers = extractOverseersData(apiResponse.data.comptables);
+            const overseers = extractOverseersData(apiResponse.data.controlleurs);
             // Fire event to redux
             yield put(storeSetOverseersData({overseers, hasMoreData: false, page: 0}));
             // Fire event for request
@@ -72,7 +72,7 @@ export function* emitOverseersFetch() {
             yield put(storeOverseersRequestInit());
             const apiResponse = yield call(apiGetRequest, `${api.OVERSEERS_API_PATH}?page=1`);
             // Extract data
-            const overseers = extractOverseersData(apiResponse.data.comptables);
+            const overseers = extractOverseersData(apiResponse.data.controlleurs);
             // Fire event to redux
             yield put(storeSetOverseersData({overseers, hasMoreData: apiResponse.data.hasMoreData, page: 2}));
             // Fire event for request
@@ -92,7 +92,7 @@ export function* emitNextOverseersFetch() {
             yield put(storeNextOverseersRequestInit());
             const apiResponse = yield call(apiGetRequest, `${api.OVERSEERS_API_PATH}?page=${page}`);
             // Extract data
-            const overseers = extractOverseersData(apiResponse.data.comptables);
+            const overseers = extractOverseersData(apiResponse.data.controlleurs);
             // Fire event to redux
             yield put(storeSetNextOverseersData({overseers, hasMoreData: apiResponse.data.hasMoreData, page: page + 1}));
             // Fire event for request
@@ -138,7 +138,7 @@ export function* emitNewOverseer() {
             const apiResponse = yield call(apiPostRequest, api.CREATE_OVERSEER_API_PATH, data);
             // Extract data
             const overseer = extractOverseerData(
-                apiResponse.data.gestionnaire,
+                apiResponse.data.controlleur,
                 apiResponse.data.createur,
             );
             // Fire event to redux
@@ -235,7 +235,7 @@ function extractOverseersData(apiOverseers) {
     if(apiOverseers) {
         apiOverseers.forEach(data => {
             overseers.push(extractOverseerData(
-                data.comptable,
+                data.controlleur,
                 data.createur,
             ));
         });
