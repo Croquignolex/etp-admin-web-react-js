@@ -5,253 +5,253 @@ import {APPROVE} from "../../constants/typeConstants";
 import {PROFILE_SCOPE} from "../../constants/defaultConstants";
 import {apiGetRequest, apiPostRequest, getImageFromServer} from "../../functions/axiosFunctions";
 import {
-    EMIT_NEW_ACCOUNTANT,
-    EMIT_ACCOUNTANT_FETCH,
-    storeSetAccountantData,
-    EMIT_ACCOUNTANTS_FETCH,
-    storeSetAccountantsData,
-    storeSetNewAccountantData,
-    EMIT_ALL_ACCOUNTANTS_FETCH,
-    EMIT_NEXT_ACCOUNTANTS_FETCH,
-    storeSetNextAccountantsData,
-    EMIT_UPDATE_ACCOUNTANT_INFO,
-    storeSetAccountantActionData,
-    storeSetAccountantToggleData,
-    EMIT_TOGGLE_ACCOUNTANT_STATUS,
-    storeStopInfiniteScrollAccountantData
+    EMIT_NEW_OVERSEER,
+    EMIT_OVERSEER_FETCH,
+    storeSetOverseerData,
+    EMIT_OVERSEERS_FETCH,
+    storeSetOverseersData,
+    storeSetNewOverseerData,
+    EMIT_ALL_OVERSEERS_FETCH,
+    EMIT_NEXT_OVERSEERS_FETCH,
+    storeSetNextOverseersData,
+    EMIT_UPDATE_OVERSEER_INFO,
+    storeSetOverseerActionData,
+    storeSetOverseerToggleData,
+    EMIT_TOGGLE_OVERSEER_STATUS,
+    storeStopInfiniteScrollOverseerData
 } from "./actions";
 import {
-    storeAccountantRequestInit,
-    storeAccountantsRequestInit,
-    storeAccountantRequestFailed,
-    storeAddAccountantRequestInit,
-    storeAccountantsRequestFailed,
-    storeAccountantRequestSucceed,
-    storeAccountantsRequestSucceed,
-    storeAllAccountantsRequestInit,
-    storeNextAccountantsRequestInit,
-    storeAddAccountantRequestFailed,
-    storeAllAccountantsRequestFailed,
-    storeAddAccountantRequestSucceed,
-    storeAllAccountantsRequestSucceed,
-    storeNextAccountantsRequestFailed,
-    storeAccountantEditInfoRequestInit,
-    storeNextAccountantsRequestSucceed,
-    storeAccountantEditInfoRequestFailed,
-    storeAccountantEditInfoRequestSucceed,
-    storeAccountantStatusToggleRequestInit,
-    storeAccountantStatusToggleRequestFailed,
-    storeAccountantStatusToggleRequestSucceed,
-} from "../requests/accountants/actions";
+    storeOverseerRequestInit,
+    storeOverseersRequestInit,
+    storeOverseerRequestFailed,
+    storeAddOverseerRequestInit,
+    storeOverseersRequestFailed,
+    storeOverseerRequestSucceed,
+    storeOverseersRequestSucceed,
+    storeAllOverseersRequestInit,
+    storeNextOverseersRequestInit,
+    storeAddOverseerRequestFailed,
+    storeAllOverseersRequestFailed,
+    storeAddOverseerRequestSucceed,
+    storeAllOverseersRequestSucceed,
+    storeNextOverseersRequestFailed,
+    storeOverseerEditInfoRequestInit,
+    storeNextOverseersRequestSucceed,
+    storeOverseerEditInfoRequestFailed,
+    storeOverseerEditInfoRequestSucceed,
+    storeOverseerStatusToggleRequestInit,
+    storeOverseerStatusToggleRequestFailed,
+    storeOverseerStatusToggleRequestSucceed,
+} from "../requests/overseers/actions";
 
-// Fetch all accountants from API
-export function* emitAllAccountantsFetch() {
-    yield takeLatest(EMIT_ALL_ACCOUNTANTS_FETCH, function*() {
+// Fetch all overseers from API
+export function* emitAllOverseersFetch() {
+    yield takeLatest(EMIT_ALL_OVERSEERS_FETCH, function*() {
         try {
             // Fire event for request
-            yield put(storeAllAccountantsRequestInit());
-            const apiResponse = yield call(apiGetRequest, api.ALL_ACCOUNTANTS_API_PATH);
+            yield put(storeAllOverseersRequestInit());
+            const apiResponse = yield call(apiGetRequest, api.ALL_OVERSEERS_API_PATH);
             // Extract data
-            const accountants = extractAccountantsData(apiResponse.data.comptables);
+            const overseers = extractOverseersData(apiResponse.data.comptables);
             // Fire event to redux
-            yield put(storeSetAccountantsData({accountants, hasMoreData: false, page: 0}));
+            yield put(storeSetOverseersData({overseers, hasMoreData: false, page: 0}));
             // Fire event for request
-            yield put(storeAllAccountantsRequestSucceed({message: apiResponse.message}));
+            yield put(storeAllOverseersRequestSucceed({message: apiResponse.message}));
         } catch (message) {
             // Fire event for request
-            yield put(storeAllAccountantsRequestFailed({message}));
+            yield put(storeAllOverseersRequestFailed({message}));
         }
     });
 }
 
-// Fetch accountants from API
-export function* emitAccountantsFetch() {
-    yield takeLatest(EMIT_ACCOUNTANTS_FETCH, function*() {
+// Fetch overseers from API
+export function* emitOverseersFetch() {
+    yield takeLatest(EMIT_OVERSEERS_FETCH, function*() {
         try {
             // Fire event for request
-            yield put(storeAccountantsRequestInit());
-            const apiResponse = yield call(apiGetRequest, `${api.ACCOUNTANTS_API_PATH}?page=1`);
+            yield put(storeOverseersRequestInit());
+            const apiResponse = yield call(apiGetRequest, `${api.OVERSEERS_API_PATH}?page=1`);
             // Extract data
-            const accountants = extractAccountantsData(apiResponse.data.comptables);
+            const overseers = extractOverseersData(apiResponse.data.comptables);
             // Fire event to redux
-            yield put(storeSetAccountantsData({accountants, hasMoreData: apiResponse.data.hasMoreData, page: 2}));
+            yield put(storeSetOverseersData({overseers, hasMoreData: apiResponse.data.hasMoreData, page: 2}));
             // Fire event for request
-            yield put(storeAccountantsRequestSucceed({message: apiResponse.message}));
+            yield put(storeOverseersRequestSucceed({message: apiResponse.message}));
         } catch (message) {
             // Fire event for request
-            yield put(storeAccountantsRequestFailed({message}));
+            yield put(storeOverseersRequestFailed({message}));
         }
     });
 }
 
-// Fetch next accountants from API
-export function* emitNextAccountantsFetch() {
-    yield takeLatest(EMIT_NEXT_ACCOUNTANTS_FETCH, function*({page}) {
+// Fetch next overseers from API
+export function* emitNextOverseersFetch() {
+    yield takeLatest(EMIT_NEXT_OVERSEERS_FETCH, function*({page}) {
         try {
             // Fire event for request
-            yield put(storeNextAccountantsRequestInit());
-            const apiResponse = yield call(apiGetRequest, `${api.ACCOUNTANTS_API_PATH}?page=${page}`);
+            yield put(storeNextOverseersRequestInit());
+            const apiResponse = yield call(apiGetRequest, `${api.OVERSEERS_API_PATH}?page=${page}`);
             // Extract data
-            const accountants = extractAccountantsData(apiResponse.data.comptables);
+            const overseers = extractOverseersData(apiResponse.data.comptables);
             // Fire event to redux
-            yield put(storeSetNextAccountantsData({accountants, hasMoreData: apiResponse.data.hasMoreData, page: page + 1}));
+            yield put(storeSetNextOverseersData({overseers, hasMoreData: apiResponse.data.hasMoreData, page: page + 1}));
             // Fire event for request
-            yield put(storeNextAccountantsRequestSucceed({message: apiResponse.message}));
+            yield put(storeNextOverseersRequestSucceed({message: apiResponse.message}));
         } catch (message) {
             // Fire event for request
-            yield put(storeNextAccountantsRequestFailed({message}));
-            yield put(storeStopInfiniteScrollAccountantData());
+            yield put(storeNextOverseersRequestFailed({message}));
+            yield put(storeStopInfiniteScrollOverseerData());
         }
     });
 }
 
-// Toggle accountant status into API
-export function* emitToggleAccountantStatus() {
-    yield takeLatest(EMIT_TOGGLE_ACCOUNTANT_STATUS, function*({id}) {
+// Toggle overseer status into API
+export function* emitToggleOverseerStatus() {
+    yield takeLatest(EMIT_TOGGLE_OVERSEER_STATUS, function*({id}) {
         try {
             // Fire event for request
-            yield put(storeSetAccountantActionData({id}));
-            yield put(storeAccountantStatusToggleRequestInit());
-            const apiResponse = yield call(apiPostRequest, `${api.TOGGLE_ACCOUNTANT_STATUS_API_PATH}/${id}`);
+            yield put(storeSetOverseerActionData({id}));
+            yield put(storeOverseerStatusToggleRequestInit());
+            const apiResponse = yield call(apiPostRequest, `${api.TOGGLE_OVERSEER_STATUS_API_PATH}/${id}`);
             // Fire event to redux
-            yield put(storeSetAccountantToggleData({id}));
+            yield put(storeSetOverseerToggleData({id}));
             // Fire event for request
-            yield put(storeAccountantStatusToggleRequestSucceed({message: apiResponse.message}));
-            yield put(storeSetAccountantActionData({id}));
+            yield put(storeOverseerStatusToggleRequestSucceed({message: apiResponse.message}));
+            yield put(storeSetOverseerActionData({id}));
         } catch (message) {
             // Fire event for request
-            yield put(storeSetAccountantActionData({id}));
-            yield put(storeAccountantStatusToggleRequestFailed({message}));
+            yield put(storeSetOverseerActionData({id}));
+            yield put(storeOverseerStatusToggleRequestFailed({message}));
         }
     });
 }
 
-// New accountant into API
-export function* emitNewAccountant() {
-    yield takeLatest(EMIT_NEW_ACCOUNTANT, function*({name, address, phone, email, password,  description}) {
+// New overseer into API
+export function* emitNewOverseer() {
+    yield takeLatest(EMIT_NEW_OVERSEER, function*({name, address, phone, email, password,  description}) {
         try {
             // Fire event for request
-            yield put(storeAddAccountantRequestInit());
+            yield put(storeAddOverseerRequestInit());
             // From data
             const data = {name, phone, email, password, description, adresse: address}
             // API request
-            const apiResponse = yield call(apiPostRequest, api.CREATE_ACCOUNTANT_API_PATH, data);
+            const apiResponse = yield call(apiPostRequest, api.CREATE_OVERSEER_API_PATH, data);
             // Extract data
-            const accountant = extractAccountantData(
+            const overseer = extractOverseerData(
                 apiResponse.data.gestionnaire,
                 apiResponse.data.createur,
             );
             // Fire event to redux
-            yield put(storeSetNewAccountantData({accountant}));
+            yield put(storeSetNewOverseerData({overseer}));
             // Fire event for request
-            yield put(storeAddAccountantRequestSucceed({message: apiResponse.message}));
+            yield put(storeAddOverseerRequestSucceed({message: apiResponse.message}));
         } catch (message) {
             // Fire event for request
-            yield put(storeAddAccountantRequestFailed({message}));
+            yield put(storeAddOverseerRequestFailed({message}));
         }
     });
 }
 
-// Fetch accountant from API
-export function* emitAccountantFetch() {
-    yield takeLatest(EMIT_ACCOUNTANT_FETCH, function*({id}) {
+// Fetch overseer from API
+export function* emitOverseerFetch() {
+    yield takeLatest(EMIT_OVERSEER_FETCH, function*({id}) {
         try {
             // Fire event for request
-            yield put(storeAccountantRequestInit());
-            const apiResponse = yield call(apiGetRequest, `${api.ACCOUNTANT_DETAILS_API_PATH}/${id}`);
+            yield put(storeOverseerRequestInit());
+            const apiResponse = yield call(apiGetRequest, `${api.OVERSEER_DETAILS_API_PATH}/${id}`);
             // Extract data
-            const accountant = extractAccountantData(
+            const overseer = extractOverseerData(
                 apiResponse.data.user,
                 apiResponse.data.createur,
             );
             // Fire event to redux
-            yield put(storeSetAccountantData({accountant}));
+            yield put(storeSetOverseerData({overseer}));
             // Fire event for request
-            yield put(storeAccountantRequestSucceed({message: apiResponse.message}));
+            yield put(storeOverseerRequestSucceed({message: apiResponse.message}));
         } catch (message) {
             // Fire event for request
-            yield put(storeAccountantRequestFailed({message}));
+            yield put(storeOverseerRequestFailed({message}));
         }
     });
 }
 
-// Update accountant info
-export function* emitUpdateAccountantInfo() {
-    yield takeLatest(EMIT_UPDATE_ACCOUNTANT_INFO, function*({id, email, name, address, description}) {
+// Update overseer info
+export function* emitUpdateOverseerInfo() {
+    yield takeLatest(EMIT_UPDATE_OVERSEER_INFO, function*({id, email, name, address, description}) {
         try {
             // Fire event for request
-            yield put(storeAccountantEditInfoRequestInit());
+            yield put(storeOverseerEditInfoRequestInit());
             const data = {email, name, adresse: address, description};
-            const apiResponse = yield call(apiPostRequest, `${api.EDIT_ACCOUNTANT_API_PATH}/${id}`, data);
+            const apiResponse = yield call(apiPostRequest, `${api.EDIT_OVERSEER_API_PATH}/${id}`, data);
             // Extract data
-            const accountant = extractAccountantData(
+            const overseer = extractOverseerData(
                 apiResponse.data.user,
                 apiResponse.data.createur,
             );
             // Fire event to redux
-            yield put(storeSetAccountantData({accountant, alsoInList: true}));
+            yield put(storeSetOverseerData({overseer, alsoInList: true}));
             // Fire event for request
-            yield put(storeAccountantEditInfoRequestSucceed({message: apiResponse.message}));
+            yield put(storeOverseerEditInfoRequestSucceed({message: apiResponse.message}));
         } catch (message) {
             // Fire event for request
-            yield put(storeAccountantEditInfoRequestFailed({message}));
+            yield put(storeOverseerEditInfoRequestFailed({message}));
         }
     });
 }
 
-// Extract accountant data
-function extractAccountantData(apiAccountant, apiCreator) {
-    let accountant = {
+// Extract overseer data
+function extractOverseerData(apiOverseer, apiCreator) {
+    let overseer = {
         id: '', name: '', phone: '', email: '', avatar: '', address: '', creation: '', description: '',
 
         creator: {id: '', name: ''},
     };
 
     if(apiCreator) {
-        accountant.creator = {
+        overseer.creator = {
             name: apiCreator.name,
             id: apiCreator.id.toString(),
         }
     }
-    if(apiAccountant) {
-        accountant.actionLoader = false;
-        accountant.toggleLoader = false;
-        accountant.name = apiAccountant.name;
-        accountant.phone = apiAccountant.phone;
-        accountant.email = apiAccountant.email;
-        accountant.address = apiAccountant.adresse;
-        accountant.id = apiAccountant.id.toString();
-        accountant.creation = apiAccountant.created_at;
-        accountant.description = apiAccountant.description;
-        accountant.status = apiAccountant.statut === APPROVE;
-        accountant.avatar = getImageFromServer(apiAccountant.avatar, PROFILE_SCOPE);
+    if(apiOverseer) {
+        overseer.actionLoader = false;
+        overseer.toggleLoader = false;
+        overseer.name = apiOverseer.name;
+        overseer.phone = apiOverseer.phone;
+        overseer.email = apiOverseer.email;
+        overseer.address = apiOverseer.adresse;
+        overseer.id = apiOverseer.id.toString();
+        overseer.creation = apiOverseer.created_at;
+        overseer.description = apiOverseer.description;
+        overseer.status = apiOverseer.statut === APPROVE;
+        overseer.avatar = getImageFromServer(apiOverseer.avatar, PROFILE_SCOPE);
     }
-    return accountant;
+    return overseer;
 }
 
-// Extract accountants data
-function extractAccountantsData(apiAccountants) {
-    const accountants = [];
-    if(apiAccountants) {
-        apiAccountants.forEach(data => {
-            accountants.push(extractAccountantData(
+// Extract overseers data
+function extractOverseersData(apiOverseers) {
+    const overseers = [];
+    if(apiOverseers) {
+        apiOverseers.forEach(data => {
+            overseers.push(extractOverseerData(
                 data.comptable,
                 data.createur,
             ));
         });
     }
-    return accountants;
+    return overseers;
 }
 
 // Combine to export all functions at once
-export default function* sagaAccountants() {
+export default function* sagaOverseers() {
     yield all([
-        fork(emitNewAccountant),
-        fork(emitAccountantFetch),
-        fork(emitAccountantsFetch),
-        fork(emitAllAccountantsFetch),
-        fork(emitUpdateAccountantInfo),
-        fork(emitNextAccountantsFetch),
-        fork(emitToggleAccountantStatus),
+        fork(emitNewOverseer),
+        fork(emitOverseerFetch),
+        fork(emitOverseersFetch),
+        fork(emitAllOverseersFetch),
+        fork(emitUpdateOverseerInfo),
+        fork(emitNextOverseersFetch),
+        fork(emitToggleOverseerStatus),
     ]);
 }
