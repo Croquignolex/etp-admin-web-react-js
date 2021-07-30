@@ -15,9 +15,11 @@ import {DASHBOARD_PAGE} from "../constants/pageNameConstants";
 import {emitAllManagersFetch} from "../redux/managers/actions";
 import {emitAllCompaniesFetch} from "../redux/companies/actions";
 import {emitAllOperatorsFetch} from "../redux/operators/actions";
+import {emitAllOverseersFetch} from "../redux/overseers/actions";
 import AppLayoutComponent from "../components/AppLayoutComponent";
 import {emitAllCollectorsFetch} from "../redux/collectors/actions";
 import ErrorAlertComponent from "../components/ErrorAlertComponent";
+import {emitAllAccountantsFetch} from "../redux/accountants/actions";
 import {emitAllSupervisorsFetch} from "../redux/supervisors/actions";
 import {storeAllSimsRequestReset} from "../redux/requests/sims/actions";
 import {storeAllZonesRequestReset} from "../redux/requests/zones/actions";
@@ -34,12 +36,14 @@ import {storeAllCollectorsRequestReset} from "../redux/requests/collectors/actio
 import {storeAllSupervisorsRequestReset} from "../redux/requests/supervisors/actions";
 import {storeAllAdministratorsRequestReset} from "../redux/requests/administrators/actions";
 import {applySuccess, requestFailed, requestLoading, requestSucceeded} from "../functions/generalFunctions";
+import {CARD_ACCOUNTANTS, CARD_OVERSEERS, LABEL_ACCOUNTANTS, LABEL_OVERSEERS} from "../constants/settingsConstants";
+import {ACCOUNTANTS_PAGE_PATH, OVERSEERS_PAGE_PATH} from "../constants/pagePathConstants";
 
 // Component
-function DashboardPage({agents, settings, dispatch, location, administrators, vendors,
-                           zones, operators, allAgentsRequests, allAdministratorsRequests,
-                           allSupervisorsRequests, allManagersRequests, allCollectorsRequests,
-                           supervisors, managers, collectors, companies, sims, allVendorsRequests,
+function DashboardPage({agents, overseers, accountants, settings, dispatch, location, vendors,
+                           zones, operators, allAgentsRequests, allAdministratorsRequests, administrators,
+                           allSupervisorsRequests, allManagersRequests, allCollectorsRequests, allOverseersRequests,
+                           supervisors, managers, collectors, companies, sims, allVendorsRequests, allAccountantsRequests,
                            allCompaniesRequests, allSimsRequests, allZonesRequests, allOperatorsRequests, resetUserRequests}) {
     // Local states
     const [confirmModal, setConfirmModal] = useState({show: false, body: '', id: 0});
@@ -73,8 +77,12 @@ function DashboardPage({agents, settings, dispatch, location, administrators, ve
         dispatch(emitAllManagersFetch());
         dispatch(emitAllCompaniesFetch());
         dispatch(emitAllOperatorsFetch());
+        dispatch(emitAllOverseersFetch());
+        dispatch(emitAllOverseersFetch());
         dispatch(emitAllCollectorsFetch());
         dispatch(emitAllSupervisorsFetch());
+        dispatch(emitAllAccountantsFetch());
+        dispatch(emitAllAccountantsFetch());
         dispatch(emitAllAdministratorsFetch());
     };
 
@@ -158,14 +166,36 @@ function DashboardPage({agents, settings, dispatch, location, administrators, ve
                                             />
                                         </div>
                                     }
+                                    {cardsData.includes(setting.CARD_OVERSEERS) &&
+                                        <div className="col-lg-3 col-md-4 col-sm-6">
+                                            <DashboardCardComponent color='bg-dark'
+                                                                    data={overseers.length}
+                                                                    icon='fa fa-user-astronaut'
+                                                                    url={path.OVERSEERS_PAGE_PATH}
+                                                                    label={setting.LABEL_OVERSEERS}
+                                                                    request={allOverseersRequests}
+                                            />
+                                        </div>
+                                    }
                                     {cardsData.includes(setting.CARD_SUPERVISORS) &&
                                         <div className="col-lg-3 col-md-4 col-sm-6">
                                             <DashboardCardComponent color='bg-warning'
+                                                                    icon='fa fa-user-edit'
                                                                     data={supervisors.length}
-                                                                    icon='fa fa-user-astronaut'
                                                                     url={path.SUPERVISORS_PAGE_PATH}
                                                                     label={setting.LABEL_SUPERVISORS}
                                                                     request={allSupervisorsRequests}
+                                            />
+                                        </div>
+                                    }
+                                    {cardsData.includes(setting.CARD_ACCOUNTANTS) &&
+                                        <div className="col-lg-3 col-md-4 col-sm-6">
+                                            <DashboardCardComponent color='bg-primary'
+                                                                    icon='fa fa-user-shield'
+                                                                    data={accountants.length}
+                                                                    url={path.ACCOUNTANTS_PAGE_PATH}
+                                                                    request={allAccountantsRequests}
+                                                                    label={setting.LABEL_ACCOUNTANTS}
                                             />
                                         </div>
                                     }
@@ -292,11 +322,13 @@ DashboardPage.propTypes = {
     vendors: PropTypes.array.isRequired,
     dispatch: PropTypes.func.isRequired,
     managers: PropTypes.array.isRequired,
+    overseers: PropTypes.array.isRequired,
     operators: PropTypes.array.isRequired,
     companies: PropTypes.array.isRequired,
     location: PropTypes.object.isRequired,
     settings: PropTypes.object.isRequired,
     collectors: PropTypes.array.isRequired,
+    accountants: PropTypes.array.isRequired,
     supervisors: PropTypes.array.isRequired,
     administrators: PropTypes.array.isRequired,
     allSimsRequests: PropTypes.object.isRequired,
@@ -305,10 +337,12 @@ DashboardPage.propTypes = {
     resetUserRequests: PropTypes.object.isRequired,
     allVendorsRequests: PropTypes.object.isRequired,
     allManagersRequests: PropTypes.object.isRequired,
+    allOverseersRequests: PropTypes.object.isRequired,
     allCompaniesRequests: PropTypes.object.isRequired,
     allOperatorsRequests: PropTypes.object.isRequired,
     allCollectorsRequests: PropTypes.object.isRequired,
     allSupervisorsRequests: PropTypes.object.isRequired,
+    allAccountantsRequests: PropTypes.object.isRequired,
     allAdministratorsRequests: PropTypes.object.isRequired,
 };
 
