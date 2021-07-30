@@ -63,6 +63,8 @@ function SettingsPage({settings, request, dispatch, location}) {
                 {value: setting.CARD_ZONES, label: setting.LABEL_ZONES},
                 {value: setting.CARD_OPERATORS, label: setting.LABEL_OPERATORS},
                 {value: setting.CARD_VENDORS, label: setting.LABEL_VENDORS},
+                {value: setting.CARD_OVERSEERS, label: setting.LABEL_OVERSEERS},
+                {value: setting.CARD_ACCOUNTANTS, label: setting.LABEL_ACCOUNTANTS},
             ],
             charts: [
                 // {value: 0, label: 'name'}

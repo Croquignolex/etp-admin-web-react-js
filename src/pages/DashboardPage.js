@@ -36,8 +36,6 @@ import {storeAllCollectorsRequestReset} from "../redux/requests/collectors/actio
 import {storeAllSupervisorsRequestReset} from "../redux/requests/supervisors/actions";
 import {storeAllAdministratorsRequestReset} from "../redux/requests/administrators/actions";
 import {applySuccess, requestFailed, requestLoading, requestSucceeded} from "../functions/generalFunctions";
-import {CARD_ACCOUNTANTS, CARD_OVERSEERS, LABEL_ACCOUNTANTS, LABEL_OVERSEERS} from "../constants/settingsConstants";
-import {ACCOUNTANTS_PAGE_PATH, OVERSEERS_PAGE_PATH} from "../constants/pagePathConstants";
 
 // Component
 function DashboardPage({agents, overseers, accountants, settings, dispatch, location, vendors,
