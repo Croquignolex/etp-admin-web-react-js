@@ -2,10 +2,15 @@
   "name": "ept",
   "title": "MMAC",
   "description": "MMAC",
-  "keywords": ["etp", "mmac"],
+  "keywords": [
+    "etp",
+    "mmac"
+  ],
   "license": "MIT",
   "author": "Croquignolex",
-  "contributors": ["Alex NGOMBOL"],
+  "contributors": [
+    "Alex NGOMBOL"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/Croquignolex/etp-admin-web-react-js.git"
