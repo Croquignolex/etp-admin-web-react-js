@@ -1,22 +1,16 @@
 {
   "name": "ept",
-  "title": "ETP",
-  "description": "ETP",
-  "keywords": [
-    "etp"
-  ],
+  "title": "MMAC",
+  "description": "MMAC",
+  "keywords": ["etp", "mmac"],
   "license": "MIT",
-  "author": "ZoomLab",
-  "contributors": [
-    "Alex NGOMBOL",
-    "Will",
-    "Stivo"
-  ],
+  "author": "Croquignolex",
+  "contributors": ["Alex NGOMBOL"],
   "repository": {
     "type": "git",
-    "url": "https://alexyxaxa@bitbucket.org/zoomlab2020/etp-web-react-js.git"
+    "url": "https://github.com/Croquignolex/etp-admin-web-react-js.git"
   },
-  "version": "0.1.0",
+  "version": "3.0.0",
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-throw-expressions": "^7.10.1",
@@ -55,11 +49,12 @@
     "redux-thunk": "^2.3.0",
     "socket.io-client": "^2.3.0",
     "styled-components": "^5.1.1",
-    "uifx": "^2.0.7"
+    "uifx": "^2.0.7",
+    "env-cmd": "^10.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "env-cmd -f .env.development react-scripts start",
+    "build": "env-cmd -f .env.production react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
