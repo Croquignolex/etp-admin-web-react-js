@@ -1,13 +1,18 @@
 import PropTypes from "prop-types";
-import React, {useLayoutEffect} from 'react';
+import {connect} from "react-redux";
+import {NotificationManager} from "react-notifications";
+import React, {useLayoutEffect, useEffect} from 'react';
 
 import 'react-notifications/lib/notifications.css';
 
 import NavBarContainer from "../containers/NavBarContainer";
 import SideBarContainer from "../containers/SideBarContainer";
+import {requestSucceeded} from "../functions/generalFunctions";
+import {playSuccessSound} from "../functions/playSoundFunctions";
+import {storeUserCheckRequestReset} from "../redux/requests/actions";
 
 // Component
-function AppLayoutComponent({pathname, children}) {
+function AppLayoutComponent({userCheckRequest, dispatch, pathname, children}) {
     // Local layout effect
     useLayoutEffect(() => {
        if(is_mobile()) {
@@ -16,6 +21,17 @@ function AppLayoutComponent({pathname, children}) {
            document.getElementsByTagName('body')[0].classList.add('sidebar-collapse')
        }
     }, [pathname]);
+
+    // Local effect
+    useEffect(() => {
+        // Welcome form the first check
+        if(requestSucceeded(userCheckRequest)) {
+            playSuccessSound();
+            NotificationManager.success(userCheckRequest.message);
+            dispatch(storeUserCheckRequestReset());
+        }
+        // eslint-disable-next-line
+    }, []);
 
     // Render
     return (
@@ -41,5 +57,15 @@ AppLayoutComponent.propTypes = {
     pathname: PropTypes.string.isRequired,
 };
 
+// Map state function to component props
+const mapStateToProps = (state) => ({
+    userCheckRequest: state.userRequests.check
+});
+
+// Map dispatch function to component props
+const mapDispatchToProps = (dispatch) => ({
+    dispatch: (action) => { dispatch(action) }
+});
+
 // Connect component to Redux
-export default React.memo(AppLayoutComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(AppLayoutComponent));
