@@ -138,7 +138,7 @@ export function* emitNewAccountant() {
             const apiResponse = yield call(apiPostRequest, api.CREATE_ACCOUNTANT_API_PATH, data);
             // Extract data
             const accountant = extractAccountantData(
-                apiResponse.data.gestionnaire,
+                apiResponse.data.comptable,
                 apiResponse.data.createur,
             );
             // Fire event to redux
