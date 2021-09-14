@@ -13,8 +13,8 @@ import {playWarningSound} from "../../functions/playSoundFunctions";
 import {emitAddCollectorSims} from "../../redux/collectors/actions";
 import {emitAllOperatorsFetch} from "../../redux/operators/actions";
 import {phoneChecker, requiredChecker} from "../../functions/checkerFunctions";
-import {storeAgentAddSimRequestReset} from "../../redux/requests/agents/actions";
 import {storeAllOperatorsRequestReset} from "../../redux/requests/operators/actions";
+import {storeCollectorAddSimRequestReset} from "../../redux/requests/collectors/actions";
 import {applySuccess, requestFailed, requestLoading, requestSucceeded} from "../../functions/generalFunctions";
 
 // Component
@@ -47,7 +47,7 @@ function CollectorAddSimComponent({request, collector, operators, allOperatorsRe
 
     // Reset error alert
     const shouldResetErrorData = () => {
-        dispatch(storeAgentAddSimRequestReset());
+        dispatch(storeCollectorAddSimRequestReset());
         dispatch(storeAllOperatorsRequestReset());
     };
 
