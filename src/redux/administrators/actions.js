@@ -8,9 +8,10 @@ export const STORE_STOP_INFINITE_SCROLL_ADMINISTRATORS_DATA = 'STORE_STOP_INFINI
 // Middleware action types
 export const EMIT_NEW_ADMINISTRATOR = 'EMIT_NEW_ADMINISTRATOR';
 export const EMIT_ADMINISTRATOR_FETCH = 'EMIT_ADMINISTRATOR_FETCH';
+export const EMIT_RESET_ADMINISTRATOR = 'EMIT_RESET_ADMINISTRATOR';
 export const EMIT_ADMINISTRATORS_FETCH = 'EMIT_ADMINISTRATORS_FETCH';
-export const EMIT_NEXT_ADMINISTRATORS_FETCH = 'EMIT_NEXT_ADMINISTRATORS_FETCH';
 export const EMIT_ALL_ADMINISTRATORS_FETCH = 'EMIT_ALL_ADMINISTRATORS_FETCH';
+export const EMIT_NEXT_ADMINISTRATORS_FETCH = 'EMIT_NEXT_ADMINISTRATORS_FETCH';
 
 //====================== Reducer trigger actions
 // Set administrators data in store
@@ -79,4 +80,10 @@ export const emitNewAdministrator = ({name, address, phone, email, password,  de
     password,
     description,
     type: EMIT_NEW_ADMINISTRATOR
+});
+
+// Emit reset administrator
+export const emitResetAdministrator = ({id}) => ({
+    id,
+    type: EMIT_RESET_ADMINISTRATOR
 });

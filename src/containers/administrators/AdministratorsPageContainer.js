@@ -8,6 +8,7 @@ setPageTitle(ADMINS);
 
 // Map state function to component props
 const mapStateToProps = (state) => ({
+    user: state.user,
     page: state.administrators.page,
     administrators: state.administrators.list,
     hasMoreData: state.administrators.hasMoreData,

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import {dateToString} from "../../functions/generalFunctions";
 
 // Component
-function AdministratorsCardsComponent({administrators, handleAdministratorDetailsModalShow}) {
+function AdministratorsCardsComponent({administrators, user, handleAdministratorDetailsModalShow, handleResetModalShow}) {console.log({user, administrators})
     // Render
     return (
         <>
@@ -49,6 +49,17 @@ function AdministratorsCardsComponent({administrators, handleAdministratorDetail
                                         >
                                             <i className="fa fa-eye" /> Détails
                                         </button>
+                                        {(user.id.toString() !== item.id.toString()) && (
+                                            <>
+                                                <br />
+                                                <button type="button"
+                                                        className="btn btn-sm btn-danger mt-1"
+                                                        onClick={() => handleResetModalShow(item)}
+                                                >
+                                                    <i className="fa fa-redo" /> Réinitialisation
+                                                </button>
+                                            </>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +80,9 @@ function AdministratorsCardsComponent({administrators, handleAdministratorDetail
 
 // Prop types to ensure destroyed props data type
 AdministratorsCardsComponent.propTypes = {
+    user: PropTypes.object.isRequired,
     administrators: PropTypes.array.isRequired,
+    handleResetModalShow: PropTypes.func.isRequired,
     handleAdministratorDetailsModalShow: PropTypes.func.isRequired,
 };
 

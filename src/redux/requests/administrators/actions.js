@@ -22,7 +22,12 @@ export const STORE_ADD_ADMINISTRATOR_REQUEST_SUCCEEDED = 'STORE_ADD_ADMINISTRATO
 export const STORE_ADMINISTRATOR_REQUEST_INIT = 'STORE_ADMINISTRATOR_REQUEST_INIT';
 export const STORE_ADMINISTRATOR_REQUEST_RESET = 'STORE_ADMINISTRATOR_REQUEST_RESET';
 export const STORE_ADMINISTRATOR_REQUEST_FAILED = 'STORE_ADMINISTRATOR_REQUEST_FAILED';
-export const STORE_ADMINISTRATOR_REQUEST_SUCCEEDED = 'STORE_ADMINISTRATOR_REQUEST_SUCCEEDED';  
+export const STORE_ADMINISTRATOR_REQUEST_SUCCEEDED = 'STORE_ADMINISTRATOR_REQUEST_SUCCEEDED';
+
+export const STORE_RESET_ADMINISTRATOR_REQUEST_INIT = 'STORE_RESET_ADMINISTRATOR_REQUEST_INIT';
+export const STORE_RESET_ADMINISTRATOR_REQUEST_RESET = 'STORE_RESET_ADMINISTRATOR_REQUEST_RESET';
+export const STORE_RESET_ADMINISTRATOR_REQUEST_FAILED = 'STORE_RESET_ADMINISTRATOR_REQUEST_FAILED';
+export const STORE_RESET_ADMINISTRATOR_REQUEST_SUCCEEDED = 'STORE_RESET_ADMINISTRATOR_REQUEST_SUCCEEDED';
 
 // ======================================================== Administrators
 // Set administrators init data into store
@@ -133,4 +138,26 @@ export const storeAdministratorRequestSucceed = ({message}) => ({
 // Set administrator reset data into store
 export const storeAdministratorRequestReset = () => ({
     type: STORE_ADMINISTRATOR_REQUEST_RESET
-}); 
+});
+// ======================================================== Reset supervisor
+// Set reset administrator init data into store
+export const storeResetAdministratorRequestInit = () => ({
+    type: STORE_RESET_ADMINISTRATOR_REQUEST_INIT
+});
+
+// Set reset administrator failed data into store
+export const storeResetAdministratorRequestFailed = ({message}) => ({
+    message,
+    type: STORE_RESET_ADMINISTRATOR_REQUEST_FAILED
+});
+
+// Set reset administrator succeeded data into store
+export const storeResetAdministratorRequestSucceed = ({message}) => ({
+    message,
+    type: STORE_RESET_ADMINISTRATOR_REQUEST_SUCCEEDED
+});
+
+// Set reset administrator reset data into store
+export const storeResetAdministratorRequestReset = () => ({
+    type: STORE_RESET_ADMINISTRATOR_REQUEST_RESET
+});

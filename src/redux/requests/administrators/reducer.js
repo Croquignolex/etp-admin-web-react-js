@@ -8,6 +8,7 @@ const initialState = {
     list: {failed: false, loading: false, succeeded: false, message: ""},
     next: {failed: false, loading: false, succeeded: false, message: ""},
     show: {failed: false, loading: false, succeeded: false, message: ""},
+    reset: {failed: false, loading: false, succeeded: false, message: ""},
 };
 
 // Reduce
@@ -98,6 +99,23 @@ function reduce(state = initialState, action) {
         // Resolve event to set administrator reset request store data
         case actions.STORE_ADMINISTRATOR_REQUEST_RESET:
             nextState = {...state, show: initialState.show};
+            return nextState || state;
+        // ======================================================== Reset administrator
+        // Resolve event to set reset administrator init request store data
+        case actions.STORE_RESET_ADMINISTRATOR_REQUEST_INIT:
+            nextState = {...state, reset: requestInitValue()};
+            return nextState || state;
+        // Resolve event to set reset administrator failed request store data
+        case actions.STORE_RESET_ADMINISTRATOR_REQUEST_FAILED:
+            nextState = {...state, reset: requestFailedValue(action.message)};
+            return nextState || state;
+        // Resolve event to set reset administrator succeeded request store data
+        case actions.STORE_RESET_ADMINISTRATOR_REQUEST_SUCCEEDED:
+            nextState = {...state, reset: requestSucceededValue(action.message)};
+            return nextState || state;
+        // Resolve event to set reset administrator reset request store data
+        case actions.STORE_RESET_ADMINISTRATOR_REQUEST_RESET:
+            nextState = {...state, reset: initialState.reset};
             return nextState || state;
         // ========================================================
         // Unknown action

@@ -9,17 +9,30 @@ import AppLayoutComponent from "../../components/AppLayoutComponent";
 import ErrorAlertComponent from "../../components/ErrorAlertComponent";
 import TableSearchComponent from "../../components/TableSearchComponent";
 import FormModalComponent from "../../components/modals/FormModalComponent";
+import DeleteModalComponent from "../../components/modals/DeleteModalComponent";
 import AdministratorNewContainer from "../../containers/administrators/AdministratorNewContainer";
 import AdministratorsCardsComponent from "../../components/administrators/AdministratorsCardsComponent";
 import {emitAdministratorsFetch, emitNextAdministratorsFetch} from "../../redux/administrators/actions";
 import AdministratorDetailsContainer from "../../containers/administrators/AdministratorDetailsContainer";
-import {dateToString, needleSearch, requestFailed, requestLoading} from "../../functions/generalFunctions";
-import {storeAdministratorsRequestReset, storeNextAdministratorsRequestReset} from "../../redux/requests/administrators/actions";
+import {
+    storeAdministratorsRequestReset,
+    storeNextAdministratorsRequestReset,
+    storeResetAdministratorRequestReset
+} from "../../redux/requests/administrators/actions";
+import {
+    applySuccess,
+    dateToString,
+    needleSearch,
+    requestFailed,
+    requestLoading,
+    requestSucceeded
+} from "../../functions/generalFunctions";
 
 // Component
-function AdministratorsPage({administrators, administratorsRequests, hasMoreData, page, dispatch, location}) {
+function AdministratorsPage({administrators, administratorsRequests, hasMoreData, user, page, dispatch, location}) {console.log({user})
     // Local states
     const [needle, setNeedle] = useState('');
+    const [resetModal, setResetModal] = useState({show: false, body: '', id: 0});
     const [newAdministratorModal, setNewAdministratorModal] = useState({show: false, header: ''});
     const [administratorDetailsModal, setAdministratorDetailsModal] = useState({show: false, header: "DETAIL DE L'ADMINISTRATEUR", id: ''});
 
@@ -33,6 +46,15 @@ function AdministratorsPage({administrators, administratorsRequests, hasMoreData
         // eslint-disable-next-line
     }, []);
 
+    // Local effects
+    useEffect(() => {
+        // Reset inputs while toast (well done) into current scope
+        if(requestSucceeded(administratorsRequests.reset)) {
+            applySuccess(administratorsRequests.reset.message);
+        }
+        // eslint-disable-next-line
+    }, [administratorsRequests.cancel]);
+
     const handleNeedleInput = (data) => {
         setNeedle(data)
     }
@@ -41,6 +63,7 @@ function AdministratorsPage({administrators, administratorsRequests, hasMoreData
     const shouldResetErrorData = () => {
         dispatch(storeAdministratorsRequestReset());
         dispatch(storeNextAdministratorsRequestReset());
+        dispatch(storeResetAdministratorRequestReset());
     };
 
     // Fetch next administrator data to enhance infinite scroll
@@ -68,6 +91,22 @@ function AdministratorsPage({administrators, administratorsRequests, hasMoreData
         setAdministratorDetailsModal({...administratorDetailsModal, show: false})
     }
 
+    // Show reset modal form
+    const handleResetModalShow = ({id, name}) => {
+        setResetModal({...resetModal, id, body: `Confirmer la réinitialisation du mot de passe de ${name}?`, show: true})
+    }
+
+    // Hide reset modal form
+    const handleResetModalHide = () => {
+        setResetModal({...resetModal, show: false})
+    }
+
+    // Trigger when administrator reset confirmed on modal
+    const handleReset = (id) => {
+        handleResetModalHide();
+        // dispatch(emitCancelTransfer({id}));
+    };
+
     // Render
     return (
         <>
@@ -89,6 +128,7 @@ function AdministratorsPage({administrators, administratorsRequests, hasMoreData
                                             {/* Error message */}
                                             {requestFailed(administratorsRequests.list) && <ErrorAlertComponent message={administratorsRequests.list.message} />}
                                             {requestFailed(administratorsRequests.next) && <ErrorAlertComponent message={administratorsRequests.next.message} />}
+                                            {requestFailed(administratorsRequests.reset) && <ErrorAlertComponent message={administratorsRequests.reset.message} />}
                                             <button type="button"
                                                     className="btn btn-theme mr-2 mb-2"
                                                     onClick={handleNewAdministratorModalShow}
@@ -97,7 +137,9 @@ function AdministratorsPage({administrators, administratorsRequests, hasMoreData
                                             </button>
                                             {/* Search result & Infinite scroll */}
                                             {(needle !== '' && needle !== undefined)
-                                                ? <AdministratorsCardsComponent administrators={searchEngine(administrators, needle)}
+                                                ? <AdministratorsCardsComponent user={user}
+                                                                                handleResetModalShow={handleResetModalShow}
+                                                                                administrators={searchEngine(administrators, needle)}
                                                                                 handleAdministratorDetailsModalShow={handleAdministratorDetailsModalShow}
                                                 />
                                                 : (requestLoading(administratorsRequests.list) ? <LoaderComponent /> :
@@ -107,7 +149,9 @@ function AdministratorsPage({administrators, administratorsRequests, hasMoreData
                                                                         next={handleNextAdministratorsData}
                                                                         style={{ overflow: 'hidden' }}
                                                         >
-                                                            <AdministratorsCardsComponent administrators={administrators}
+                                                            <AdministratorsCardsComponent user={user}
+                                                                                          administrators={administrators}
+                                                                                          handleResetModalShow={handleResetModalShow}
                                                                                           handleAdministratorDetailsModalShow={handleAdministratorDetailsModalShow}
                                                             />
                                                         </InfiniteScroll>
@@ -122,6 +166,10 @@ function AdministratorsPage({administrators, administratorsRequests, hasMoreData
                 </div>
             </AppLayoutComponent>
             {/* Modal */}
+            <DeleteModalComponent modal={resetModal}
+                                  handleModal={handleReset}
+                                  handleClose={handleResetModalHide}
+            />
             <FormModalComponent modal={administratorDetailsModal} handleClose={handleAdministratorDetailsModalHide}>
                 <AdministratorDetailsContainer id={administratorDetailsModal.id} />
             </FormModalComponent>
@@ -153,6 +201,7 @@ function searchEngine(data, _needle) {
 
 // Prop types to ensure destroyed props data type
 AdministratorsPage.propTypes = {
+    user: PropTypes.object.isRequired,
     page: PropTypes.number.isRequired,
     dispatch: PropTypes.func.isRequired,
     location: PropTypes.object.isRequired,
