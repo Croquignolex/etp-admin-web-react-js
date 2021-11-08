@@ -5,7 +5,8 @@ import LoaderComponent from "../LoaderComponent";
 import {dateToString} from "../../functions/generalFunctions";
 
 // Component
-function AccountantsCardsComponent({accountants, handleBlock, handleBlockModalShow,handleAccountantDetailsModalShow}) {
+function AccountantsCardsComponent({accountants, handleBlock, handleBlockModalShow,
+                                       handleResetModalShow, handleAccountantDetailsModalShow}) {
     // Render
     return (
         <>
@@ -50,12 +51,23 @@ function AccountantsCardsComponent({accountants, handleBlock, handleBlockModalSh
                                         </li>
                                     </ul>
                                     <div className="mt-3 text-right">
-                                        <button type="button"
-                                                className="btn btn-sm btn-theme mb-1"
-                                                onClick={() => handleAccountantDetailsModalShow(item)}
-                                        >
-                                            <i className="fa fa-eye" /> Détails
-                                        </button>
+                                        {item.actionLoader ? <LoaderComponent little={true} /> : (
+                                            <>
+                                                <button type="button"
+                                                        className="btn btn-sm btn-theme"
+                                                        onClick={() => handleAccountantDetailsModalShow(item)}
+                                                >
+                                                    <i className="fa fa-eye" /> Détails
+                                                </button>
+                                                <br />
+                                                <button type="button"
+                                                        className="btn btn-sm btn-danger mt-1"
+                                                        onClick={() => handleResetModalShow(item)}
+                                                >
+                                                    <i className="fa fa-redo" /> Réinitialisation
+                                                </button>
+                                            </>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -79,6 +91,7 @@ AccountantsCardsComponent.propTypes = {
     accountants: PropTypes.array.isRequired,
     handleBlock: PropTypes.func.isRequired,
     handleBlockModalShow: PropTypes.func.isRequired,
+    handleResetModalShow: PropTypes.func.isRequired,
     handleAccountantDetailsModalShow: PropTypes.func.isRequired,
 };
 

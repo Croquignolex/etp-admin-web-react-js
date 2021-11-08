@@ -10,17 +10,36 @@ import ErrorAlertComponent from "../../components/ErrorAlertComponent";
 import TableSearchComponent from "../../components/TableSearchComponent";
 import FormModalComponent from "../../components/modals/FormModalComponent";
 import BlockModalComponent from "../../components/modals/BlockModalComponent";
+import DeleteModalComponent from "../../components/modals/DeleteModalComponent";
 import AccountantNewContainer from "../../containers/accountants/AccountantNewContainer";
 import AccountantsCardsComponent from "../../components/accountants/AccountantsCardsComponent";
 import AccountantDetailsContainer from "../../containers/accountants/AccountantDetailsContainer";
-import {emitAccountantsFetch, emitNextAccountantsFetch, emitToggleAccountantStatus} from "../../redux/accountants/actions";
-import {applySuccess, dateToString, needleSearch, requestFailed, requestLoading, requestSucceeded} from "../../functions/generalFunctions";
-import {storeAccountantsRequestReset, storeNextAccountantsRequestReset, storeAccountantStatusToggleRequestReset,} from "../../redux/requests/accountants/actions";
+import {
+    emitResetAccountant,
+    emitAccountantsFetch,
+    emitNextAccountantsFetch,
+    emitToggleAccountantStatus
+} from "../../redux/accountants/actions";
+import {
+    applySuccess,
+    dateToString,
+    needleSearch,
+    requestFailed,
+    requestLoading,
+    requestSucceeded
+} from "../../functions/generalFunctions";
+import {
+    storeAccountantsRequestReset,
+    storeNextAccountantsRequestReset,
+    storeResetAccountantRequestReset,
+    storeAccountantStatusToggleRequestReset,
+} from "../../redux/requests/accountants/actions";
 
 // Component
 function AccountantsPage({accountants, accountantsRequests, hasMoreData, page, dispatch, location}) {
     // Local states
     const [needle, setNeedle] = useState('');
+    const [resetModal, setResetModal] = useState({show: false, body: '', id: 0});
     const [blockModal, setBlockModal] = useState({show: false, body: '', id: 0});
     const [newAccountantModal, setNewAccountantModal] = useState({show: false, header: ''});
     const [accountantDetailsModal, setAccountantDetailsModal] = useState({show: false, header: '', id: 0});
@@ -44,6 +63,15 @@ function AccountantsPage({accountants, accountantsRequests, hasMoreData, page, d
         // eslint-disable-next-line
     }, [accountantsRequests.status]);
 
+    // Local effects
+    useEffect(() => {
+        // Reset inputs while toast (well done) into current scope
+        if(requestSucceeded(accountantsRequests.reset)) {
+            applySuccess(accountantsRequests.reset.message);
+        }
+        // eslint-disable-next-line
+    }, [accountantsRequests.reset]);
+
     const handleNeedleInput = (data) => {
         setNeedle(data)
     }
@@ -52,6 +80,7 @@ function AccountantsPage({accountants, accountantsRequests, hasMoreData, page, d
     const shouldResetErrorData = () => {
         dispatch(storeAccountantsRequestReset());
         dispatch(storeNextAccountantsRequestReset());
+        dispatch(storeResetAccountantRequestReset());
         dispatch(storeAccountantStatusToggleRequestReset());
     };
 
@@ -90,6 +119,22 @@ function AccountantsPage({accountants, accountantsRequests, hasMoreData, page, d
         setBlockModal({...blockModal, show: false})
     }
 
+    // Show reset modal form
+    const handleResetModalShow = ({id, name}) => {
+        setResetModal({...resetModal, id, body: `Confirmer la réinitialisation du mot de passe de ${name}?`, show: true})
+    }
+
+    // Hide reset modal form
+    const handleResetModalHide = () => {
+        setResetModal({...resetModal, show: false})
+    }
+
+    // Trigger when administrator reset confirmed on modal
+    const handleReset = (id) => {
+        handleResetModalHide();
+        dispatch(emitResetAccountant({id}));
+    };
+
     // Trigger when user change status confirmed on modal
     const handleBlock = (id) => {
         handleBlockModalHide();
@@ -117,6 +162,7 @@ function AccountantsPage({accountants, accountantsRequests, hasMoreData, page, d
                                             {/* Error message */}
                                             {requestFailed(accountantsRequests.list) && <ErrorAlertComponent message={accountantsRequests.list.message} />}
                                             {requestFailed(accountantsRequests.next) && <ErrorAlertComponent message={accountantsRequests.next.message} />}
+                                            {requestFailed(accountantsRequests.reset) && <ErrorAlertComponent message={accountantsRequests.reset.message} />}
                                             {requestFailed(accountantsRequests.status) && <ErrorAlertComponent message={accountantsRequests.status.message} />}
                                             <button type="button"
                                                     className="btn btn-theme ml-2 mb-2"
@@ -127,6 +173,7 @@ function AccountantsPage({accountants, accountantsRequests, hasMoreData, page, d
                                             {/* Search result & Infinite scroll */}
                                             {(needle !== '' && needle !== undefined)
                                                 ? <AccountantsCardsComponent handleBlock={handleBlock}
+                                                                             handleResetModalShow={handleResetModalShow}
                                                                              handleBlockModalShow={handleBlockModalShow}
                                                                              accountants={searchEngine(accountants, needle)}
                                                                              handleAccountantDetailsModalShow={handleAccountantDetailsModalShow}
@@ -140,6 +187,7 @@ function AccountantsPage({accountants, accountantsRequests, hasMoreData, page, d
                                                         >
                                                             <AccountantsCardsComponent accountants={accountants}
                                                                                        handleBlock={handleBlock}
+                                                                                       handleResetModalShow={handleResetModalShow}
                                                                                        handleBlockModalShow={handleBlockModalShow}
                                                                                        handleAccountantDetailsModalShow={handleAccountantDetailsModalShow}
                                                             />
@@ -158,6 +206,10 @@ function AccountantsPage({accountants, accountantsRequests, hasMoreData, page, d
             <BlockModalComponent modal={blockModal}
                                  handleBlock={handleBlock}
                                  handleClose={handleBlockModalHide}
+            />
+            <DeleteModalComponent modal={resetModal}
+                                  handleModal={handleReset}
+                                  handleClose={handleResetModalHide}
             />
             <FormModalComponent modal={newAccountantModal} handleClose={handleNewAccountantModalHide}>
                 <AccountantNewContainer type={newAccountantModal.type} handleClose={handleNewAccountantModalHide} />
