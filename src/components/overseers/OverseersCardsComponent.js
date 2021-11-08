@@ -5,7 +5,8 @@ import LoaderComponent from "../LoaderComponent";
 import {dateToString} from "../../functions/generalFunctions";
 
 // Component
-function OverseersCardsComponent({overseers, handleBlock, handleBlockModalShow,handleOverseerDetailsModalShow}) {
+function OverseersCardsComponent({overseers, handleBlock, handleBlockModalShow,
+                                     handleResetModalShow, handleOverseerDetailsModalShow}) {
     // Render
     return (
         <>
@@ -50,12 +51,23 @@ function OverseersCardsComponent({overseers, handleBlock, handleBlockModalShow,h
                                         </li>
                                     </ul>
                                     <div className="mt-3 text-right">
-                                        <button type="button"
-                                                className="btn btn-sm btn-theme mb-1"
-                                                onClick={() => handleOverseerDetailsModalShow(item)}
-                                        >
-                                            <i className="fa fa-eye" /> Détails
-                                        </button>
+                                        {item.actionLoader ? <LoaderComponent little={true} /> : (
+                                            <>
+                                                <button type="button"
+                                                        className="btn btn-sm btn-theme"
+                                                        onClick={() => handleOverseerDetailsModalShow(item)}
+                                                >
+                                                    <i className="fa fa-eye" /> Détails
+                                                </button>
+                                                <br />
+                                                <button type="button"
+                                                        className="btn btn-sm btn-danger mt-1"
+                                                        onClick={() => handleResetModalShow(item)}
+                                                >
+                                                    <i className="fa fa-redo" /> Réinitialisation
+                                                </button>
+                                            </>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -79,6 +91,7 @@ OverseersCardsComponent.propTypes = {
     overseers: PropTypes.array.isRequired,
     handleBlock: PropTypes.func.isRequired,
     handleBlockModalShow: PropTypes.func.isRequired,
+    handleResetModalShow: PropTypes.func.isRequired,
     handleOverseerDetailsModalShow: PropTypes.func.isRequired,
 };
 

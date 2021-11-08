@@ -10,17 +10,36 @@ import ErrorAlertComponent from "../../components/ErrorAlertComponent";
 import TableSearchComponent from "../../components/TableSearchComponent";
 import FormModalComponent from "../../components/modals/FormModalComponent";
 import BlockModalComponent from "../../components/modals/BlockModalComponent";
+import DeleteModalComponent from "../../components/modals/DeleteModalComponent";
 import OverseerNewContainer from "../../containers/overseers/OverseerNewContainer";
 import OverseersCardsComponent from "../../components/overseers/OverseersCardsComponent";
 import OverseerDetailsContainer from "../../containers/overseers/OverseerDetailsContainer";
-import {emitOverseersFetch, emitNextOverseersFetch, emitToggleOverseerStatus} from "../../redux/overseers/actions";
-import {applySuccess, dateToString, needleSearch, requestFailed, requestLoading, requestSucceeded} from "../../functions/generalFunctions";
-import {storeOverseersRequestReset, storeNextOverseersRequestReset, storeOverseerStatusToggleRequestReset,} from "../../redux/requests/overseers/actions";
+import {
+    emitResetOverseer,
+    emitOverseersFetch,
+    emitNextOverseersFetch,
+    emitToggleOverseerStatus
+} from "../../redux/overseers/actions";
+import {
+    applySuccess,
+    dateToString,
+    needleSearch,
+    requestFailed,
+    requestLoading,
+    requestSucceeded
+} from "../../functions/generalFunctions";
+import {
+    storeOverseersRequestReset,
+    storeResetOverseerRequestReset,
+    storeNextOverseersRequestReset,
+    storeOverseerStatusToggleRequestReset,
+} from "../../redux/requests/overseers/actions";
 
 // Component
 function OverseersPage({overseers, overseersRequests, hasMoreData, page, dispatch, location}) {
     // Local states
     const [needle, setNeedle] = useState('');
+    const [resetModal, setResetModal] = useState({show: false, body: '', id: 0});
     const [blockModal, setBlockModal] = useState({show: false, body: '', id: 0});
     const [newOverseerModal, setNewOverseerModal] = useState({show: false, header: ''});
     const [overseerDetailsModal, setOverseerDetailsModal] = useState({show: false, header: '', id: 0});
@@ -44,6 +63,15 @@ function OverseersPage({overseers, overseersRequests, hasMoreData, page, dispatc
         // eslint-disable-next-line
     }, [overseersRequests.status]);
 
+    // Local effects
+    useEffect(() => {
+        // Reset inputs while toast (well done) into current scope
+        if(requestSucceeded(overseersRequests.reset)) {
+            applySuccess(overseersRequests.reset.message);
+        }
+        // eslint-disable-next-line
+    }, [overseersRequests.reset]);
+
     const handleNeedleInput = (data) => {
         setNeedle(data)
     }
@@ -52,6 +80,7 @@ function OverseersPage({overseers, overseersRequests, hasMoreData, page, dispatc
     const shouldResetErrorData = () => {
         dispatch(storeOverseersRequestReset());
         dispatch(storeNextOverseersRequestReset());
+        dispatch(storeResetOverseerRequestReset());
         dispatch(storeOverseerStatusToggleRequestReset());
     };
 
@@ -90,6 +119,22 @@ function OverseersPage({overseers, overseersRequests, hasMoreData, page, dispatc
         setBlockModal({...blockModal, show: false})
     }
 
+    // Show reset modal form
+    const handleResetModalShow = ({id, name}) => {
+        setResetModal({...resetModal, id, body: `Confirmer la réinitialisation du mot de passe de ${name}?`, show: true})
+    }
+
+    // Hide reset modal form
+    const handleResetModalHide = () => {
+        setResetModal({...resetModal, show: false})
+    }
+
+    // Trigger when administrator reset confirmed on modal
+    const handleReset = (id) => {
+        handleResetModalHide();
+        dispatch(emitResetOverseer({id}));
+    };
+
     // Trigger when user change status confirmed on modal
     const handleBlock = (id) => {
         handleBlockModalHide();
@@ -117,6 +162,7 @@ function OverseersPage({overseers, overseersRequests, hasMoreData, page, dispatc
                                             {/* Error message */}
                                             {requestFailed(overseersRequests.list) && <ErrorAlertComponent message={overseersRequests.list.message} />}
                                             {requestFailed(overseersRequests.next) && <ErrorAlertComponent message={overseersRequests.next.message} />}
+                                            {requestFailed(overseersRequests.reset) && <ErrorAlertComponent message={overseersRequests.reset.message} />}
                                             {requestFailed(overseersRequests.status) && <ErrorAlertComponent message={overseersRequests.status.message} />}
                                             <button type="button"
                                                     className="btn btn-theme ml-2 mb-2"
@@ -127,9 +173,10 @@ function OverseersPage({overseers, overseersRequests, hasMoreData, page, dispatc
                                             {/* Search result & Infinite scroll */}
                                             {(needle !== '' && needle !== undefined)
                                                 ? <OverseersCardsComponent handleBlock={handleBlock}
-                                                                             handleBlockModalShow={handleBlockModalShow}
-                                                                             overseers={searchEngine(overseers, needle)}
-                                                                             handleOverseerDetailsModalShow={handleOverseerDetailsModalShow}
+                                                                           handleResetModalShow={handleResetModalShow}
+                                                                           handleBlockModalShow={handleBlockModalShow}
+                                                                           overseers={searchEngine(overseers, needle)}
+                                                                           handleOverseerDetailsModalShow={handleOverseerDetailsModalShow}
                                                 />
                                                 : (requestLoading(overseersRequests.list) ? <LoaderComponent /> :
                                                         <InfiniteScroll hasMore={hasMoreData}
@@ -139,9 +186,10 @@ function OverseersPage({overseers, overseersRequests, hasMoreData, page, dispatc
                                                                         style={{ overflow: 'hidden' }}
                                                         >
                                                             <OverseersCardsComponent overseers={overseers}
-                                                                                       handleBlock={handleBlock}
-                                                                                       handleBlockModalShow={handleBlockModalShow}
-                                                                                       handleOverseerDetailsModalShow={handleOverseerDetailsModalShow}
+                                                                                     handleBlock={handleBlock}
+                                                                                     handleResetModalShow={handleResetModalShow}
+                                                                                     handleBlockModalShow={handleBlockModalShow}
+                                                                                     handleOverseerDetailsModalShow={handleOverseerDetailsModalShow}
                                                             />
                                                         </InfiniteScroll>
                                                 )
@@ -158,6 +206,10 @@ function OverseersPage({overseers, overseersRequests, hasMoreData, page, dispatc
             <BlockModalComponent modal={blockModal}
                                  handleBlock={handleBlock}
                                  handleClose={handleBlockModalHide}
+            />
+            <DeleteModalComponent modal={resetModal}
+                                  handleModal={handleReset}
+                                  handleClose={handleResetModalHide}
             />
             <FormModalComponent modal={newOverseerModal} handleClose={handleNewOverseerModalHide}>
                 <OverseerNewContainer type={newOverseerModal.type} handleClose={handleNewOverseerModalHide} />
