@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
+import LoaderComponent from "../LoaderComponent";
 import {dateToString} from "../../functions/generalFunctions";
 
 // Component
@@ -43,21 +44,25 @@ function AdministratorsCardsComponent({administrators, user, handleAdministrator
                                         </li>
                                     </ul>
                                     <div className="mt-3 text-right">
-                                        <button type="button"
-                                                className="btn btn-sm btn-theme"
-                                                onClick={() => handleAdministratorDetailsModalShow(item)}
-                                        >
-                                            <i className="fa fa-eye" /> Détails
-                                        </button>
-                                        {(user.id.toString() !== item.id.toString()) && (
+                                        {item.actionLoader ? <LoaderComponent little={true} /> : (
                                             <>
-                                                <br />
                                                 <button type="button"
-                                                        className="btn btn-sm btn-danger mt-1"
-                                                        onClick={() => handleResetModalShow(item)}
+                                                        className="btn btn-sm btn-theme"
+                                                        onClick={() => handleAdministratorDetailsModalShow(item)}
                                                 >
-                                                    <i className="fa fa-redo" /> Réinitialisation
+                                                    <i className="fa fa-eye" /> Détails
                                                 </button>
+                                                {(user.id.toString() !== item.id.toString()) && (
+                                                    <>
+                                                        <br />
+                                                        <button type="button"
+                                                                className="btn btn-sm btn-danger mt-1"
+                                                                onClick={() => handleResetModalShow(item)}
+                                                        >
+                                                            <i className="fa fa-redo" /> Réinitialisation
+                                                        </button>
+                                                    </>
+                                                )}
                                             </>
                                         )}
                                     </div>

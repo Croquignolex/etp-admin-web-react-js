@@ -12,8 +12,12 @@ import FormModalComponent from "../../components/modals/FormModalComponent";
 import DeleteModalComponent from "../../components/modals/DeleteModalComponent";
 import AdministratorNewContainer from "../../containers/administrators/AdministratorNewContainer";
 import AdministratorsCardsComponent from "../../components/administrators/AdministratorsCardsComponent";
-import {emitAdministratorsFetch, emitNextAdministratorsFetch} from "../../redux/administrators/actions";
 import AdministratorDetailsContainer from "../../containers/administrators/AdministratorDetailsContainer";
+import {
+    emitResetAdministrator,
+    emitAdministratorsFetch,
+    emitNextAdministratorsFetch
+} from "../../redux/administrators/actions";
 import {
     storeAdministratorsRequestReset,
     storeNextAdministratorsRequestReset,
@@ -104,7 +108,7 @@ function AdministratorsPage({administrators, administratorsRequests, hasMoreData
     // Trigger when administrator reset confirmed on modal
     const handleReset = (id) => {
         handleResetModalHide();
-        // dispatch(emitCancelTransfer({id}));
+        dispatch(emitResetAdministrator({id}));
     };
 
     // Render

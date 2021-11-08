@@ -68,6 +68,7 @@ export const ADMINISTRATORS_API_PATH = `${API_URL}/administrateurs`;
 export const ADMINISTRATOR_DETAILS_API_PATH = `${API_URL}/details_user`;
 export const ALL_ADMINISTRATORS_API_PATH = `${API_URL}/administrateurs`;
 export const CREATE_ADMINISTRATOR_API_PATH = `${API_URL}/create_administrateur`;
+export const ADMINISTRATOR_PASSWORD_RESET_API_PATH = `${API_URL}/user_password_reset`;
 
 // Overseers
 export const OVERSEERS_API_PATH = `${API_URL}/controlleurs`;

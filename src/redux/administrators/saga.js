@@ -7,13 +7,15 @@ import {apiGetRequest, apiPostRequest, getImageFromServer} from "../../functions
 import {
     EMIT_NEW_ADMINISTRATOR,
     EMIT_ADMINISTRATOR_FETCH,
+    EMIT_RESET_ADMINISTRATOR,
     EMIT_ADMINISTRATORS_FETCH,
     storeSetAdministratorData,
     storeSetAdministratorsData,
-    EMIT_ALL_ADMINISTRATORS_FETCH,
-    EMIT_NEXT_ADMINISTRATORS_FETCH,
     storeSetNewAdministratorData,
+    EMIT_ALL_ADMINISTRATORS_FETCH,
     storeSetNextAdministratorsData,
+    EMIT_NEXT_ADMINISTRATORS_FETCH,
+    storeSetAdministratorActionData,
     storeStopInfiniteScrollAdministratorData
 } from "./actions";
 import {
@@ -27,11 +29,14 @@ import {
     storeAdministratorsRequestSucceed,
     storeNextAdministratorsRequestInit,
     storeAddAdministratorRequestFailed,
+    storeResetAdministratorRequestInit,
     storeAllAdministratorsRequestFailed,
     storeAddAdministratorRequestSucceed,
     storeNextAdministratorsRequestFailed,
     storeAllAdministratorsRequestSucceed,
+    storeResetAdministratorRequestFailed,
     storeNextAdministratorsRequestSucceed,
+    storeResetAdministratorRequestSucceed,
 } from "../requests/administrators/actions";
 
 // Fetch all administrators from API
@@ -144,6 +149,25 @@ export function* emitAdministratorFetch() {
     });
 }
 
+// Reset administrator from API
+export function* emitResetAdministrator() {
+    yield takeLatest(EMIT_RESET_ADMINISTRATOR, function*({id}) {
+        try {
+            // Fire event for request
+            yield put(storeSetAdministratorActionData({id}));
+            yield put(storeResetAdministratorRequestInit());
+            const apiResponse = yield call(apiPostRequest, `${api.ADMINISTRATOR_PASSWORD_RESET_API_PATH}/${id}`);
+            // Fire event for request
+            yield put(storeResetAdministratorRequestSucceed({message: apiResponse.message}));
+            yield put(storeSetAdministratorActionData({id}));
+        } catch (message) {
+            // Fire event for request
+            yield put(storeSetAdministratorActionData({id}));
+            yield put(storeResetAdministratorRequestFailed({message}));
+        }
+    });
+}
+
 // Extract administrator data
 function extractAdministratorData(apiAdministrator, apiCreator) {
     let administrator = {
@@ -193,6 +217,7 @@ export default function* sagaAdministrators() {
     yield all([
         fork(emitNewAdministrator),
         fork(emitAdministratorFetch),
+        fork(emitResetAdministrator),
         fork(emitAdministratorsFetch),
         fork(emitAllAdministratorsFetch),
         fork(emitNextAdministratorsFetch),

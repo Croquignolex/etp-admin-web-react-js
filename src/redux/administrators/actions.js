@@ -3,6 +3,7 @@ export const STORE_SET_ADMINISTRATOR_DATA = 'STORE_SET_ADMINISTRATOR_DATA';
 export const STORE_SET_ADMINISTRATORS_DATA = 'STORE_SET_ADMINISTRATORS_DATA';
 export const STORE_SET_NEW_ADMINISTRATOR_DATA = 'STORE_SET_NEW_ADMINISTRATOR_DATA';
 export const STORE_SET_NEXT_ADMINISTRATORS_DATA = 'STORE_SET_NEXT_ADMINISTRATORS_DATA';
+export const STORE_SET_ADMINISTRATOR_ACTION_DATA = 'STORE_SET_ADMINISTRATOR_ACTION_DATA';
 export const STORE_STOP_INFINITE_SCROLL_ADMINISTRATORS_DATA = 'STORE_STOP_INFINITE_SCROLL_ADMINISTRATORS_DATA';
 
 // Middleware action types
@@ -46,6 +47,12 @@ export const storeSetNextAdministratorsData = ({administrators, hasMoreData, pag
 // Stop infinite scroll
 export const storeStopInfiniteScrollAdministratorData = () => ({
     type: STORE_STOP_INFINITE_SCROLL_ADMINISTRATORS_DATA
+});
+
+// Set administrator action data in store
+export const storeSetAdministratorActionData = ({id}) => ({
+    id,
+    type: STORE_SET_ADMINISTRATOR_ACTION_DATA
 });
 
 //====================== Middleware trigger actions
