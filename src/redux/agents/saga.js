@@ -11,6 +11,7 @@ import {
 } from "../../functions/axiosFunctions";
 import {
     EMIT_NEW_AGENT,
+    EMIT_RESET_AGENT,
     EMIT_AGENT_FETCH,
     EMIT_AGENTS_FETCH,
     storeSetAgentData,
@@ -41,13 +42,16 @@ import {
     storeAgentsRequestSucceed,
     storeAddAgentRequestFailed,
     storeNextAgentsRequestInit,
+    storeResetAgentRequestInit,
     storeAllAgentsRequestFailed,
     storeAgentAddSimRequestInit,
     storeAddAgentRequestSucceed,
+    storeResetAgentRequestFailed,
     storeNextAgentsRequestFailed,
     storeAllAgentsRequestSucceed,
     storeAgentEditCniRequestInit,
     storeAgentEditDocRequestInit,
+    storeResetAgentRequestSucceed,
     storeNextAgentsRequestSucceed,
     storeAgentEditInfoRequestInit,
     storeAgentAddSimRequestFailed,
@@ -382,6 +386,25 @@ export function* emitAddAgentSims() {
     });
 }
 
+// Reset agent from API
+export function* emitResetAgent() {
+    yield takeLatest(EMIT_RESET_AGENT, function*({id}) {
+        try {
+            // Fire event for request
+            yield put(storeSetAgentActionData({id}));
+            yield put(storeResetAgentRequestInit());
+            const apiResponse = yield call(apiPostRequest, `${api.AGENT_PASSWORD_RESET_API_PATH}/${id}`);
+            // Fire event for request
+            yield put(storeResetAgentRequestSucceed({message: apiResponse.message}));
+            yield put(storeSetAgentActionData({id}));
+        } catch (message) {
+            // Fire event for request
+            yield put(storeSetAgentActionData({id}));
+            yield put(storeResetAgentRequestFailed({message}));
+        }
+    });
+}
+
 // Extract sim data
 function extractAgentData(apiAgent, apiUser, apiZone, apiAccount, apiCreator, apiSims) {
     let agent = {
@@ -471,6 +494,7 @@ export default function* sagaAgents() {
     yield all([
         fork(emitNewAgent),
         fork(emitAgentFetch),
+        fork(emitResetAgent),
         fork(emitAgentsFetch),
         fork(emitAddAgentSims),
         fork(emitUpdateAgentCNI),

@@ -9,6 +9,7 @@ export const STORE_STOP_INFINITE_SCROLL_AGENTS_DATA = 'STORE_STOP_INFINITE_SCROL
 
 // Middleware action types
 export const EMIT_NEW_AGENT = 'EMIT_NEW_AGENT';
+export const EMIT_RESET_AGENT = 'EMIT_RESET_AGENT';
 export const EMIT_AGENT_FETCH = 'EMIT_AGENT_FETCH';
 export const EMIT_AGENTS_FETCH = 'EMIT_AGENTS_FETCH';
 export const EMIT_ADD_AGENT_SIMS = 'EMIT_ADD_AGENT_SIMS';
@@ -164,4 +165,10 @@ export const emitAddAgentSims = ({id, name, reference, number, description, oper
     reference,
     description,
     type: EMIT_ADD_AGENT_SIMS
+});
+
+// Emit reset agent
+export const emitResetAgent = ({id}) => ({
+    id,
+    type: EMIT_RESET_AGENT
 });
