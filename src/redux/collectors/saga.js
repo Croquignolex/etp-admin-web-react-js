@@ -6,6 +6,7 @@ import {PROFILE_SCOPE} from "../../constants/defaultConstants";
 import {apiGetRequest, apiPostRequest, getImageFromServer} from "../../functions/axiosFunctions";
 import {
     EMIT_NEW_COLLECTOR,
+    EMIT_RESET_COLLECTOR,
     EMIT_COLLECTOR_FETCH,
     storeSetCollectorData,
     EMIT_COLLECTORS_FETCH,
@@ -33,12 +34,15 @@ import {
     storeAllCollectorsRequestInit,
     storeNextCollectorsRequestInit,
     storeAddCollectorRequestFailed,
+    storeResetCollectorRequestInit,
     storeAllCollectorsRequestFailed,
     storeAddCollectorRequestSucceed,
     storeCollectorAddSimRequestInit,
     storeNextCollectorsRequestFailed,
+    storeResetCollectorRequestFailed,
     storeAllCollectorsRequestSucceed,
     storeNextCollectorsRequestSucceed,
+    storeResetCollectorRequestSucceed,
     storeCollectorEditInfoRequestInit,
     storeCollectorAddSimRequestFailed,
     storeCollectorEditZoneRequestInit,
@@ -270,6 +274,25 @@ export function* emitAddCollectorSims() {
     });
 }
 
+// Reset collector from API
+export function* emitResetCollector() {
+    yield takeLatest(EMIT_RESET_COLLECTOR, function*({id}) {
+        try {
+            // Fire event for request
+            yield put(storeSetCollectorActionData({id}));
+            yield put(storeResetCollectorRequestInit());
+            const apiResponse = yield call(apiPostRequest, `${api.COLLECTOR_PASSWORD_RESET_API_PATH}/${id}`);
+            // Fire event for request
+            yield put(storeResetCollectorRequestSucceed({message: apiResponse.message}));
+            yield put(storeSetCollectorActionData({id}));
+        } catch (message) {
+            // Fire event for request
+            yield put(storeSetCollectorActionData({id}));
+            yield put(storeResetCollectorRequestFailed({message}));
+        }
+    });
+}
+
 // Extract collector data
 function extractCollectorData(apiCollector, apiZone, apiAccount, apiSims, apiCreator) {
     let collector = {
@@ -352,6 +375,7 @@ export default function* sagaCollectors() {
     yield all([
         fork(emitNewCollector),
         fork(emitCollectorFetch),
+        fork(emitResetCollector),
         fork(emitCollectorsFetch),
         fork(emitAddCollectorSims),
         fork(emitAllCollectorsFetch),

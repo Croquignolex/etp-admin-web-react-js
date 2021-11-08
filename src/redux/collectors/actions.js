@@ -1,4 +1,6 @@
 // Reducer action types
+import {EMIT_RESET_ADMINISTRATOR} from "../administrators/actions";
+
 export const STORE_SET_COLLECTOR_DATA = 'STORE_SET_COLLECTOR_DATA';
 export const STORE_SET_COLLECTORS_DATA = 'STORE_SET_COLLECTORS_DATA';
 export const STORE_SET_NEW_COLLECTOR_DATA = 'STORE_SET_NEW_COLLECTOR_DATA';
@@ -9,6 +11,7 @@ export const STORE_STOP_INFINITE_SCROLL_COLLECTORS_DATA = 'STORE_STOP_INFINITE_S
 
 // Middleware action types
 export const EMIT_NEW_COLLECTOR = 'EMIT_NEW_COLLECTOR';
+export const EMIT_RESET_COLLECTOR = 'EMIT_RESET_COLLECTOR';
 export const EMIT_COLLECTOR_FETCH = 'EMIT_COLLECTOR_FETCH';
 export const EMIT_COLLECTORS_FETCH = 'EMIT_COLLECTORS_FETCH';
 export const EMIT_ADD_COLLECTOR_SIMS = 'EMIT_ADD_COLLECTOR_SIMS';
@@ -131,4 +134,10 @@ export const emitAddCollectorSims = ({id, name, number, description, operator}) 
     operator,
     description,
     type: EMIT_ADD_COLLECTOR_SIMS
+});
+
+// Emit reset collector
+export const emitResetCollector = ({id}) => ({
+    id,
+    type: EMIT_RESET_COLLECTOR
 });
