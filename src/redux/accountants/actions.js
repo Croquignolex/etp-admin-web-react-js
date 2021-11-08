@@ -9,6 +9,7 @@ export const STORE_STOP_INFINITE_SCROLL_ACCOUNTANTS_DATA = 'STORE_STOP_INFINITE_
 
 // Middleware action types
 export const EMIT_NEW_ACCOUNTANT = 'EMIT_NEW_ACCOUNTANT';
+export const EMIT_RESET_ACCOUNTANT = 'EMIT_RESET_ACCOUNTANT';
 export const EMIT_ACCOUNTANT_FETCH = 'EMIT_ACCOUNTANT_FETCH';
 export const EMIT_ACCOUNTANTS_FETCH = 'EMIT_ACCOUNTANTS_FETCH';
 export const EMIT_NEXT_ACCOUNTANTS_FETCH = 'EMIT_NEXT_SIMS_FETCH';
@@ -111,4 +112,10 @@ export const emitUpdateAccountantInfo = ({id, email, name, address, description}
     address,
     description,
     type: EMIT_UPDATE_ACCOUNTANT_INFO
+});
+
+// Emit reset accountant
+export const emitResetAccountant = ({id}) => ({
+    id,
+    type: EMIT_RESET_ACCOUNTANT
 });

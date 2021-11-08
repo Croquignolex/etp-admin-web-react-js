@@ -6,6 +6,7 @@ import {PROFILE_SCOPE} from "../../constants/defaultConstants";
 import {apiGetRequest, apiPostRequest, getImageFromServer} from "../../functions/axiosFunctions";
 import {
     EMIT_NEW_ACCOUNTANT,
+    EMIT_RESET_ACCOUNTANT,
     EMIT_ACCOUNTANT_FETCH,
     storeSetAccountantData,
     EMIT_ACCOUNTANTS_FETCH,
@@ -29,13 +30,16 @@ import {
     storeAccountantRequestSucceed,
     storeAccountantsRequestSucceed,
     storeAllAccountantsRequestInit,
+    storeResetAccountantRequestInit,
     storeNextAccountantsRequestInit,
     storeAddAccountantRequestFailed,
     storeAllAccountantsRequestFailed,
     storeAddAccountantRequestSucceed,
     storeAllAccountantsRequestSucceed,
+    storeResetAccountantRequestFailed,
     storeNextAccountantsRequestFailed,
     storeAccountantEditInfoRequestInit,
+    storeResetAccountantRequestSucceed,
     storeNextAccountantsRequestSucceed,
     storeAccountantEditInfoRequestFailed,
     storeAccountantEditInfoRequestSucceed,
@@ -199,6 +203,25 @@ export function* emitUpdateAccountantInfo() {
     });
 }
 
+// Reset accountant from API
+export function* emitResetAccountant() {
+    yield takeLatest(EMIT_RESET_ACCOUNTANT, function*({id}) {
+        try {
+            // Fire event for request
+            yield put(storeSetAccountantActionData({id}));
+            yield put(storeResetAccountantRequestInit());
+            const apiResponse = yield call(apiPostRequest, `${api.ACCOUNTANT_PASSWORD_RESET_API_PATH}/${id}`);
+            // Fire event for request
+            yield put(storeResetAccountantRequestSucceed({message: apiResponse.message}));
+            yield put(storeSetAccountantActionData({id}));
+        } catch (message) {
+            // Fire event for request
+            yield put(storeSetAccountantActionData({id}));
+            yield put(storeResetAccountantRequestFailed({message}));
+        }
+    });
+}
+
 // Extract accountant data
 function extractAccountantData(apiAccountant, apiCreator) {
     let accountant = {
@@ -247,6 +270,7 @@ function extractAccountantsData(apiAccountants) {
 export default function* sagaAccountants() {
     yield all([
         fork(emitNewAccountant),
+        fork(emitResetAccountant),
         fork(emitAccountantFetch),
         fork(emitAccountantsFetch),
         fork(emitAllAccountantsFetch),

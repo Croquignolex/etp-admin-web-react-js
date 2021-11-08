@@ -87,7 +87,7 @@ export const ALL_ACCOUNTANTS_API_PATH = `${API_URL}/comptables`;
 export const ACCOUNTANT_DETAILS_API_PATH = `${API_URL}/details_user`;
 export const CREATE_ACCOUNTANT_API_PATH = `${API_URL}/create_comptable`;
 export const TOGGLE_ACCOUNTANT_STATUS_API_PATH = `${API_URL}/edit_user_status`;
-
+export const ACCOUNTANT_PASSWORD_RESET_API_PATH = `${API_URL}/user_password_reset`;
 
 // Operators
 export const OPERATOR_API_PATH = `${API_URL}/show_flote`;
