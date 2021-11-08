@@ -5,7 +5,7 @@ import LoaderComponent from "../LoaderComponent";
 import {dateToString} from "../../functions/generalFunctions";
 
 // Component
-function AdministratorsCardsComponent({administrators, user, handleAdministratorDetailsModalShow, handleResetModalShow}) {console.log({user, administrators})
+function AdministratorsCardsComponent({administrators, user, handleAdministratorDetailsModalShow, handleResetModalShow}) {
     // Render
     return (
         <>

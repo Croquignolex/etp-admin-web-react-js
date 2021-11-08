@@ -33,7 +33,7 @@ import {
 } from "../../functions/generalFunctions";
 
 // Component
-function AdministratorsPage({administrators, administratorsRequests, hasMoreData, user, page, dispatch, location}) {console.log({user})
+function AdministratorsPage({administrators, administratorsRequests, hasMoreData, user, page, dispatch, location}) {
     // Local states
     const [needle, setNeedle] = useState('');
     const [resetModal, setResetModal] = useState({show: false, body: '', id: 0});
@@ -57,7 +57,7 @@ function AdministratorsPage({administrators, administratorsRequests, hasMoreData
             applySuccess(administratorsRequests.reset.message);
         }
         // eslint-disable-next-line
-    }, [administratorsRequests.cancel]);
+    }, [administratorsRequests.reset]);
 
     const handleNeedleInput = (data) => {
         setNeedle(data)
