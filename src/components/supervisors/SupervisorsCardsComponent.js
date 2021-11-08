@@ -5,7 +5,8 @@ import LoaderComponent from "../LoaderComponent";
 import {dateToString} from "../../functions/generalFunctions";
 
 // Component
-function SupervisorsCardsComponent({supervisors, handleBlock, handleBlockModalShow, handleSupervisorDetailsModalShow}) {
+function SupervisorsCardsComponent({supervisors, handleBlock, handleBlockModalShow,
+                                       handleResetModalShow, handleSupervisorDetailsModalShow}) {
     // Render
     return (
         <>
@@ -44,22 +45,29 @@ function SupervisorsCardsComponent({supervisors, handleBlock, handleBlockModalSh
                                             <b>Téléphone</b>
                                             <span className="float-right">{item.phone}</span>
                                         </li>
-                                       {/* <li className="list-group-item">
-                                            <b>Solde total</b>
-                                            <span className="float-right text-success text-bold">{formatNumber(item.account.balance)}</span>
-                                        </li>*/}
                                         <li className="list-group-item">
                                             <b>Créer par</b>
                                             <span className="float-right">{item.creator.name}</span>
                                         </li>
                                     </ul>
                                     <div className="mt-3 text-right">
-                                        <button type="button"
-                                                className="btn btn-sm btn-theme"
-                                                onClick={() => handleSupervisorDetailsModalShow(item)}
-                                        >
-                                            <i className="fa fa-eye" /> Détails
-                                        </button>
+                                        {item.actionLoader ? <LoaderComponent little={true} /> : (
+                                            <>
+                                                <button type="button"
+                                                        className="btn btn-sm btn-theme"
+                                                        onClick={() => handleSupervisorDetailsModalShow(item)}
+                                                >
+                                                    <i className="fa fa-eye" /> Détails
+                                                </button>
+                                                <br />
+                                                <button type="button"
+                                                        className="btn btn-sm btn-danger mt-1"
+                                                        onClick={() => handleResetModalShow(item)}
+                                                >
+                                                    <i className="fa fa-redo" /> Réinitialisation
+                                                </button>
+                                            </>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -83,6 +91,7 @@ SupervisorsCardsComponent.propTypes = {
     handleBlock: PropTypes.func.isRequired,
     supervisors: PropTypes.array.isRequired,
     handleBlockModalShow: PropTypes.func.isRequired,
+    handleResetModalShow: PropTypes.func.isRequired,
     handleSupervisorDetailsModalShow: PropTypes.func.isRequired,
 };
 
