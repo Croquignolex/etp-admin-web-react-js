@@ -8,7 +8,8 @@ import {agentTypeBadgeColor} from "../../functions/typeFunctions";
 import ZoneDetailsContainer from "../../containers/zones/ZoneDetailsContainer";
 
 // Component
-function AgentsCardsComponent({agents, handleBlock, handleBlockModalShow, handleAgentDetailsModalShow}) {
+function AgentsCardsComponent({agents, handleBlock, handleBlockModalShow,
+                                  handleResetModalShow, handleAgentDetailsModalShow}) {
     // Local states
     const [zoneDetailsModal, setZoneDetailsModal] = useState({show: false, header: 'DETAIL DE LA ZONE', id: ''});
 
@@ -68,22 +69,29 @@ function AgentsCardsComponent({agents, handleBlock, handleBlockModalShow, handle
                                                 />
                                             </span>
                                         </li>
-                                       {/* <li className="list-group-item">
-                                            <b>Solde total</b>
-                                            <span className="float-right text-success text-bold">{formatNumber(item.account.balance)}</span>
-                                        </li>*/}
                                         <li className="list-group-item">
                                             <b>Créer par</b>
                                             <span className="float-right">{item.creator.name}</span>
                                         </li>
                                     </ul>
                                     <div className="mt-3 text-right">
-                                        <button type="button"
-                                                className="btn btn-sm btn-theme"
-                                                onClick={() => handleAgentDetailsModalShow(item)}
-                                        >
-                                            <i className="fa fa-eye" /> Détails
-                                        </button>
+                                        {item.actionLoader ? <LoaderComponent little={true} /> : (
+                                            <>
+                                                <button type="button"
+                                                        className="btn btn-sm btn-theme"
+                                                        onClick={() => handleAgentDetailsModalShow(item)}
+                                                >
+                                                    <i className="fa fa-eye" /> Détails
+                                                </button>
+                                                <br />
+                                                <button type="button"
+                                                        className="btn btn-sm btn-danger mt-1"
+                                                        onClick={() => handleResetModalShow(item)}
+                                                >
+                                                    <i className="fa fa-redo" /> Réinitialisation
+                                                </button>
+                                            </>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -111,6 +119,7 @@ AgentsCardsComponent.propTypes = {
     agents: PropTypes.array.isRequired,
     handleBlock: PropTypes.func.isRequired,
     handleBlockModalShow: PropTypes.func.isRequired,
+    handleResetModalShow: PropTypes.func.isRequired,
     handleAgentDetailsModalShow: PropTypes.func.isRequired,
 };
 

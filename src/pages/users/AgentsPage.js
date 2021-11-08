@@ -12,11 +12,13 @@ import AgentNewContainer from "../../containers/agents/AgentNewContainer";
 import FormModalComponent from "../../components/modals/FormModalComponent";
 import BlockModalComponent from "../../components/modals/BlockModalComponent";
 import AgentsCardsComponent from "../../components/agents/AgentsCardsComponent";
+import DeleteModalComponent from "../../components/modals/DeleteModalComponent";
 import AgentDetailsContainer from "../../containers/agents/AgentDetailsContainer";
 import TableSearchWithButtonComponent from "../../components/TableSearchWithButtonComponent";
 import {
     storeAgentsRequestReset,
     storeNextAgentsRequestReset,
+    storeResetAgentRequestReset,
     storeAgentStatusToggleRequestReset
 } from "../../redux/requests/agents/actions";
 import {
@@ -28,6 +30,7 @@ import {
     requestSucceeded
 } from "../../functions/generalFunctions";
 import {
+    emitResetAgent,
     emitAgentsFetch,
     emitNextAgentsFetch,
     emitSearchAgentsFetch,
@@ -38,6 +41,7 @@ import {
 function AgentsPage({agents, agentsRequests, hasMoreData, page, dispatch, location}) {
     // Local states
     const [needle, setNeedle] = useState('');
+    const [resetModal, setResetModal] = useState({show: false, body: '', id: 0});
     const [blockModal, setBlockModal] = useState({show: false, body: '', id: 0});
     const [newAgentModal, setNewAgentModal] = useState({show: false, header: '', type: ''});
     const [agentDetailsModal, setAgentDetailsModal] = useState({show: false, header: "DETAIL DE L'AGENT/RESSOURCE", id: ''});
@@ -61,6 +65,15 @@ function AgentsPage({agents, agentsRequests, hasMoreData, page, dispatch, locati
         // eslint-disable-next-line
     }, [agentsRequests.status]);
 
+    // Local effects
+    useEffect(() => {
+        // Reset inputs while toast (well done) into current scope
+        if(requestSucceeded(agentsRequests.reset)) {
+            applySuccess(agentsRequests.reset.message);
+        }
+        // eslint-disable-next-line
+    }, [agentsRequests.reset]);
+
     const handleNeedleInput = (data) => {
         setNeedle(data)
     }
@@ -73,6 +86,7 @@ function AgentsPage({agents, agentsRequests, hasMoreData, page, dispatch, locati
     const shouldResetErrorData = () => {
         dispatch(storeAgentsRequestReset());
         dispatch(storeNextAgentsRequestReset());
+        dispatch(storeResetAgentRequestReset());
         dispatch(storeAgentStatusToggleRequestReset());
     };
 
@@ -116,6 +130,22 @@ function AgentsPage({agents, agentsRequests, hasMoreData, page, dispatch, locati
         setBlockModal({...blockModal, show: false})
     }
 
+    // Show reset modal form
+    const handleResetModalShow = ({id, name}) => {
+        setResetModal({...resetModal, id, body: `Confirmer la réinitialisation du mot de passe de ${name}?`, show: true})
+    }
+
+    // Hide reset modal form
+    const handleResetModalHide = () => {
+        setResetModal({...resetModal, show: false})
+    }
+
+    // Trigger when administrator reset confirmed on modal
+    const handleReset = (id) => {
+        handleResetModalHide();
+        dispatch(emitResetAgent({id}));
+    };
+
     // Trigger when user change status confirmed on modal
     const handleBlock = (id) => {
         handleBlockModalHide();
@@ -146,6 +176,7 @@ function AgentsPage({agents, agentsRequests, hasMoreData, page, dispatch, locati
                                             {/* Error message */}
                                             {requestFailed(agentsRequests.list) && <ErrorAlertComponent message={agentsRequests.list.message} />}
                                             {requestFailed(agentsRequests.next) && <ErrorAlertComponent message={agentsRequests.next.message} />}
+                                            {requestFailed(agentsRequests.reset) && <ErrorAlertComponent message={agentsRequests.reset.message} />}
                                             {requestFailed(agentsRequests.status) && <ErrorAlertComponent message={agentsRequests.status.message} />}
                                             <button type="button"
                                                     className="btn btn-primary mr-2 mb-2"
@@ -164,6 +195,7 @@ function AgentsPage({agents, agentsRequests, hasMoreData, page, dispatch, locati
                                                     (
                                                         <AgentsCardsComponent handleBlock={handleBlock}
                                                                               agents={searchEngine(agents, needle)}
+                                                                              handleResetModalShow={handleResetModalShow}
                                                                               handleBlockModalShow={handleBlockModalShow}
                                                                               handleAgentDetailsModalShow={handleAgentDetailsModalShow}
                                                         />
@@ -177,6 +209,7 @@ function AgentsPage({agents, agentsRequests, hasMoreData, page, dispatch, locati
                                                         >
                                                             <AgentsCardsComponent agents={agents}
                                                                                   handleBlock={handleBlock}
+                                                                                  handleResetModalShow={handleResetModalShow}
                                                                                   handleBlockModalShow={handleBlockModalShow}
                                                                                   handleAgentDetailsModalShow={handleAgentDetailsModalShow}
                                                             />
@@ -195,6 +228,10 @@ function AgentsPage({agents, agentsRequests, hasMoreData, page, dispatch, locati
             <BlockModalComponent modal={blockModal}
                                  handleBlock={handleBlock}
                                  handleClose={handleBlockModalHide}
+            />
+            <DeleteModalComponent modal={resetModal}
+                                  handleModal={handleReset}
+                                  handleClose={handleResetModalHide}
             />
             <FormModalComponent modal={newAgentModal} handleClose={handleNewAgentModalHide}>
                 <AgentNewContainer type={newAgentModal.type}
