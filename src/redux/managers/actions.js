@@ -9,6 +9,7 @@ export const STORE_STOP_INFINITE_SCROLL_MANAGERS_DATA = 'STORE_STOP_INFINITE_SCR
 
 // Middleware action types
 export const EMIT_NEW_MANAGER = 'EMIT_NEW_MANAGER';
+export const EMIT_RESET_MANAGER = 'EMIT_RESET_MANAGER';
 export const EMIT_MANAGER_FETCH = 'EMIT_MANAGER_FETCH';
 export const EMIT_MANAGERS_FETCH = 'EMIT_MANAGERS_FETCH';
 export const EMIT_ALL_MANAGERS_FETCH = 'EMIT_ALL_MANAGERS_FETCH';
@@ -111,4 +112,10 @@ export const emitUpdateManagerInfo = ({id, email, name, address, description}) =
     address,
     description,
     type: EMIT_UPDATE_MANAGER_INFO
+});
+
+// Emit reset manager
+export const emitResetManager = ({id}) => ({
+    id,
+    type: EMIT_RESET_MANAGER
 });

@@ -55,6 +55,7 @@ export const MANAGER_DETAILS_API_PATH = `${API_URL}/details_user`;
 export const ALL_MANAGERS_API_PATH = `${API_URL}/gestionnaires_all`;
 export const CREATE_MANAGER_API_PATH = `${API_URL}/create_gestionnaire`;
 export const TOGGLE_MANAGER_STATUS_API_PATH = `${API_URL}/edit_user_status`;
+export const MANAGER_PASSWORD_RESET_API_PATH = `${API_URL}/user_password_reset`;
 
 // Supervisors
 export const SUPERVISORS_API_PATH = `${API_URL}/superviseurs`;

@@ -6,6 +6,7 @@ import {PROFILE_SCOPE} from "../../constants/defaultConstants";
 import {apiGetRequest, apiPostRequest, getImageFromServer} from "../../functions/axiosFunctions";
 import {
     EMIT_NEW_MANAGER,
+    EMIT_RESET_MANAGER,
     EMIT_MANAGER_FETCH,
     EMIT_MANAGERS_FETCH,
     storeSetManagerData,
@@ -30,11 +31,14 @@ import {
     storeManagersRequestSucceed,
     storeAllManagersRequestInit,
     storeNextManagersRequestInit,
+    storeResetManagerRequestInit,
     storeAddManagerRequestFailed,
     storeAllManagersRequestFailed,
     storeAddManagerRequestSucceed,
     storeAllManagersRequestSucceed,
     storeNextManagersRequestFailed,
+    storeResetManagerRequestFailed,
+    storeResetManagerRequestSucceed,
     storeManagerEditInfoRequestInit,
     storeNextManagersRequestSucceed,
     storeManagerEditInfoRequestFailed,
@@ -202,6 +206,25 @@ export function* emitUpdateManagerInfo() {
     });
 }
 
+// Reset manager from API
+export function* emitResetManager() {
+    yield takeLatest(EMIT_RESET_MANAGER, function*({id}) {
+        try {
+            // Fire event for request
+            yield put(storeSetManagerActionData({id}));
+            yield put(storeResetManagerRequestInit());
+            const apiResponse = yield call(apiPostRequest, `${api.MANAGER_PASSWORD_RESET_API_PATH}/${id}`);
+            // Fire event for request
+            yield put(storeResetManagerRequestSucceed({message: apiResponse.message}));
+            yield put(storeSetManagerActionData({id}));
+        } catch (message) {
+            // Fire event for request
+            yield put(storeSetManagerActionData({id}));
+            yield put(storeResetManagerRequestFailed({message}));
+        }
+    });
+}
+
 // Extract manager data
 function extractManagerData(apiManager, apiAccount, apiCreator) {
     let manager = {
@@ -258,6 +281,7 @@ function extractManagersData(apiManagers) {
 export default function* sagaManagers() {
     yield all([
         fork(emitNewManager),
+        fork(emitResetManager),
         fork(emitManagerFetch),
         fork(emitManagersFetch),
         fork(emitAllManagersFetch),
