@@ -63,6 +63,7 @@ export const ALL_SUPERVISORS_API_PATH = `${API_URL}/superviseurs`;
 export const SUPERVISOR_DETAILS_API_PATH = `${API_URL}/details_user`;
 export const CREATE_SUPERVISOR_API_PATH = `${API_URL}/create_superviseur`;
 export const TOGGLE_SUPERVISOR_STATUS_API_PATH = `${API_URL}/edit_user_status`;
+export const SUPERVISOR_PASSWORD_RESET_API_PATH = `${API_URL}/user_password_reset`;
 
 // Administrators
 export const ADMINISTRATORS_API_PATH = `${API_URL}/administrateurs`;

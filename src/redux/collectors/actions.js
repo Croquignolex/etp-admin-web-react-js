@@ -1,6 +1,4 @@
 // Reducer action types
-import {EMIT_RESET_ADMINISTRATOR} from "../administrators/actions";
-
 export const STORE_SET_COLLECTOR_DATA = 'STORE_SET_COLLECTOR_DATA';
 export const STORE_SET_COLLECTORS_DATA = 'STORE_SET_COLLECTORS_DATA';
 export const STORE_SET_NEW_COLLECTOR_DATA = 'STORE_SET_NEW_COLLECTOR_DATA';

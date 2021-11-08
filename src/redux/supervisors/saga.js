@@ -6,6 +6,7 @@ import {PROFILE_SCOPE} from "../../constants/defaultConstants";
 import {apiGetRequest, apiPostRequest, getImageFromServer} from "../../functions/axiosFunctions";
 import {
     EMIT_NEW_SUPERVISOR,
+    EMIT_RESET_SUPERVISOR,
     EMIT_SUPERVISOR_FETCH,
     EMIT_SUPERVISORS_FETCH,
     storeSetSupervisorData,
@@ -31,10 +32,13 @@ import {
     storeAllSupervisorsRequestInit,
     storeNextSupervisorsRequestInit,
     storeAddSupervisorRequestFailed,
+    storeResetSupervisorRequestInit,
     storeAddSupervisorRequestSucceed,
     storeAllSupervisorsRequestFailed,
     storeNextSupervisorsRequestFailed,
     storeAllSupervisorsRequestSucceed,
+    storeResetSupervisorRequestFailed,
+    storeResetSupervisorRequestSucceed,
     storeNextSupervisorsRequestSucceed,
     storeSupervisorEditInfoRequestInit,
     storeSupervisorEditInfoRequestFailed,
@@ -202,6 +206,25 @@ export function* emitToggleSupervisorStatus() {
     });
 }
 
+// Reset administrator from API
+export function* emitResetSupervisor() {
+    yield takeLatest(EMIT_RESET_SUPERVISOR, function*({id}) {
+        try {
+            // Fire event for request
+            yield put(storeSetSupervisorActionData({id}));
+            yield put(storeResetSupervisorRequestInit());
+            const apiResponse = yield call(apiPostRequest, `${api.SUPERVISOR_PASSWORD_RESET_API_PATH}/${id}`);
+            // Fire event for request
+            yield put(storeResetSupervisorRequestSucceed({message: apiResponse.message}));
+            yield put(storeSetSupervisorActionData({id}));
+        } catch (message) {
+            // Fire event for request
+            yield put(storeSetSupervisorActionData({id}));
+            yield put(storeResetSupervisorRequestFailed({message}));
+        }
+    });
+}
+
 // Extract supervisor data
 function extractSupervisorData(apiSupervisor, apiAccount, apiCreator) {
     let supervisor = {
@@ -259,6 +282,7 @@ export default function* sagaSupervisors() {
     yield all([
         fork(emitNewSupervisor),
         fork(emitSupervisorFetch),
+        fork(emitResetSupervisor),
         fork(emitSupervisorsFetch),
         fork(emitAllSupervisorsFetch),
         fork(emitUpdateSupervisorInfo),
