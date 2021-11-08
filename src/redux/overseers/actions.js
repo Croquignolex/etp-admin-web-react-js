@@ -9,6 +9,7 @@ export const STORE_STOP_INFINITE_SCROLL_OVERSEERS_DATA = 'STORE_STOP_INFINITE_SC
 
 // Middleware action types
 export const EMIT_NEW_OVERSEER = 'EMIT_NEW_OVERSEER';
+export const EMIT_RESET_OVERSEER = 'EMIT_RESET_OVERSEER';
 export const EMIT_OVERSEER_FETCH = 'EMIT_OVERSEER_FETCH';
 export const EMIT_OVERSEERS_FETCH = 'EMIT_OVERSEERS_FETCH';
 export const EMIT_NEXT_OVERSEERS_FETCH = 'EMIT_NEXT_SIMS_FETCH';
@@ -111,4 +112,10 @@ export const emitUpdateOverseerInfo = ({id, email, name, address, description}) 
     address,
     description,
     type: EMIT_UPDATE_OVERSEER_INFO
+});
+
+// Emit reset overseer
+export const emitResetOverseer = ({id}) => ({
+    id,
+    type: EMIT_RESET_OVERSEER
 });

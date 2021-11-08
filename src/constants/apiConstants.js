@@ -81,6 +81,7 @@ export const ALL_OVERSEERS_API_PATH = `${API_URL}/controlleurs`;
 export const OVERSEER_DETAILS_API_PATH = `${API_URL}/details_user`;
 export const CREATE_OVERSEER_API_PATH = `${API_URL}/create_controlleur`;
 export const TOGGLE_OVERSEER_STATUS_API_PATH = `${API_URL}/edit_user_status`;
+export const OVERSEER_PASSWORD_RESET_API_PATH = `${API_URL}/user_password_reset`;
 
 // Accountants
 export const ACCOUNTANTS_API_PATH = `${API_URL}/comptables`;

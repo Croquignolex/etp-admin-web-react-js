@@ -6,6 +6,7 @@ import {PROFILE_SCOPE} from "../../constants/defaultConstants";
 import {apiGetRequest, apiPostRequest, getImageFromServer} from "../../functions/axiosFunctions";
 import {
     EMIT_NEW_OVERSEER,
+    EMIT_RESET_OVERSEER,
     EMIT_OVERSEER_FETCH,
     storeSetOverseerData,
     EMIT_OVERSEERS_FETCH,
@@ -29,13 +30,16 @@ import {
     storeOverseerRequestSucceed,
     storeOverseersRequestSucceed,
     storeAllOverseersRequestInit,
+    storeResetOverseerRequestInit,
     storeNextOverseersRequestInit,
     storeAddOverseerRequestFailed,
     storeAllOverseersRequestFailed,
     storeAddOverseerRequestSucceed,
     storeAllOverseersRequestSucceed,
     storeNextOverseersRequestFailed,
+    storeResetOverseerRequestFailed,
     storeOverseerEditInfoRequestInit,
+    storeResetOverseerRequestSucceed,
     storeNextOverseersRequestSucceed,
     storeOverseerEditInfoRequestFailed,
     storeOverseerEditInfoRequestSucceed,
@@ -199,6 +203,25 @@ export function* emitUpdateOverseerInfo() {
     });
 }
 
+// Reset overseer from API
+export function* emitResetOverseer() {
+    yield takeLatest(EMIT_RESET_OVERSEER, function*({id}) {
+        try {
+            // Fire event for request
+            yield put(storeSetOverseerActionData({id}));
+            yield put(storeResetOverseerRequestInit());
+            const apiResponse = yield call(apiPostRequest, `${api.OVERSEER_PASSWORD_RESET_API_PATH}/${id}`);
+            // Fire event for request
+            yield put(storeResetOverseerRequestSucceed({message: apiResponse.message}));
+            yield put(storeSetOverseerActionData({id}));
+        } catch (message) {
+            // Fire event for request
+            yield put(storeSetOverseerActionData({id}));
+            yield put(storeResetOverseerRequestFailed({message}));
+        }
+    });
+}
+
 // Extract overseer data
 function extractOverseerData(apiOverseer, apiCreator) {
     let overseer = {
@@ -247,6 +270,7 @@ function extractOverseersData(apiOverseers) {
 export default function* sagaOverseers() {
     yield all([
         fork(emitNewOverseer),
+        fork(emitResetOverseer),
         fork(emitOverseerFetch),
         fork(emitOverseersFetch),
         fork(emitAllOverseersFetch),
