@@ -9,17 +9,36 @@ import ErrorAlertComponent from "../../components/ErrorAlertComponent";
 import TableSearchComponent from "../../components/TableSearchComponent";
 import FormModalComponent from "../../components/modals/FormModalComponent";
 import BlockModalComponent from "../../components/modals/BlockModalComponent";
+import DeleteModalComponent from "../../components/modals/DeleteModalComponent";
 import ManagerNewContainer from "../../containers/managers/ManagerNewContainer";
 import ManagersCardsComponent from "../../components/managers/ManagersCardsComponent";
 import ManagerDetailsContainer from "../../containers/managers/ManagerDetailsContainer";
-import {emitManagersFetch, emitNextManagersFetch, emitToggleManagerStatus} from "../../redux/managers/actions";
-import {applySuccess, dateToString, needleSearch, requestFailed, requestLoading, requestSucceeded} from "../../functions/generalFunctions";
-import {storeManagersRequestReset, storeNextManagersRequestReset, storeManagerStatusToggleRequestReset,} from "../../redux/requests/managers/actions";
+import {
+    emitResetManager,
+    emitManagersFetch,
+    emitNextManagersFetch,
+    emitToggleManagerStatus
+} from "../../redux/managers/actions";
+import {
+    applySuccess,
+    dateToString,
+    needleSearch,
+    requestFailed,
+    requestLoading,
+    requestSucceeded
+} from "../../functions/generalFunctions";
+import {
+    storeManagersRequestReset,
+    storeNextManagersRequestReset,
+    storeResetManagerRequestReset,
+    storeManagerStatusToggleRequestReset,
+} from "../../redux/requests/managers/actions";
 
 // Component
 function ManagersPage({managers, managersRequests, hasMoreData, page, dispatch, location}) {
     // Local states
     const [needle, setNeedle] = useState('');
+    const [resetModal, setResetModal] = useState({show: false, body: '', id: 0});
     const [blockModal, setBlockModal] = useState({show: false, body: '', id: 0});
     const [newManagerModal, setNewManagerModal] = useState({show: false, header: ''});
     const [managerDetailsModal, setManagerDetailsModal] = useState({show: false, header: "DETAIL DE LA GESTIONNAIRE DE FLOTTE", id: ''});
@@ -43,6 +62,15 @@ function ManagersPage({managers, managersRequests, hasMoreData, page, dispatch, 
         // eslint-disable-next-line
     }, [managersRequests.status]);
 
+    // Local effects
+    useEffect(() => {
+        // Reset inputs while toast (well done) into current scope
+        if(requestSucceeded(managersRequests.reset)) {
+            applySuccess(managersRequests.reset.message);
+        }
+        // eslint-disable-next-line
+    }, [managersRequests.reset]);
+
     const handleNeedleInput = (data) => {
         setNeedle(data)
     }
@@ -51,6 +79,7 @@ function ManagersPage({managers, managersRequests, hasMoreData, page, dispatch, 
     const shouldResetErrorData = () => {
         dispatch(storeManagersRequestReset());
         dispatch(storeNextManagersRequestReset());
+        dispatch(storeResetManagerRequestReset());
         dispatch(storeManagerStatusToggleRequestReset());
     };
 
@@ -89,6 +118,22 @@ function ManagersPage({managers, managersRequests, hasMoreData, page, dispatch, 
         setBlockModal({...blockModal, show: false})
     }
 
+    // Show reset modal form
+    const handleResetModalShow = ({id, name}) => {
+        setResetModal({...resetModal, id, body: `Confirmer la réinitialisation du mot de passe de ${name}?`, show: true})
+    }
+
+    // Hide reset modal form
+    const handleResetModalHide = () => {
+        setResetModal({...resetModal, show: false})
+    }
+
+    // Trigger when administrator reset confirmed on modal
+    const handleReset = (id) => {
+        handleResetModalHide();
+        dispatch(emitResetManager({id}));
+    };
+
     // Trigger when user change status confirmed on modal
     const handleBlock = (id) => {
         handleBlockModalHide();
@@ -116,6 +161,7 @@ function ManagersPage({managers, managersRequests, hasMoreData, page, dispatch, 
                                             {/* Error message */}
                                             {requestFailed(managersRequests.list) && <ErrorAlertComponent message={managersRequests.list.message} />}
                                             {requestFailed(managersRequests.next) && <ErrorAlertComponent message={managersRequests.next.message} />}
+                                            {requestFailed(managersRequests.reset) && <ErrorAlertComponent message={managersRequests.reset.message} />}
                                             {requestFailed(managersRequests.status) && <ErrorAlertComponent message={managersRequests.status.message} />}
                                             <button type="button"
                                                     className="btn btn-theme mr-2 mb-2"
@@ -127,6 +173,7 @@ function ManagersPage({managers, managersRequests, hasMoreData, page, dispatch, 
                                             {(needle !== '' && needle !== undefined)
                                                 ? <ManagersCardsComponent handleBlock={handleBlock}
                                                                           managers={searchEngine(managers, needle)}
+                                                                          handleResetModalShow={handleResetModalShow}
                                                                           handleBlockModalShow={handleBlockModalShow}
                                                                           handleManagerDetailsModalShow={handleManagerDetailsModalShow}
                                                 />
@@ -139,6 +186,7 @@ function ManagersPage({managers, managersRequests, hasMoreData, page, dispatch, 
                                                         >
                                                             <ManagersCardsComponent managers={managers}
                                                                                     handleBlock={handleBlock}
+                                                                                    handleResetModalShow={handleResetModalShow}
                                                                                     handleBlockModalShow={handleBlockModalShow}
                                                                                     handleManagerDetailsModalShow={handleManagerDetailsModalShow}
                                                             />
@@ -157,6 +205,10 @@ function ManagersPage({managers, managersRequests, hasMoreData, page, dispatch, 
             <BlockModalComponent modal={blockModal}
                                  handleBlock={handleBlock}
                                  handleClose={handleBlockModalHide}
+            />
+            <DeleteModalComponent modal={resetModal}
+                                  handleModal={handleReset}
+                                  handleClose={handleResetModalHide}
             />
             <FormModalComponent modal={newManagerModal} handleClose={handleNewManagerModalHide}>
                 <ManagerNewContainer type={newManagerModal.type} handleClose={handleNewManagerModalHide} />
