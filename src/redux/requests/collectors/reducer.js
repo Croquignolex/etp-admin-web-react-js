@@ -8,6 +8,7 @@ const initialState = {
     list: {failed: false, loading: false, succeeded: false, message: ""},
     next: {failed: false, loading: false, succeeded: false, message: ""},
     show: {failed: false, loading: false, succeeded: false, message: ""},
+    reset: {failed: false, loading: false, succeeded: false, message: ""},
     status: {failed: false, loading: false, succeeded: false, message: ""},
     edit: {
         sim: {failed: false, loading: false, succeeded: false, message: ""},
@@ -104,6 +105,23 @@ function reduce(state = initialState, action) {
         // Resolve event to set collector reset request store data
         case actions.STORE_COLLECTOR_REQUEST_RESET:
             nextState = {...state, show: initialState.show};
+            return nextState || state;
+        // ======================================================== Reset collector
+        // Resolve event to set reset collector init request store data
+        case actions.STORE_RESET_COLLECTOR_REQUEST_INIT:
+            nextState = {...state, reset: requestInitValue()};
+            return nextState || state;
+        // Resolve event to set reset collector failed request store data
+        case actions.STORE_RESET_COLLECTOR_REQUEST_FAILED:
+            nextState = {...state, reset: requestFailedValue(action.message)};
+            return nextState || state;
+        // Resolve event to set reset collector succeeded request store data
+        case actions.STORE_RESET_COLLECTOR_REQUEST_SUCCEEDED:
+            nextState = {...state, reset: requestSucceededValue(action.message)};
+            return nextState || state;
+        // Resolve event to set reset collector reset request store data
+        case actions.STORE_RESET_COLLECTOR_REQUEST_RESET:
+            nextState = {...state, reset: initialState.reset};
             return nextState || state;
         // ======================================================== Collector status toggle
         // Resolve event to set collector status toggle init request store data

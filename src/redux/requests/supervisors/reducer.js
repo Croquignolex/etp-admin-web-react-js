@@ -9,6 +9,7 @@ const initialState = {
     next: {failed: false, loading: false, succeeded: false, message: ""},
     show: {failed: false, loading: false, succeeded: false, message: ""},
     edit: {failed: false, loading: false, succeeded: false, message: ""},
+    reset: {failed: false, loading: false, succeeded: false, message: ""},
     status: {failed: false, loading: false, succeeded: false, message: ""},
 };
 
@@ -134,6 +135,23 @@ function reduce(state = initialState, action) {
         // Resolve event to set supervisor edit info reset request store data
         case actions.STORE_SUPERVISOR_EDIT_INFO_REQUEST_RESET:
             nextState = {...state, edit: initialState.edit};
+            return nextState || state;
+        // ======================================================== Reset supervisor
+        // Resolve event to set reset supervisor init request store data
+        case actions.STORE_RESET_SUPERVISOR_REQUEST_INIT:
+            nextState = {...state, reset: requestInitValue()};
+            return nextState || state;
+        // Resolve event to set reset supervisor failed request store data
+        case actions.STORE_RESET_SUPERVISOR_REQUEST_FAILED:
+            nextState = {...state, reset: requestFailedValue(action.message)};
+            return nextState || state;
+        // Resolve event to set reset supervisor succeeded request store data
+        case actions.STORE_RESET_SUPERVISOR_REQUEST_SUCCEEDED:
+            nextState = {...state, reset: requestSucceededValue(action.message)};
+            return nextState || state;
+        // Resolve event to set reset supervisor reset request store data
+        case actions.STORE_RESET_SUPERVISOR_REQUEST_RESET:
+            nextState = {...state, reset: initialState.reset};
             return nextState || state;
         // ========================================================
         // Unknown action

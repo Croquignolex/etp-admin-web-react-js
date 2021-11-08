@@ -34,6 +34,11 @@ export const STORE_MANAGER_EDIT_INFO_REQUEST_RESET = 'STORE_MANAGER_EDIT_INFO_RE
 export const STORE_MANAGER_EDIT_INFO_REQUEST_FAILED = 'STORE_MANAGER_EDIT_INFO_REQUEST_FAILED';
 export const STORE_MANAGER_EDIT_INFO_REQUEST_SUCCEEDED = 'STORE_MANAGER_EDIT_INFO_REQUEST_SUCCEEDED';
 
+export const STORE_RESET_MANAGER_REQUEST_INIT = 'STORE_RESET_MANAGER_REQUEST_INIT';
+export const STORE_RESET_MANAGER_REQUEST_RESET = 'STORE_RESET_MANAGER_REQUEST_RESET';
+export const STORE_RESET_MANAGER_REQUEST_FAILED = 'STORE_RESET_MANAGER_REQUEST_FAILED';
+export const STORE_RESET_MANAGER_REQUEST_SUCCEEDED = 'STORE_RESET_MANAGER_REQUEST_SUCCEEDED';
+
 // ======================================================== Managers
 // Set managers init data into store
 export const storeManagersRequestInit = () => ({
@@ -187,4 +192,26 @@ export const storeManagerEditInfoRequestSucceed = ({message}) => ({
 // Set manager edit info reset data into store
 export const storeManagerEditInfoRequestReset = () => ({
     type: STORE_MANAGER_EDIT_INFO_REQUEST_RESET
+});
+// ======================================================== Reset manager
+// Set reset manager init data into store
+export const storeResetManagerRequestInit = () => ({
+    type: STORE_RESET_MANAGER_REQUEST_INIT
+});
+
+// Set reset manager failed data into store
+export const storeResetManagerRequestFailed = ({message}) => ({
+    message,
+    type: STORE_RESET_MANAGER_REQUEST_FAILED
+});
+
+// Set reset manager succeeded data into store
+export const storeResetManagerRequestSucceed = ({message}) => ({
+    message,
+    type: STORE_RESET_MANAGER_REQUEST_SUCCEEDED
+});
+
+// Set reset manager reset data into store
+export const storeResetManagerRequestReset = () => ({
+    type: STORE_RESET_MANAGER_REQUEST_RESET
 });

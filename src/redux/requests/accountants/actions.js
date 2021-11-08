@@ -34,6 +34,11 @@ export const STORE_ACCOUNTANT_EDIT_INFO_REQUEST_RESET = 'STORE_ACCOUNTANT_EDIT_I
 export const STORE_ACCOUNTANT_EDIT_INFO_REQUEST_FAILED = 'STORE_ACCOUNTANT_EDIT_INFO_REQUEST_FAILED';
 export const STORE_ACCOUNTANT_EDIT_INFO_REQUEST_SUCCEEDED = 'STORE_ACCOUNTANT_EDIT_INFO_REQUEST_SUCCEEDED';
 
+export const STORE_RESET_ACCOUNTANT_REQUEST_INIT = 'STORE_RESET_ACCOUNTANT_REQUEST_INIT';
+export const STORE_RESET_ACCOUNTANT_REQUEST_RESET = 'STORE_RESET_ACCOUNTANT_REQUEST_RESET';
+export const STORE_RESET_ACCOUNTANT_REQUEST_FAILED = 'STORE_RESET_ACCOUNTANT_REQUEST_FAILED';
+export const STORE_RESET_ACCOUNTANT_REQUEST_SUCCEEDED = 'STORE_RESET_ACCOUNTANT_REQUEST_SUCCEEDED';
+
 // ======================================================== Accountants
 // Set accounts init data into store
 export const storeAccountantsRequestInit = () => ({
@@ -187,4 +192,26 @@ export const storeAccountantEditInfoRequestSucceed = ({message}) => ({
 // Set account edit info reset data into store
 export const storeAccountantEditInfoRequestReset = () => ({
     type: STORE_ACCOUNTANT_EDIT_INFO_REQUEST_RESET
+});
+// ======================================================== Reset accountant
+// Set reset accountant init data into store
+export const storeResetAccountantRequestInit = () => ({
+    type: STORE_RESET_ACCOUNTANT_REQUEST_INIT
+});
+
+// Set reset accountant failed data into store
+export const storeResetAccountantRequestFailed = ({message}) => ({
+    message,
+    type: STORE_RESET_ACCOUNTANT_REQUEST_FAILED
+});
+
+// Set reset accountant succeeded data into store
+export const storeResetAccountantRequestSucceed = ({message}) => ({
+    message,
+    type: STORE_RESET_ACCOUNTANT_REQUEST_SUCCEEDED
+});
+
+// Set reset accountant reset data into store
+export const storeResetAccountantRequestReset = () => ({
+    type: STORE_RESET_ACCOUNTANT_REQUEST_RESET
 });

@@ -34,6 +34,11 @@ export const STORE_OVERSEER_EDIT_INFO_REQUEST_RESET = 'STORE_OVERSEER_EDIT_INFO_
 export const STORE_OVERSEER_EDIT_INFO_REQUEST_FAILED = 'STORE_OVERSEER_EDIT_INFO_REQUEST_FAILED';
 export const STORE_OVERSEER_EDIT_INFO_REQUEST_SUCCEEDED = 'STORE_OVERSEER_EDIT_INFO_REQUEST_SUCCEEDED';
 
+export const STORE_RESET_OVERSEER_REQUEST_INIT = 'STORE_RESET_OVERSEER_REQUEST_INIT';
+export const STORE_RESET_OVERSEER_REQUEST_RESET = 'STORE_RESET_OVERSEER_REQUEST_RESET';
+export const STORE_RESET_OVERSEER_REQUEST_FAILED = 'STORE_RESET_OVERSEER_REQUEST_FAILED';
+export const STORE_RESET_OVERSEER_REQUEST_SUCCEEDED = 'STORE_RESET_OVERSEER_REQUEST_SUCCEEDED';
+
 // ======================================================== Overseers
 // Set overseers init data into store
 export const storeOverseersRequestInit = () => ({
@@ -187,4 +192,26 @@ export const storeOverseerEditInfoRequestSucceed = ({message}) => ({
 // Set overseer edit info reset data into store
 export const storeOverseerEditInfoRequestReset = () => ({
     type: STORE_OVERSEER_EDIT_INFO_REQUEST_RESET
+});
+// ======================================================== Reset overseer
+// Set reset overseer init data into store
+export const storeResetOverseerRequestInit = () => ({
+    type: STORE_RESET_OVERSEER_REQUEST_INIT
+});
+
+// Set reset overseer failed data into store
+export const storeResetOverseerRequestFailed = ({message}) => ({
+    message,
+    type: STORE_RESET_OVERSEER_REQUEST_FAILED
+});
+
+// Set reset overseer succeeded data into store
+export const storeResetOverseerRequestSucceed = ({message}) => ({
+    message,
+    type: STORE_RESET_OVERSEER_REQUEST_SUCCEEDED
+});
+
+// Set reset overseer reset data into store
+export const storeResetOverseerRequestReset = () => ({
+    type: STORE_RESET_OVERSEER_REQUEST_RESET
 });

@@ -34,6 +34,11 @@ export const STORE_SUPERVISOR_EDIT_INFO_REQUEST_RESET = 'STORE_SUPERVISOR_EDIT_I
 export const STORE_SUPERVISOR_EDIT_INFO_REQUEST_FAILED = 'STORE_SUPERVISOR_EDIT_INFO_REQUEST_FAILED';
 export const STORE_SUPERVISOR_EDIT_INFO_REQUEST_SUCCEEDED = 'STORE_SUPERVISOR_EDIT_INFO_REQUEST_SUCCEEDED';
 
+export const STORE_RESET_SUPERVISOR_REQUEST_INIT = 'STORE_RESET_SUPERVISOR_REQUEST_INIT';
+export const STORE_RESET_SUPERVISOR_REQUEST_RESET = 'STORE_RESET_SUPERVISOR_REQUEST_RESET';
+export const STORE_RESET_SUPERVISOR_REQUEST_FAILED = 'STORE_RESET_SUPERVISOR_REQUEST_FAILED';
+export const STORE_RESET_SUPERVISOR_REQUEST_SUCCEEDED = 'STORE_RESET_SUPERVISOR_REQUEST_SUCCEEDED';
+
 // ======================================================== Supervisors
 // Set supervisors init data into store
 export const storeSupervisorsRequestInit = () => ({
@@ -187,4 +192,26 @@ export const storeSupervisorEditInfoRequestSucceed = ({message}) => ({
 // Set supervisor edit info reset data into store
 export const storeSupervisorEditInfoRequestReset = () => ({
     type: STORE_SUPERVISOR_EDIT_INFO_REQUEST_RESET
+});
+// ======================================================== Reset supervisor
+// Set reset supervisor init data into store
+export const storeResetSupervisorRequestInit = () => ({
+    type: STORE_RESET_SUPERVISOR_REQUEST_INIT
+});
+
+// Set reset supervisor failed data into store
+export const storeResetSupervisorRequestFailed = ({message}) => ({
+    message,
+    type: STORE_RESET_SUPERVISOR_REQUEST_FAILED
+});
+
+// Set reset supervisor succeeded data into store
+export const storeResetSupervisorRequestSucceed = ({message}) => ({
+    message,
+    type: STORE_RESET_SUPERVISOR_REQUEST_SUCCEEDED
+});
+
+// Set reset supervisor reset data into store
+export const storeResetSupervisorRequestReset = () => ({
+    type: STORE_RESET_SUPERVISOR_REQUEST_RESET
 });

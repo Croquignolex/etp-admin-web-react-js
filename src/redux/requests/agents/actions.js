@@ -54,6 +54,11 @@ export const STORE_AGENT_ADD_SIM_REQUEST_RESET = 'STORE_AGENT_ADD_SIM_REQUEST_RE
 export const STORE_AGENT_ADD_SIM_REQUEST_FAILED = 'STORE_AGENT_ADD_SIM_REQUEST_FAILED';
 export const STORE_AGENT_ADD_SIM_REQUEST_SUCCEEDED = 'STORE_AGENT_ADD_SIM_REQUEST_SUCCEEDED';
 
+export const STORE_RESET_AGENT_REQUEST_INIT = 'STORE_RESET_AGENT_REQUEST_INIT';
+export const STORE_RESET_AGENT_REQUEST_RESET = 'STORE_RESET_AGENT_REQUEST_RESET';
+export const STORE_RESET_AGENT_REQUEST_FAILED = 'STORE_RESET_AGENT_REQUEST_FAILED';
+export const STORE_RESET_AGENT_REQUEST_SUCCEEDED = 'STORE_RESET_AGENT_REQUEST_SUCCEEDED';
+
 // ======================================================== Agents
 // Set agents init data into store
 export const storeAgentsRequestInit = () => ({
@@ -295,4 +300,26 @@ export const storeAgentAddSimRequestSucceed = ({message}) => ({
 // Set agent add sim reset data into store
 export const storeAgentAddSimRequestReset = () => ({
     type: STORE_AGENT_ADD_SIM_REQUEST_RESET
+});
+// ======================================================== Reset agent
+// Set reset agent init data into store
+export const storeResetAgentRequestInit = () => ({
+    type: STORE_RESET_AGENT_REQUEST_INIT
+});
+
+// Set reset agent failed data into store
+export const storeResetAgentRequestFailed = ({message}) => ({
+    message,
+    type: STORE_RESET_AGENT_REQUEST_FAILED
+});
+
+// Set reset agent succeeded data into store
+export const storeResetAgentRequestSucceed = ({message}) => ({
+    message,
+    type: STORE_RESET_AGENT_REQUEST_SUCCEEDED
+});
+
+// Set reset agent reset data into store
+export const storeResetAgentRequestReset = () => ({
+    type: STORE_RESET_AGENT_REQUEST_RESET
 });

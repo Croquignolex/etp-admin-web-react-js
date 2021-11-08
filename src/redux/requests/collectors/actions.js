@@ -44,6 +44,11 @@ export const STORE_COLLECTOR_ADD_SIM_REQUEST_RESET = 'STORE_COLLECTOR_ADD_SIM_RE
 export const STORE_COLLECTOR_ADD_SIM_REQUEST_FAILED = 'STORE_COLLECTOR_ADD_SIM_REQUEST_FAILED';
 export const STORE_COLLECTOR_ADD_SIM_REQUEST_SUCCEEDED = 'STORE_COLLECTOR_ADD_SIM_REQUEST_SUCCEEDED';
 
+export const STORE_RESET_COLLECTOR_REQUEST_INIT = 'STORE_RESET_COLLECTOR_REQUEST_INIT';
+export const STORE_RESET_COLLECTOR_REQUEST_RESET = 'STORE_RESET_COLLECTOR_REQUEST_RESET';
+export const STORE_RESET_COLLECTOR_REQUEST_FAILED = 'STORE_RESET_COLLECTOR_REQUEST_FAILED';
+export const STORE_RESET_COLLECTOR_REQUEST_SUCCEEDED = 'STORE_RESET_COLLECTOR_REQUEST_SUCCEEDED';
+
 // ======================================================== Collectors
 // Set collectors init data into store
 export const storeCollectorsRequestInit = () => ({
@@ -241,4 +246,26 @@ export const storeCollectorAddSimRequestSucceed = ({message}) => ({
 // Set collector add sim reset data into store
 export const storeCollectorAddSimRequestReset = () => ({
     type: STORE_COLLECTOR_ADD_SIM_REQUEST_RESET
+});
+// ======================================================== Reset collector
+// Set reset collector init data into store
+export const storeResetCollectorRequestInit = () => ({
+    type: STORE_RESET_COLLECTOR_REQUEST_INIT
+});
+
+// Set reset collector failed data into store
+export const storeResetCollectorRequestFailed = ({message}) => ({
+    message,
+    type: STORE_RESET_COLLECTOR_REQUEST_FAILED
+});
+
+// Set reset collector succeeded data into store
+export const storeResetCollectorRequestSucceed = ({message}) => ({
+    message,
+    type: STORE_RESET_COLLECTOR_REQUEST_SUCCEEDED
+});
+
+// Set reset collector reset data into store
+export const storeResetCollectorRequestReset = () => ({
+    type: STORE_RESET_COLLECTOR_REQUEST_RESET
 });

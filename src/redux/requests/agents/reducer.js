@@ -8,6 +8,7 @@ const initialState = {
     list: {failed: false, loading: false, succeeded: false, message: ""},
     next: {failed: false, loading: false, succeeded: false, message: ""},
     show: {failed: false, loading: false, succeeded: false, message: ""},
+    reset: {failed: false, loading: false, succeeded: false, message: ""},
     status: {failed: false, loading: false, succeeded: false, message: ""},
     edit: {
         doc: {failed: false, loading: false, succeeded: false, message: ""},
@@ -106,6 +107,23 @@ function reduce(state = initialState, action) {
         // Resolve event to set agent reset request store data
         case actions.STORE_AGENT_REQUEST_RESET:
             nextState = {...state, show: initialState.show};
+            return nextState || state;
+        // ======================================================== Reset agent
+        // Resolve event to set reset agent init request store data
+        case actions.STORE_RESET_AGENT_REQUEST_INIT:
+            nextState = {...state, reset: requestInitValue()};
+            return nextState || state;
+        // Resolve event to set reset agent failed request store data
+        case actions.STORE_RESET_AGENT_REQUEST_FAILED:
+            nextState = {...state, reset: requestFailedValue(action.message)};
+            return nextState || state;
+        // Resolve event to set reset agent succeeded request store data
+        case actions.STORE_RESET_AGENT_REQUEST_SUCCEEDED:
+            nextState = {...state, reset: requestSucceededValue(action.message)};
+            return nextState || state;
+        // Resolve event to set reset agent reset request store data
+        case actions.STORE_RESET_AGENT_REQUEST_RESET:
+            nextState = {...state, reset: initialState.reset};
             return nextState || state;
         // ======================================================== Agent status toggle
         // Resolve event to set agent status toggle init request store data

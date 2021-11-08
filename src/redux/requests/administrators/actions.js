@@ -139,7 +139,7 @@ export const storeAdministratorRequestSucceed = ({message}) => ({
 export const storeAdministratorRequestReset = () => ({
     type: STORE_ADMINISTRATOR_REQUEST_RESET
 });
-// ======================================================== Reset supervisor
+// ======================================================== Reset administrator
 // Set reset administrator init data into store
 export const storeResetAdministratorRequestInit = () => ({
     type: STORE_RESET_ADMINISTRATOR_REQUEST_INIT

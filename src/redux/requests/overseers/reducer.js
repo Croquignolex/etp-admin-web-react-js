@@ -9,7 +9,8 @@ const initialState = {
     next: {failed: false, loading: false, succeeded: false, message: ""},
     show: {failed: false, loading: false, succeeded: false, message: ""},
     edit: {failed: false, loading: false, succeeded: false, message: ""},
-    status: {failed: false, loading: false, succeeded: false, message: ""}
+    reset: {failed: false, loading: false, succeeded: false, message: ""},
+    status: {failed: false, loading: false, succeeded: false, message: ""},
 };
 
 // Reduce
@@ -134,6 +135,23 @@ function reduce(state = initialState, action) {
         // Resolve event to set overseer edit info reset request store data
         case actions.STORE_OVERSEER_EDIT_INFO_REQUEST_RESET:
             nextState = {...state, edit: initialState.edit};
+            return nextState || state;
+        // ======================================================== Reset overseer
+        // Resolve event to set reset overseer init request store data
+        case actions.STORE_RESET_OVERSEER_REQUEST_INIT:
+            nextState = {...state, reset: requestInitValue()};
+            return nextState || state;
+        // Resolve event to set reset overseer failed request store data
+        case actions.STORE_RESET_OVERSEER_REQUEST_FAILED:
+            nextState = {...state, reset: requestFailedValue(action.message)};
+            return nextState || state;
+        // Resolve event to set reset overseer succeeded request store data
+        case actions.STORE_RESET_OVERSEER_REQUEST_SUCCEEDED:
+            nextState = {...state, reset: requestSucceededValue(action.message)};
+            return nextState || state;
+        // Resolve event to set reset overseer reset request store data
+        case actions.STORE_RESET_OVERSEER_REQUEST_RESET:
+            nextState = {...state, reset: initialState.reset};
             return nextState || state;
         // ========================================================
         // Unknown action
