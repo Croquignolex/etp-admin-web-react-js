@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 import InfiniteScroll from "react-infinite-scroll-component";
 
+import {AGENT_TYPE} from "../../constants/typeConstants";
 import HeaderComponent from "../../components/HeaderComponent";
 import LoaderComponent from "../../components/LoaderComponent";
 import {agentTypeBadgeColor} from "../../functions/typeFunctions";
 import AppLayoutComponent from "../../components/AppLayoutComponent";
 import ErrorAlertComponent from "../../components/ErrorAlertComponent";
-import {AGENT_TYPE, RESOURCE_TYPE} from "../../constants/typeConstants";
 import AgentNewContainer from "../../containers/agents/AgentNewContainer";
 import FormModalComponent from "../../components/modals/FormModalComponent";
 import BlockModalComponent from "../../components/modals/BlockModalComponent";
@@ -100,10 +100,10 @@ function AgentsPage({agents, agentsRequests, hasMoreData, page, dispatch, locati
         setNewAgentModal({newAgentModal, type: AGENT_TYPE, header: "NOUVEL AGENT", show: true})
     }
 
-    // Show new resource modal form
+   /* // Show new resource modal form
     const handleNewResourceModalShow = () => {
         setNewAgentModal({newAgentModal, type: RESOURCE_TYPE, header: "NOUVELLE RESSOURCE", show: true})
-    }
+    }*/
 
     // Hide new agent modal form
     const handleNewAgentModalHide = () => {
@@ -157,7 +157,7 @@ function AgentsPage({agents, agentsRequests, hasMoreData, page, dispatch, locati
         <>
             <AppLayoutComponent pathname={location.pathname}>
                 <div className="content-wrapper">
-                    <HeaderComponent title="Tous les agents/ressources" icon={'fa fa-user-cog'} />
+                    <HeaderComponent title="Tous les agents" icon={'fa fa-user-cog'} />
                     <section className="content">
                         <div className='container-fluid'>
                             <div className="row">
@@ -179,17 +179,17 @@ function AgentsPage({agents, agentsRequests, hasMoreData, page, dispatch, locati
                                             {requestFailed(agentsRequests.reset) && <ErrorAlertComponent message={agentsRequests.reset.message} />}
                                             {requestFailed(agentsRequests.status) && <ErrorAlertComponent message={agentsRequests.status.message} />}
                                             <button type="button"
-                                                    className="btn btn-primary mr-2 mb-2"
+                                                    className="btn btn-theme mr-2 mb-2"
                                                     onClick={handleNewAgentModalShow}
                                             >
                                                 <i className="fa fa-plus" /> Nouvel agent
                                             </button>
-                                            <button type="button"
+                                            {/*<button type="button"
                                                     className="btn btn-info mb-2"
                                                     onClick={handleNewResourceModalShow}
                                             >
                                                 <i className="fa fa-plus" /> Nouvelle ressource
-                                            </button>
+                                            </button>*/}
                                             {/* Search result & Infinite scroll */}
                                             {requestLoading(agentsRequests.list) ? <LoaderComponent /> : ((needle !== '' && needle !== undefined) ?
                                                     (

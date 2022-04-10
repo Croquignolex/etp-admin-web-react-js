@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import LoaderComponent from "../LoaderComponent";
 import {dateToString} from "../../functions/generalFunctions";
 import FormModalComponent from "../modals/FormModalComponent";
-import {agentTypeBadgeColor} from "../../functions/typeFunctions";
 import ZoneDetailsContainer from "../../containers/zones/ZoneDetailsContainer";
 
 // Component
@@ -26,11 +25,7 @@ function AgentsCardsComponent({agents, handleBlock, handleBlockModalShow,
                     return (
                         <div className="col-lg-4 col-md-6" key={key}>
                             <div className="card">
-                                <div className={`${agentTypeBadgeColor(item.reference).background} card-header`}>
-                                    <h3 className="card-title">
-                                        {agentTypeBadgeColor(item.reference).text}
-                                    </h3>
-                                </div>
+                                <div className="card-header bg-secondary" />
                                 <div className="card-body">
                                     <div className="text-center mb-3">
                                         <img src={item.avatar} alt="avatar..." className="profile-user-img img-fluid img-circle" />

@@ -29,14 +29,16 @@ import {
     emitResourcesFetch,
     emitSearchAgentsFetch,
     emitToggleAgentStatus,
-    emitNextResourcesFetch
+    emitNextResourcesFetch, emitResetAgent
 } from "../../redux/agents/actions";
 import AppLayoutComponent from "../../components/AppLayoutComponent";
+import DeleteModalComponent from "../../components/modals/DeleteModalComponent";
 
 // Component
 function AgentsPage({agents, agentsRequests, hasMoreData, page, dispatch, location}) {
     // Local states
     const [needle, setNeedle] = useState('');
+    const [resetModal, setResetModal] = useState({show: false, body: '', id: 0});
     const [blockModal, setBlockModal] = useState({show: false, body: '', id: 0});
     const [newAgentModal, setNewAgentModal] = useState({show: false, header: '', type: ''});
     const [agentDetailsModal, setAgentDetailsModal] = useState({show: false, header: '', id: ''});
@@ -116,6 +118,22 @@ function AgentsPage({agents, agentsRequests, hasMoreData, page, dispatch, locati
         dispatch(emitToggleAgentStatus({id}));
     };
 
+    // Show reset modal form
+    const handleResetModalShow = ({id, name}) => {
+        setResetModal({...resetModal, id, body: `Confirmer la réinitialisation du mot de passe de ${name}?`, show: true})
+    }
+
+    // Hide reset modal form
+    const handleResetModalHide = () => {
+        setResetModal({...resetModal, show: false})
+    }
+
+    // Trigger when administrator reset confirmed on modal
+    const handleReset = (id) => {
+        handleResetModalHide();
+        dispatch(emitResetAgent({id}));
+    };
+
     // Render
     return (
         <>
@@ -150,10 +168,12 @@ function AgentsPage({agents, agentsRequests, hasMoreData, page, dispatch, locati
                                             {/* Search result & Infinite scroll */}
                                             {requestLoading(agentsRequests.list) ? <LoaderComponent /> : ((needle !== '' && needle !== undefined) ?
                                                     (
-                                                        <ResourcesCardsComponent handleBlock={handleBlock}
-                                                                              agents={searchEngine(agents, needle)}
-                                                                              handleBlockModalShow={handleBlockModalShow}
-                                                                              handleAgentDetailsModalShow={handleAgentDetailsModalShow}
+                                                        <ResourcesCardsComponent
+                                                            handleBlock={handleBlock}
+                                                            agents={searchEngine(agents, needle)}
+                                                            handleResetModalShow={handleResetModalShow}
+                                                            handleBlockModalShow={handleBlockModalShow}
+                                                            handleAgentDetailsModalShow={handleAgentDetailsModalShow}
                                                         />
                                                     ) :
                                                     (
@@ -163,10 +183,12 @@ function AgentsPage({agents, agentsRequests, hasMoreData, page, dispatch, locati
                                                                         loader={<LoaderComponent />}
                                                                         style={{ overflow: 'hidden' }}
                                                         >
-                                                            <ResourcesCardsComponent agents={agents}
-                                                                                  handleBlock={handleBlock}
-                                                                                  handleBlockModalShow={handleBlockModalShow}
-                                                                                  handleAgentDetailsModalShow={handleAgentDetailsModalShow}
+                                                            <ResourcesCardsComponent
+                                                                agents={agents}
+                                                                handleBlock={handleBlock}
+                                                                handleResetModalShow={handleResetModalShow}
+                                                                handleBlockModalShow={handleBlockModalShow}
+                                                                handleAgentDetailsModalShow={handleAgentDetailsModalShow}
                                                             />
                                                         </InfiniteScroll>
                                                     )
@@ -183,6 +205,10 @@ function AgentsPage({agents, agentsRequests, hasMoreData, page, dispatch, locati
             <BlockModalComponent modal={blockModal}
                                  handleBlock={handleBlock}
                                  handleClose={handleBlockModalHide}
+            />
+            <DeleteModalComponent modal={resetModal}
+                                  handleModal={handleReset}
+                                  handleClose={handleResetModalHide}
             />
             <FormModalComponent modal={newAgentModal} handleClose={handleNewAgentModalHide}>
                 <ResourceNewContainer handleClose={handleNewAgentModalHide} />

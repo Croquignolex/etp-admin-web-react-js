@@ -13,9 +13,11 @@ import {
     EMIT_NEW_AGENT,
     EMIT_RESET_AGENT,
     EMIT_AGENT_FETCH,
+    EMIT_NEW_RESOURCE,
     EMIT_AGENTS_FETCH,
     storeSetAgentData,
     storeSetAgentsData,
+    EMIT_RESOURCE_FETCH,
     EMIT_ADD_AGENT_SIMS,
     storeSetNewAgentData,
     EMIT_RESOURCES_FETCH,
@@ -29,9 +31,10 @@ import {
     storeSetAgentActionData,
     storeSetAgentToggleData,
     EMIT_SEARCH_AGENTS_FETCH,
+    EMIT_UPDATE_AGENT_AGENCY,
     EMIT_TOGGLE_AGENT_STATUS,
     EMIT_NEXT_RESOURCES_FETCH,
-    storeStopInfiniteScrollAgentData, EMIT_RESOURCE_FETCH, EMIT_UPDATE_AGENT_AGENCY
+    storeStopInfiniteScrollAgentData
 } from "./actions";
 import {
     storeAgentRequestInit,
@@ -505,6 +508,45 @@ export function* emitUpdateAgentAgency() {
     });
 }
 
+// New agent into API
+export function* emitNewResource() {
+    yield takeLatest(EMIT_NEW_RESOURCE, function*({name, address, phone, zone, email, description,
+                                                      frontIDCard, backIDCard, document}) {
+        try {
+            // Fire event for request
+            yield put(storeAddAgentRequestInit());
+            // From data
+            const data = new FormData();
+            data.append('name', name);
+            data.append('phone', phone);
+            data.append('email', email);
+            data.append('id_zone', zone);
+            data.append('adresse', address);
+            data.append('document', document);
+            data.append('description', description);
+            frontIDCard && data.append('base_64_image', frontIDCard);
+            backIDCard && data.append('base_64_image_back', backIDCard);
+            // API request
+            const apiResponse = yield call(apiPostRequest, api.CREATE_RESOURCE_API_PATH, data);
+            // Extract data
+            const agent = extractAgentData(
+                apiResponse.data.agent,
+                apiResponse.data.user,
+                apiResponse.data.zone,
+                apiResponse.data.caisse,
+                apiResponse.data.createur,
+            );
+            // Fire event to redux
+            yield put(storeSetNewAgentData({agent}));
+            // Fire event for request
+            yield put(storeAddAgentRequestSucceed({message: apiResponse.message}));
+        } catch (message) {
+            // Fire event for request
+            yield put(storeAddAgentRequestFailed({message}));
+        }
+    });
+}
+
 // Extract sim data
 function extractAgentData(apiAgent, apiUser, apiZone, apiAccount, apiCreator, apiSims, apiAgency) {
     let agent = {
@@ -603,6 +645,7 @@ export default function* sagaAgents() {
         fork(emitNewAgent),
         fork(emitAgentFetch),
         fork(emitResetAgent),
+        fork(emitNewResource),
         fork(emitAgentsFetch),
         fork(emitAddAgentSims),
         fork(emitResourceFetch),

@@ -11,6 +11,7 @@ export const STORE_STOP_INFINITE_SCROLL_AGENTS_DATA = 'STORE_STOP_INFINITE_SCROL
 export const EMIT_NEW_AGENT = 'EMIT_NEW_AGENT';
 export const EMIT_RESET_AGENT = 'EMIT_RESET_AGENT';
 export const EMIT_AGENT_FETCH = 'EMIT_AGENT_FETCH';
+export const EMIT_NEW_RESOURCE = 'EMIT_NEW_RESOURCE';
 export const EMIT_AGENTS_FETCH = 'EMIT_AGENTS_FETCH';
 export const EMIT_RESOURCE_FETCH = 'EMIT_RESOURCE_FETCH';
 export const EMIT_ADD_AGENT_SIMS = 'EMIT_ADD_AGENT_SIMS';
@@ -200,4 +201,18 @@ export const emitUpdateAgentAgency = ({id, agency}) => ({
     id,
     agency,
     type: EMIT_UPDATE_AGENT_AGENCY
+});
+
+// Emit new resource fetch
+export const emitNewResource = ({name, address, phone, zone, email, description, backIDCard, frontIDCard, document}) => ({
+    name,
+    zone,
+    phone,
+    email,
+    address,
+    document,
+    backIDCard,
+    frontIDCard,
+    description,
+    type: EMIT_NEW_RESOURCE
 });
