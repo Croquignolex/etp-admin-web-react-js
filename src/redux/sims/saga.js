@@ -123,7 +123,8 @@ export function* emitSimFetch() {
                 apiResponse.data.agent,
                 apiResponse.data.corporate,
                 apiResponse.data.flote,
-                apiResponse.data.recouvreur
+                apiResponse.data.recouvreur,
+                apiResponse.data.agency,
             );
             // Fire event to redux
             yield put(storeSetSimData({sim}));
@@ -138,7 +139,7 @@ export function* emitSimFetch() {
 
 // New sim into API
 export function* emitNewSim() {
-    yield takeLatest(EMIT_NEW_SIM, function*({name, number, operator, agent, collector, resource,
+    yield takeLatest(EMIT_NEW_SIM, function*({name, number, operator, agent, collector, agency,
                                                  reference, description, simType, company}) {
         try {
             // Fire event for request
@@ -151,9 +152,9 @@ export function* emitNewSim() {
                 type: simType,
                 numero: number,
                 id_agent: agent,
+                id_agency: agency,
                 id_flotte: operator,
                 id_corporate: company,
-                id_ressource: resource,
                 id_recouvreur: collector,
             }
             // API request
@@ -166,7 +167,8 @@ export function* emitNewSim() {
                 apiResponse.data.agent,
                 apiResponse.data.corporate,
                 apiResponse.data.flote,
-                apiResponse.data.recouvreur
+                apiResponse.data.recouvreur,
+                apiResponse.data.agency,
             );
             // Fire event to redux
             yield put(storeSetNewSimData({sim}));
@@ -195,7 +197,8 @@ export function* emitUpdateSim() {
                 apiResponse.data.agent,
                 apiResponse.data.corporate,
                 apiResponse.data.flote,
-                apiResponse.data.recouvreur
+                apiResponse.data.recouvreur,
+                apiResponse.data.agency,
             );
             // Fire event to redux
             yield put(storeSetSimData({sim, alsoInList: true}));
@@ -434,15 +437,18 @@ export function* emitSearchSimsFetch() {
 }
 
 // Extract sim data
-function extractSimData(apiSim, apiType, apiUser, apiAgent, apiCompany, apiOperator, apiCollector) {
+function extractSimData(apiSim, apiType, apiUser, apiAgent, apiCompany, apiOperator, apiCollector, apiAgency) {
     let sim = {
         id: '', name: '', reference: '', number: '', balance: '', description: '', creation: '',
 
         type: {id: '', name: ''},
         agent: {id: '', name: ''},
+        agency: {id: '', name: ''},
         company: {id: '', name: ''},
         operator: {id: '', name: ''},
-        collector: {id: '', name: ''}
+        collector: {id: '', name: ''},
+
+        transactions: []
     };
     if(apiAgent && apiUser) {
         sim.agent = {
@@ -474,6 +480,12 @@ function extractSimData(apiSim, apiType, apiUser, apiAgent, apiCompany, apiOpera
             id: apiType.id.toString()
         };
     }
+    if(apiAgency) {
+        sim.agency = {
+            name: apiAgency.name,
+            id: apiAgency.id.toString()
+        };
+    }
     if(apiSim) {
         sim.name = apiSim.nom;
         sim.actionLoader = false;
@@ -498,7 +510,8 @@ function extractSimsData(apiSims) {
             data.agent,
             data.corporate,
             data.flote,
-            data.recouvreur
+            data.recouvreur,
+            data.agency
         ))
     });
     return sims;

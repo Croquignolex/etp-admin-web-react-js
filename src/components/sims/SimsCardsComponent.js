@@ -17,8 +17,11 @@ function SimsCardsComponent({sims, handleSimDetailsModalShow}) {
                                 <div className={`${simTypeBadgeColor(item.type.name).background} card-header`}>
                                     <h3 className="card-title">COMPTE {simTypeBadgeColor(item.type.name).text}</h3>
                                 </div>
-                                <div className="card-body"><SimCardComponent sim={item}
-                                                                             handleSimDetailsModalShow={handleSimDetailsModalShow} />
+                                <div className="card-body">
+                                    <SimCardComponent
+                                        sim={item}
+                                        handleSimDetailsModalShow={handleSimDetailsModalShow}
+                                    />
                                 </div>
                             </div>
                         </div>
