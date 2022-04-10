@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import React, {useState} from 'react';
 
+import {AGENT_TYPE} from "../../constants/typeConstants";
 import FormModalComponent from "../modals/FormModalComponent";
-import {AGENT_TYPE, RESOURCE_TYPE} from "../../constants/typeConstants";
 import ZoneAddAgentContainer from "../../containers/zones/ZoneAddAgentContainer";
 import AgentDetailsContainer from "../../containers/agents/AgentDetailsContainer";
 
@@ -17,10 +17,10 @@ function ZoneAgentsListComponent({zone}) {
         setAddAgentEditModal({addAgentModal, type: AGENT_TYPE, header: 'AJOUTER UN AGENT A ' + zone.name, show: true})
     }
 
-    // Show add resource modal form
+    /*// Show add resource modal form
     const handleAddResourceModalShow = () => {
         setAddAgentEditModal({addAgentModal, type: RESOURCE_TYPE, header:  'AJOUTER UNE RESSOURCE A ' + zone.name, show: true})
-    }
+    }*/
 
     // Hide add sim modal form
     const handleAddAgentModalHide = () => {
@@ -38,16 +38,15 @@ function ZoneAgentsListComponent({zone}) {
             <button type="button" className="btn btn-theme mb-1 mr-1" onClick={handleAddAgentModalShow}>
                 <i className="fa fa-plus" /> Ajouter un agent
             </button>
-            <button type="button" className="btn btn-theme mb-1" onClick={handleAddResourceModalShow}>
+            {/*<button type="button" className="btn btn-theme mb-1" onClick={handleAddResourceModalShow}>
                 <i className="fa fa-plus" /> Ajouter une ressource
-            </button>
+            </button>*/}
             <div className="card">
                 <div className="table-responsive">
                     <table className="table table-hover text-nowrap table-bordered">
                         <thead>
                             <tr>
                                 <th>NOM</th>
-                                <th>TYPE</th>
                                 <th>TELEPHONE</th>
                             </tr>
                         </thead>
@@ -61,7 +60,6 @@ function ZoneAgentsListComponent({zone}) {
                                             />
                                             {item.name}
                                         </td>
-                                        <td>{item.reference}</td>
                                         <td>{item.phone}</td>
                                     </tr>
                                 )
