@@ -38,6 +38,11 @@ export const AGENT_ZONE_UPDATE_API_PATH = `${API_URL}/edit_zone_agent`;
 export const TOGGLE_AGENT_STATUS_API_PATH = `${API_URL}/edit_agent_status`;
 export const AGENT_PASSWORD_RESET_API_PATH = `${API_URL}/user_password_reset`;
 
+export const RESOURCE_API_PATH = `${API_URL}/show_resource`;
+export const RESOURCES_API_PATH = `${API_URL}/list_resources`;
+export const CREATE_RESOURCE_API_PATH = `${API_URL}/create_resource`;
+export const AGENT_AGENCY_UPDATE_API_PATH = `${API_URL}/edit_agency_agent`;
+
 // Collectors
 export const COLLECTORS_API_PATH = `${API_URL}/recouvreurs`;
 export const EDIT_COLLECTOR_API_PATH = `${API_URL}/edit_user`;

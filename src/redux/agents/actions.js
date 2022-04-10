@@ -12,7 +12,9 @@ export const EMIT_NEW_AGENT = 'EMIT_NEW_AGENT';
 export const EMIT_RESET_AGENT = 'EMIT_RESET_AGENT';
 export const EMIT_AGENT_FETCH = 'EMIT_AGENT_FETCH';
 export const EMIT_AGENTS_FETCH = 'EMIT_AGENTS_FETCH';
+export const EMIT_RESOURCE_FETCH = 'EMIT_RESOURCE_FETCH';
 export const EMIT_ADD_AGENT_SIMS = 'EMIT_ADD_AGENT_SIMS';
+export const EMIT_RESOURCES_FETCH = 'EMIT_RESOURCES_FETCH';
 export const EMIT_ALL_AGENTS_FETCH = 'EMIT_ALL_AGENTS_FETCH';
 export const EMIT_UPDATE_AGENT_CNI = 'EMIT_UPDATE_AGENT_CNI';
 export const EMIT_UPDATE_AGENT_DOC = 'EMIT_UPDATE_AGENT_DOC';
@@ -21,6 +23,8 @@ export const EMIT_UPDATE_AGENT_ZONE = 'EMIT_UPDATE_AGENT_ZONE';
 export const EMIT_UPDATE_AGENT_INFO = 'EMIT_UPDATE_AGENT_INFO';
 export const EMIT_TOGGLE_AGENT_STATUS = 'EMIT_TOGGLE_AGENT_STATUS';
 export const EMIT_SEARCH_AGENTS_FETCH = 'EMIT_SEARCH_AGENTS_FETCH';
+export const EMIT_UPDATE_AGENT_AGENCY = 'EMIT_UPDATE_AGENT_AGENCY';
+export const EMIT_NEXT_RESOURCES_FETCH = 'EMIT_NEXT_RESOURCES_FETCH';
 
 //====================== Reducer trigger actions
 // Set agents data in store
@@ -171,4 +175,29 @@ export const emitAddAgentSims = ({id, name, reference, number, description, oper
 export const emitResetAgent = ({id}) => ({
     id,
     type: EMIT_RESET_AGENT
+});
+
+// Emit resources fetch
+export const emitResourcesFetch = () => ({
+    type: EMIT_RESOURCES_FETCH
+});
+
+// Emit next resources fetch
+export const emitNextResourcesFetch = ({page}) => ({
+    page,
+    type: EMIT_NEXT_RESOURCES_FETCH
+});
+
+
+// Emit resource fetch
+export const emitResourceFetch = ({id}) => ({
+    id,
+    type: EMIT_RESOURCE_FETCH
+});
+
+// Emit update agent agency
+export const emitUpdateAgentAgency = ({id, agency}) => ({
+    id,
+    agency,
+    type: EMIT_UPDATE_AGENT_AGENCY
 });

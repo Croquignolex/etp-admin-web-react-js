@@ -20,6 +20,7 @@ function SideBarComponent({user, pathname}) {
             buildUsersMenu(),
             buildZonesMenu(),
             buildSimsMenu(),
+            buildAgenciesMenu(),
             buildCompaniesMenu(),
             buildVendorsMenu(),
             buildOperatorsMenu(),
@@ -136,6 +137,16 @@ function buildUsersMenu() {
             {name: page.AGENTS, path: path.AGENTS_PAGE_PATH},
         ]
     }
+}
+
+// Build agencies menu
+function buildAgenciesMenu() {
+    return {
+        name: page.AGENCIES_PAGE,
+        path: path.AGENCIES_PAGE_PATH,
+        icon: 'fa fa-building',
+        sub: []
+    };
 }
 
 // Build corporates menu

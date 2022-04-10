@@ -8,6 +8,7 @@ export const DASHBOARD_PAGE_PATH = "/dashboard";
 export const SIMS_PAGE_PATH = "/sims";
 export const ZONES_PAGE_PATH = "/zones";
 export const VENDORS_PAGE_PATH = "/vendors";
+export const AGENCIES_PAGE_PATH = "/agencies";
 export const COMPANIES_PAGE_PATH = "/companies";
 export const OPERATORS_PAGE_PATH = "/operators";
 
