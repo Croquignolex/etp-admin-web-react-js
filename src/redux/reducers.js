@@ -5,6 +5,7 @@ import agents from './agents/reducer';
 import vendors from './vendors/reducer';
 import settings from './settings/reducer';
 import managers from './managers/reducer';
+import agencies from './agencies/reducer';
 import operators from './operators/reducer';
 import overseers from './overseers/reducer';
 import companies from './companies/reducer';
@@ -20,6 +21,7 @@ import agentsRequests from './requests/agents/reducer';
 import vendorsRequests from './requests/vendors/reducer';
 import settingsRequests from './requests/settings/reducer';
 import managersRequests from './requests/managers/reducer';
+import agenciesRequests from './requests/agencies/reducer';
 import operatorsRequests from './requests/operators/reducer';
 import overseersRequests from './requests/overseers/reducer';
 import simsTypesRequests from './requests/simsTypes/reducer';
@@ -38,6 +40,7 @@ export default {
     vendors,
     settings,
     managers,
+    agencies,
     operators,
     simsTypes,
     companies,
@@ -51,6 +54,7 @@ export default {
     agentsRequests,
     administrators,
     vendorsRequests,
+    agenciesRequests,
     managersRequests,
     settingsRequests,
     overseersRequests,

@@ -6,6 +6,7 @@ import zones from './zones/saga';
 import agents from './agents/saga';
 import vendors from './vendors/saga';
 import settings from './settings/saga';
+import agencies from './agencies/saga';
 import managers from './managers/saga';
 import operators from './operators/saga';
 import companies from './companies/saga';
@@ -24,6 +25,7 @@ export default function* sagas() {
         zones(),
         agents(),
         vendors(),
+        agencies(),
         managers(),
         settings(),
         companies(),

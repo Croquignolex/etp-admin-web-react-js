@@ -83,6 +83,14 @@ export const CREATE_OVERSEER_API_PATH = `${API_URL}/create_controlleur`;
 export const TOGGLE_OVERSEER_STATUS_API_PATH = `${API_URL}/edit_user_status`;
 export const OVERSEER_PASSWORD_RESET_API_PATH = `${API_URL}/user_password_reset`;
 
+// Agencies
+export const AGENCIES_API_PATH = `${API_URL}/agencies`;
+export const EDIT_AGENCY_API_PATH = `${API_URL}/edit_agency`;
+export const CREATE_AGENCY_API_PATH = `${API_URL}/new_agency`;
+export const ALL_AGENCIES_API_PATH = `${API_URL}/all_agencies`;
+export const AGENCY_ADD_SIM = `${API_URL}/ajouter_puce_agence`;
+export const AGENCY_DETAILS_API_PATH = `${API_URL}/show_agency`;
+
 // Accountants
 export const ACCOUNTANTS_API_PATH = `${API_URL}/comptables`;
 export const EDIT_ACCOUNTANT_API_PATH = `${API_URL}/edit_user`;
